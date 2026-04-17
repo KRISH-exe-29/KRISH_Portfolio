@@ -41,8 +41,8 @@ This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-
 Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
 
 ## 📬 Contact
-- **Email:** s.krishnaraju29@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://linkedin.com/in/krishnaraju-s-eee)
+- **Email:** krishnarajus2004@gmail.com
+- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
 - **Location:** Chennai, India
 
 ---
