@@ -57,7 +57,7 @@ export default function About() {
       <div ref={contentRef} className="flex flex-col lg:flex-row gap-12 lg:gap-20">
         <div className="lg:w-1/3 flex flex-col items-center lg:items-start gap-4">
           <div className="image-container w-full max-w-sm aspect-[4/5]">
-            <img src="/assets/pics and videos/About me section.png" alt="Krishna Raju S" className="object-cover w-full h-full" />
+            <img src="/assets/pics and videos/About me section.webp" alt="Krishna Raju S" className="object-cover w-full h-full" />
           </div>
         </div>
 

@@ -7,8 +7,8 @@ const SOUND_FILES = {
   hover: "/assets/sounds/Hover sound.wav",
   click: "/assets/sounds/mouse-click.wav",
   toggle: "/assets/sounds/toggle sound.wav",
-  drag: "/assets/sounds/mouse-drag-sound.wav", // Renamed for internal consistency
-  background: "/assets/sounds/background music.wav",
+  drag: "/assets/sounds/mouse drag sound.wav", 
+  background: "/assets/sounds/background music.mp3",
 };
 
 class AudioEngine {
