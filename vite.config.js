@@ -6,4 +6,17 @@ export default defineConfig({
   plugins: [
     react(),
   ],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          animations: ['framer-motion', 'gsap', 'lenis'],
+        },
+      },
+    },
+  },
 })
