@@ -4,7 +4,6 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import CustomCursor from './utils/CursorAnimation'
 import Loader from './components/ui/Loader'
-import ScrollyBackground from './components/ScrollyBackground'
 import engine from './utils/audioEngine'
 import gsap from 'gsap'
 
@@ -18,8 +17,6 @@ const SystemsBeyondCode = lazy(() => import('./components/SystemsBeyondCode'));
 const BuiltFromScratch = lazy(() => import('./components/BuiltFromScratch'));
 const Contact = lazy(() => import('./components/Contact'));
 const Footer = lazy(() => import('./components/Footer'));
-import engine from './utils/audioEngine'
-import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 
@@ -97,7 +94,6 @@ export default function App() {
   return (
     <>
       <CustomCursor />
-      <ScrollyBackground />
       <AnimatePresence>
         {loading && (
            <motion.div 

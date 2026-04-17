@@ -5,169 +5,14 @@ import engine from '../../utils/audioEngine';
 
 
 
-const EyeTracker = ({ mousePos, isHovering, isEntering, targetRef }) => {
-  const canvasRef = useRef(null);
-  const framesRef = useRef([]);
-  const currentFrameRef = useRef(15); // Start at neutral
-  const targetFrameRef = useRef(15);
-  const requestRef = useRef();
-  const idleTimeRef = useRef(0);
-
-  // Load 30 frames progressively
-  useEffect(() => {
-    const totalFrames = 30;
-    const loadedFrames = [];
-    let loadedCount = 0;
-
-    const loadFrame = (i) => {
-       const img = new Image();
-       const frameNum = String(i).padStart(3, '0');
-       img.src = `/assets/Starting page frames/ezgif-frame-${frameNum}.png`;
-       img.onload = () => {
-         loadedCount++;
-         // Assign frames to ref immediately as they load so they are available
-         framesRef.current = loadedFrames;
-       };
-       loadedFrames[i] = img;
-    };
-
-    // 1. Force the first tier of frames for immediate visual availability
-    for (let i = 1; i <= 10; i++) {
-        loadFrame(i);
-    }
-
-    // 2. Queue the remaining tracking frames in the background gracefully
-    let nextFrame = 11;
-    const lazyLoadNext = () => {
-        if (nextFrame <= totalFrames) {
-            loadFrame(nextFrame);
-            nextFrame++;
-            setTimeout(lazyLoadNext, 20);
-        }
-    };
-    
-    // Start fetching remaining frames after a slight delay
-    setTimeout(lazyLoadNext, 600);
-  }, []);
-
-  const animate = (time) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const frames = framesRef.current;
-
-    // 1. Calculate Target Frame
-    let target = targetFrameRef.current;
-
-    if (isEntering || isHovering) {
-      // HEART MODE: Lock at 30
-      target = 30;
-    } else {
-      // TRACKING MODE
-      const { x, y } = mousePos;
-      const baseFrame = 1 + x * 27;
-      
-      if (targetRef.current) {
-        const rect = targetRef.current.getBoundingClientRect();
-        const btnCenterX = rect.left + rect.width / 2;
-        const btnCenterY = rect.top + rect.height / 2;
-        
-        const dx = (mousePos.x * window.innerWidth) - btnCenterX;
-        const dy = (mousePos.y * window.innerHeight) - btnCenterY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        
-        const maxDist = 450;
-        if (dist < maxDist) {
-          // PROXIMITY CURVE: Ease-in curve for smoother focus
-          // factor goes from 0 (at maxDist) to 1 (at button)
-          const linearFactor = Math.max(0, 1 - dist / maxDist);
-          const easedFactor = Math.pow(linearFactor, 2); // Quadratic ease-in
-          
-          target = baseFrame * (1 - easedFactor) + 28 * easedFactor;
-        } else {
-          target = baseFrame;
-        }
-      } else {
-        target = baseFrame;
-      }
-
-      // Add subtle Y influence
-      const yShift = (y - 0.5) * 1.5;
-      target += yShift;
-
-      // IDLE ANIMATION: Subtle oscillation (15 <-> 16) if mouse hasn't moved much
-      const isStill = Math.abs(currentFrameRef.current - target) < 0.05;
-      if (isStill) {
-        idleTimeRef.current += 0.05;
-        const oscillation = Math.sin(idleTimeRef.current) * 0.5;
-        target += oscillation;
-      } else {
-        idleTimeRef.current = 0;
-      }
-    }
-
-    // Clamp
-    target = Math.max(1, Math.min(30, target));
-    targetFrameRef.current = target;
-
-    // 2. Smooth Interpolation (0.08 for premium feel)
-    const lerpSpeed = (isHovering || isEntering) ? 0.2 : 0.08;
-    const diff = targetFrameRef.current - currentFrameRef.current;
-    
-    // Performance Optimization: Only update if change is significant
-    if (Math.abs(diff) > 0.001) {
-      if (isHovering && currentFrameRef.current > 29.9) {
-        currentFrameRef.current = 30; // Freeze at 30 to avoid micro-jitter
-      } else {
-        currentFrameRef.current += diff * lerpSpeed;
-      }
-    }
-
-    // 3. Render
-    const drawFrame = Math.round(currentFrameRef.current);
-    if (frames[drawFrame]) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(frames[drawFrame], 0, 0, canvas.width, canvas.height);
-    }
-
-    requestRef.current = requestAnimationFrame(animate);
-  };
-
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestRef.current);
-  }, [mousePos, isHovering, isEntering]);
-
-  return (
-    <div className="frame-eye-tracker">
-      <canvas 
-        ref={canvasRef} 
-        width={300} 
-        height={154} 
-        className="eye-canvas"
-      />
-    </div>
-  );
-};
+// Eye tracker and sequences removed to achieve sub-2s payload ceilings.
 
 const Loader = ({ onEnter }) => {
   const [isEntering, setIsEntering] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [isHoveringButton, setIsHoveringButton] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const buttonRef = useRef(null);
   const containerRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      setMousePos({ x: clientX / innerWidth, y: clientY / innerHeight });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const handleEnterClick = () => {
     // Phase 1 (0ms): Eye locks to heart state — holds for ~300ms
@@ -214,15 +59,8 @@ const Loader = ({ onEnter }) => {
       </div>
 
       <div className="content">
-        {/* 3. Eye Frame Animation (Main Focus) */}
-        <div className="eyes-container">
-          <EyeTracker 
-            mousePos={mousePos} 
-            isHovering={isHoveringButton} 
-            isEntering={isEntering}
-            targetRef={buttonRef}
-          />
-        </div>
+        {/* 3. Empty Focus Space directly replacing EyeTracker to maintain flexbox alignment */}
+        <div className="eyes-container" />
 
         {/* 4. Text + Button (Top Layer) */}
         <div className="headline-group">
