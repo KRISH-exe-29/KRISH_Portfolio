@@ -60,7 +60,7 @@ kbd { border: 1px solid rgba(243, 236, 216, 0.4); border-radius: 3px; padding: 0
 .drive { position: fixed; inset: 0; overflow: hidden; touch-action: none; user-select: none; }
 .drive canvas { width: 100%; height: 100%; display: block; }
 .bar { position: absolute; inset: 0 0 auto 0; display: flex; align-items: center; gap: 0.5rem 1rem; padding: 0.75rem 1rem; flex-wrap: wrap; }
-.bar strong { font-size: 1.3rem; text-transform: uppercase; color: var(--sodium); }
+.bar h1 { font-size: 1.3rem; text-transform: uppercase; color: var(--sodium); }
 .bar .speed { margin-right: auto; }
 .bar .speed b { display: inline-block; min-width: 2.2ch; text-align: right; color: var(--teal); font-size: 1.3rem; }
 .card {
@@ -98,7 +98,7 @@ kbd { border: 1px solid rgba(243, 236, 216, 0.4); border-radius: 3px; padding: 0
 }
 .map button:first-of-type span { left: 0; transform: none; }
 .map button:last-of-type span { left: auto; right: 0; transform: none; }
-.map button:hover span, .map button:focus-visible span { opacity: 1; }
+.map button:hover span, .map button:focus-visible span, .map button[aria-current] span { opacity: 1; }
 @media (max-width: 700px) {
   .card { top: 6.6rem; left: 1rem; }
   .sheet { max-height: 38vh; }

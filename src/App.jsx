@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset } from './content.js'
 import { MAX_SPEED, SEG, gateZ, gatesPassed, start, step, trackLength } from './game/track.js'
 import { draw } from './game/render.js'
@@ -36,11 +36,11 @@ const stops = [
     return { gate: e.company, year: e.year, title: e.company, body: <Job e={e} /> }
   }),
   {
-    gate: 'E-Cell', year: '2024', title: leadership.title,
+    gate: 'E-Cell', year: 'On campus', title: leadership.title,
     body: (
       <>
         <p>{leadership.text}</p>
-        <p>{award('National finalist').title}, {award('National finalist').detail.toLowerCase()}, the same year.</p>
+        <p>{award('National finalist').title}, {award('National finalist').detail.toLowerCase()}, {award('National finalist').year}.</p>
         <div className="pair">{leadership.photos.slice(0, 2).map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />)}</div>
       </>
     ),
@@ -61,7 +61,7 @@ const stops = [
     body: (
       <>
         <p>{award('Patent').detail}.</p>
-        <p>The street lights on this road work the way the patent does: dark until something approaches, then on.</p>
+        <p>The street lights on this road brighten as the car gets close, a nod to the patent.</p>
       </>
     ),
   },
@@ -128,8 +128,9 @@ function Drive({ onLog }) {
     const steer = { ArrowLeft: -1, a: -1, A: -1, ArrowRight: 1, d: 1, D: 1 }
     const held = new Set()
     const onKey = (e) => {
-      if (e.target.closest?.('.card') && !(e.key in steer)) return // let the card scroll with the arrows
       const down = e.type === 'keydown'
+      // Up and down scroll the card while it has focus; key releases always count.
+      if (down && e.key.startsWith('Arrow') && !(e.key in steer) && e.target.closest?.('.sheet')) return
       if (keys[e.key]) { input.current[keys[e.key]] = down; e.preventDefault() }
       if (steer[e.key]) {
         if (down) held.add(steer[e.key])
@@ -143,10 +144,13 @@ function Drive({ onLog }) {
       e.preventDefault()
       input.current.scroll += e.deltaY * 6
     }
+    const release = () => { held.clear(); Object.assign(input.current, { gas: false, brake: false, steer: 0 }) }
+    window.addEventListener('blur', release)
     window.addEventListener('keydown', onKey)
     window.addEventListener('keyup', onKey)
     window.addEventListener('wheel', onWheel, { passive: false })
     return () => {
+      window.removeEventListener('blur', release)
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('keyup', onKey)
       window.removeEventListener('wheel', onWheel)
@@ -156,6 +160,7 @@ function Drive({ onLog }) {
   useEffect(() => {
     const cv = canvas.current
     const ctx = cv.getContext('2d')
+    if (!ctx) { onLog(); return } // no canvas: the log has everything
     let raf
     let last = performance.now()
     let seen = 0
@@ -190,7 +195,7 @@ function Drive({ onLog }) {
     }
     raf = requestAnimationFrame(frame)
     return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', size) }
-  }, [])
+  }, [onLog])
 
   // Sound is built only after the visitor asks for it.
   useEffect(() => {
@@ -220,15 +225,16 @@ function Drive({ onLog }) {
     onPointerDown: (e) => { e.preventDefault(); input.current[key] = value },
     onPointerUp: () => { input.current[key] = key === 'steer' ? 0 : false },
     onPointerLeave: () => { input.current[key] = key === 'steer' ? 0 : false },
+    onPointerCancel: () => { input.current[key] = key === 'steer' ? 0 : false },
     onContextMenu: (e) => e.preventDefault(),
   })
 
   const stop = stops[passed - 1]
   return (
-    <div className="drive">
+    <main className="drive">
       <canvas ref={canvas} aria-label="A car driving down a highway at dusk, past gates named after each stage of Krishna's career" role="img" />
       <header className="bar">
-        <strong>Grid Run</strong>
+        <h1>Grid Run</h1>
         <span className="count">{passed} of {N} gates</span>
         <span className="speed"><b ref={speedEl}>0</b> km/h</span>
         <button onClick={() => setSound(!sound)} aria-pressed={sound}>Sound {sound ? 'on' : 'off'}</button>
@@ -276,7 +282,7 @@ function Drive({ onLog }) {
           </button>
         ))}
       </nav>
-    </div>
+    </main>
   )
 }
 
@@ -313,8 +319,9 @@ export default function App() {
   const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const [mode, setMode] = useState(calm ? 'log' : 'start')
 
+  const toLog = useCallback(() => setMode('log'), [])
   if (mode === 'log') return <Log onDrive={() => setMode('drive')} />
-  if (mode === 'drive') return <Drive onLog={() => setMode('log')} />
+  if (mode === 'drive') return <Drive onLog={toLog} />
   return (
     <main className="startline">
       <img src={me.portrait} alt={`${me.name}, portrait`} />
