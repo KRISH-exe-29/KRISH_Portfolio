@@ -47,7 +47,7 @@ section { min-height: 140vh; min-height: 140svh; padding: 24vh clamp(1rem, 6vw, 
 .hello { min-height: 100vh; min-height: 100svh; display: flex; align-items: flex-end; padding-block: 5rem 3rem; scroll-margin-top: 0; }
 .hello .copy { width: min(100%, 62rem); }
 @media (prefers-reduced-motion: no-preference) {
-  .hello h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .drawn .hello h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 
 h1, h2 { margin: 0 0 0.45em; font-weight: 800; font-stretch: 75%; line-height: 0.9; letter-spacing: -0.01em; text-wrap: balance; }

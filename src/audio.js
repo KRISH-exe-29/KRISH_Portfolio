@@ -68,6 +68,7 @@ export function startScore() {
     const root = BASS[Math.floor(step / 16) % BASS.length]
     if (step % 4 === 0) { // kick on every beat
       const kick = voice('sine', 150)
+      kick.frequency.setValueAtTime(150, t)
       kick.frequency.exponentialRampToValueAtTime(44, t + 0.12)
       blip(kick, t, 0.9, 0.34)
     }
@@ -82,6 +83,7 @@ export function startScore() {
   let next = ac.currentTime + 0.1
   const timer = setInterval(() => {
     if (ac.state !== 'running') return
+    if (next < ac.currentTime) next = ac.currentTime + 0.05 // after a stall, skip the missed notes
     while (next < ac.currentTime + 0.12) {
       play(step, next)
       next += STEP

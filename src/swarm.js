@@ -20,7 +20,7 @@ void main() {
   vec2 pos = p * uScale + uOffset;
   // The pointer pushes nearby filings away, like the wrong end of a magnet.
   vec2 away = (pos - uPointer) * vec2(uAspect, 1.0);
-  pos += normalize(away + 0.0001) * vec2(1.0 / uAspect, 1.0) * 0.09 * smoothstep(0.28, 0.0, length(away));
+  pos += normalize(away + 0.0001) * vec2(1.0 / uAspect, 1.0) * 0.09 * (1.0 - smoothstep(0.0, 0.28, length(away)));
   vHot = step(0.9, aSeed.x);
   gl_Position = vec4(pos, 0.0, 1.0);
   gl_PointSize = uSize * (0.55 + aSeed.y) * (1.0 + vHot * 0.5 * sin(uTime * 3.0 + aSeed.y * 40.0));
@@ -50,6 +50,7 @@ function webgl(canvas, shapes) {
   gl.attachShader(program, compile(gl, gl.VERTEX_SHADER, VERT))
   gl.attachShader(program, compile(gl, gl.FRAGMENT_SHADER, FRAG))
   gl.linkProgram(program)
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program))
   gl.useProgram(program)
 
   const upload = (data) => {

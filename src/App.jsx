@@ -59,6 +59,7 @@ export default function App() {
   const [calm, setCalm] = useState(calmQuery.matches)
   const [at, setAt] = useState(0)
   const [sound, setSound] = useState(false)
+  const [drawn, setDrawn] = useState(false) // true once the filings are really on screen
   const canvas = useRef(null)
   const main = useRef(null)
   const score = useRef(null)
@@ -93,7 +94,8 @@ export default function App() {
       const gathering = intro < 1 && seg.to === 0
       const mix = gathering ? intro * intro * (3 - 2 * intro) : calm ? Math.round(seg.mix) : seg.mix
       const [a, b] = [place(seg.from, w, h), place(seg.to, w, h)]
-      const lerp = (k) => a[k] + (b[k] - a[k]) * seg.mix
+      const blend = calm ? Math.round(seg.mix) : seg.mix
+      const lerp = (k) => a[k] + (b[k] - a[k]) * blend
       const shown = seg.mix >= 0.5 ? seg.to : seg.from
       swarm.draw({
         from: gathering ? 0 : seg.from + 1,
@@ -107,7 +109,7 @@ export default function App() {
         pointer,
       })
       setAt(shown)
-      score.current?.set(turb, shown)
+      score.current?.set(calm ? 0 : turb, shown)
       if (!calm && !document.hidden) raf = requestAnimationFrame(frame)
     }
     const queue = () => { if (swarm) raf ||= requestAnimationFrame(frame) }
@@ -123,7 +125,13 @@ export default function App() {
     // The name is drawn with the page's display face, so wait for it before sampling.
     document.fonts.load('800 100px "Bricolage Grotesque"').catch(() => {}).then(() => {
       if (!alive) return
-      swarm = createSwarm(el, buildShapes(chapters.map((c) => c.shape), phone ? 12000 : 40000, me.name))
+      // If the graphics driver refuses, the page still works: the name stays as plain text.
+      try {
+        swarm = createSwarm(el, buildShapes(chapters.map((c) => c.shape), phone ? 12000 : 40000, me.name))
+      } catch {
+        return
+      }
+      setDrawn(true)
       measure()
     })
 
@@ -136,6 +144,7 @@ export default function App() {
     document.documentElement.addEventListener('pointerleave', offPointer)
     return () => {
       alive = false
+      setDrawn(false)
       watch.disconnect()
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', measure)
@@ -172,7 +181,7 @@ export default function App() {
         </nav>
         <button onClick={toggleSound} aria-pressed={sound}>Sound {sound ? 'on' : 'off'}</button>
       </header>
-      <main ref={main}>
+      <main ref={main} className={drawn ? 'drawn' : undefined}>
         {chapters.map((c) => (
           <section key={c.id} id={c.id} className={c.id}>
             <div className="copy">{c.body}</div>
