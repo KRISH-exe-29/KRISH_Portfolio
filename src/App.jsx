@@ -102,6 +102,7 @@ export default function App() {
     }
     const queue = () => { queued ||= requestAnimationFrame(paint) }
     const measure = () => {
+      if (!main.current) return
       tops = sections.map((s) => s.getBoundingClientRect().top + window.scrollY)
       gate = main.current.querySelector('.gate').offsetHeight
       queue()
@@ -143,19 +144,6 @@ export default function App() {
         </div>
       )}
 
-      <main ref={main}>
-        {LEVELS.map((l, i) => (
-          <section key={l.id} className="level" style={{ '--bg': l.bg, '--ink': l.ink }}>
-            {i > 0 && <div className="gate" aria-hidden="true" />}
-            <div className="sheet" id={l.id}>
-              {calm && <Scene level={i} />}
-              <p className="tag">{volts(l.volts)}, {l.place.toLowerCase()}</p>
-              {chapters[i]}
-            </div>
-          </section>
-        ))}
-      </main>
-
       <nav className="gauge" aria-label="Levels">
         <p ref={readout} aria-hidden="true">{volts(LEVELS[0].volts)}</p>
         <ol>
@@ -169,6 +157,20 @@ export default function App() {
         </ol>
       </nav>
       <button className="sound" onClick={toggleSound} aria-pressed={sound}>Sound {sound ? 'on' : 'off'}</button>
+
+      <main ref={main}>
+        {LEVELS.map((l, i) => (
+          <section key={l.id} className="level" style={{ '--bg': l.bg, '--ink': l.ink }}>
+            {i > 0 && <div className="gate" aria-hidden="true" />}
+            <div className="sheet" id={l.id}>
+              {calm && <Scene level={i} />}
+              <p className="tag">{volts(l.volts)}, {l.place.toLowerCase()}</p>
+              {chapters[i]}
+            </div>
+          </section>
+        ))}
+      </main>
+
     </div>
   )
 }

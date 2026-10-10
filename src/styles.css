@@ -134,21 +134,23 @@ ul, ol, dl { margin: 0; padding: 0; list-style: none; }
 .skills dd { margin: 0; }
 
 /* The depth gauge, which is also the chapter nav. */
-.gauge { position: fixed; left: 0; top: 0; bottom: 0; width: clamp(6rem, 13vw, 11rem); display: flex; flex-direction: column; justify-content: center; padding-left: 1.25rem; color: var(--ink-now); pointer-events: none; }
+.gauge { position: fixed; left: 0; top: 0; bottom: 0; width: clamp(6rem, 13vw, 11rem); display: flex; flex-direction: column; justify-content: center; padding-left: 1.25rem; color: #F2F4F8; pointer-events: none; }
 .gauge p { margin: 0 0 1rem; max-width: none; font-size: clamp(1.3rem, 2.4vw, 2rem); font-weight: 800; font-stretch: var(--wide); font-variant-numeric: tabular-nums; white-space: nowrap; }
-.gauge p, .gauge ol { width: fit-content; background: color-mix(in srgb, var(--bg-now) 80%, transparent); }
+/* Fixed colours, not the level's: the stage passes through mid greys between levels. */
+.gauge p, .gauge ol { width: fit-content; background: #0E0B16; }
+.gauge p { padding: 0.2rem 0.6rem; }
 .gauge ol { border-left: 2px solid; pointer-events: auto; padding-right: 0.5rem; }
 .gauge a { display: block; padding: 0.55rem 0 0.55rem 0.8rem; text-decoration: none; font-stretch: var(--narrow); font-weight: 500; line-height: 1.15; opacity: 0.7; }
 .gauge a:hover { opacity: 1; }
 .gauge a[aria-current] { opacity: 1; font-weight: 800; box-shadow: -5px 0 0 currentColor; }
 .gauge i { display: block; font-style: normal; font-size: 0.85rem; }
-.sound { position: fixed; right: 1rem; top: 1rem; padding: 0.6rem 0.9rem; font: inherit; font-weight: 700; color: var(--bg-now); background: var(--ink-now); border: 0; cursor: pointer; }
+.sound { position: fixed; right: 1rem; top: 1rem; padding: 0.6rem 0.9rem; font: inherit; font-weight: 700; color: #0E0B16; background: #F2F4F8; border: 0; cursor: pointer; }
 
 @media (max-width: 760px) {
   .sheet { margin-inline: auto; }
   .level { padding-bottom: 55vh; }
   .level:last-child { padding-bottom: 7rem; }
-  .gauge { top: auto; right: 0; width: auto; padding: 0; background: var(--bg-now); border-top: 2px solid; pointer-events: auto; }
+  .gauge { top: auto; right: 0; width: auto; padding: 0; background: #0E0B16; border-top: 2px solid; pointer-events: auto; }
   .gauge p, .gauge i { display: none; }
   .gauge ol { display: flex; width: auto; border: 0; padding: 0; }
   .gauge li { flex: 1; }
