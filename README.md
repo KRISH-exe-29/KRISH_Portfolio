@@ -1,15 +1,10 @@
-# Krishna Raju S | Grid Run
+# Krishna Raju S | Swarm
 
-**Live site: https://krish-exe-29.github.io/KRISH_Portfolio/**
+The portfolio of Krishna Raju S, an electrical engineer who ships software, drawn entirely with iron filings.
 
-The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a night drive.
+One field of 40,000 particles (12,000 on a phone) is every illustration on the site. On load it gathers into his name. As you scroll it re-forms for each chapter: a transformer for the internships, a street light for the patent, a 7 for the IIT Bombay ranking, nine tiles for the apps, a neural net for the AI work and a paper plane for contact. Scroll fast and the shape scatters. Move the pointer through it and the filings get out of the way.
 
-You steer a car down a highway at dusk, and every gate you pass is a stage of his career: five internships, an IIT Bombay ranking, a patent, nine production apps and his AI work. The street lights brighten as the car gets close, a nod to his patented street light.
-
-- **Drive:** arrow keys or WASD on a keyboard, on-screen pedals on a phone. Scrolling moves the car too.
-- **Route map:** the dots along the bottom jump straight to any gate.
-- **Not in the mood to drive?** "Skip the drive, read the log" shows the same content as a normal page. Visitors who ask for reduced motion get the log first.
-- **Sound** is off until you turn it on.
+All the text is ordinary page content sitting over the canvas. Visitors who ask for reduced motion get still drawings that swap between chapters with no flight.
 
 ## Run it locally
 
@@ -18,18 +13,11 @@ npm install
 npm run dev
 ```
 
-`node src/game/track.check.js` checks the driving model. All facts live in `src/content.js`. Built with Vite and React; the road is drawn on a plain canvas.
+`node src/morph.check.js` checks the scroll and sampling maths. All facts live in `src/content.js`. Built with Vite and React. The particles are raw WebGL with a Canvas 2D fallback, and the shapes are sampled from drawings made in code, so there are no model or image files behind them.
 
-## Deploying
+## The music
 
-Every push or merge to `main` rebuilds and publishes the site through GitHub Actions (`.github/workflows/deploy.yml`). It is usually live within a minute or two.
-
-## Other concepts
-
-Two alternative designs with the same content live on their own branches:
-
-- `portfolio/issue-01`: a one-engineer magazine with type that reacts to your pointer.
-- `portfolio/energize`: a single-line diagram that powers up as you scroll.
+There are no audio files. `src/audio.js` synthesises a melodic techno loop at 124 bpm with the Web Audio API: kick, clap, hats, an off-beat bass and an arpeggio. Scrolling opens the filter and brings the hats up, and each chapter has its own arpeggio. It is off until you press Sound.
 
 ## Contact
 
