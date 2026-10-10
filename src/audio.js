@@ -86,6 +86,7 @@ export function startScore() {
   let next = ac.currentTime + 0.1
   const timer = setInterval(() => {
     if (ac.state !== 'running') return
+    if (next < ac.currentTime) next = ac.currentTime + 0.05 // after a stall, skip the missed beats
     while (next < ac.currentTime + 0.15) {
       const beat = step % 16
       if (KICKS.includes(beat)) thump(next)

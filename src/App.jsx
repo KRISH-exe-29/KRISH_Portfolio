@@ -119,6 +119,7 @@ export default function App() {
     const apps = wrap.querySelector('.pin .apps')
     const threadEl = wrap.querySelector('.thread')
     const threadDots = [...threadEl.parentNode.querySelectorAll('.dot')]
+    dots.forEach((d) => d.classList.remove('lit'))
     let lit = 0
     let queued = 0
     // How far the reading line (62% down the screen) has got through an element.
@@ -137,7 +138,7 @@ export default function App() {
       const open = reached(len, line.chapterAt)
       boxes.forEach((b, i) => b.classList.toggle('open', i < open))
       setAt(Math.max(0, reached(scrolled, line.chapterAt) - 1))
-      score.current?.passed(now)
+      score.current?.passed(reached(scrolled, line.dotAt))
 
       const jobsDone = through(jobs) * RINGS.length
       ringEls.forEach((ring, k) => { ring.style.strokeDashoffset = 1 - clamp(jobsDone - k) })
@@ -145,7 +146,7 @@ export default function App() {
       threadEl.style.strokeDashoffset = THREAD.total - threaded
       THREAD.dotAt.forEach((mark, k) => {
         threadDots[k].classList.toggle('lit', mark <= threaded)
-        apps.children[k].classList.toggle('lit', mark <= threaded)
+        apps.children[k]?.classList.toggle('lit', mark <= threaded)
       })
     }
     const queue = () => { queued ||= requestAnimationFrame(paint.current) }

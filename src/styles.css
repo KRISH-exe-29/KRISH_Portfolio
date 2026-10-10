@@ -60,7 +60,8 @@ main { position: relative; max-width: 78rem; margin: 0 auto; padding: 7rem 0 9re
   opacity: 0;
   transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s;
 }
-.live .chapter.open > * { transform: none; opacity: 1; }
+/* A chapter also opens the moment keyboard focus lands inside it. */
+.live .chapter.open > *, .live .chapter:focus-within > * { transform: none; opacity: 1; }
 .live .chapter > :nth-child(2) { transition-delay: 0.08s; }
 .live .chapter > :nth-child(3) { transition-delay: 0.16s; }
 .live .chapter > :nth-child(4) { transition-delay: 0.24s; }
