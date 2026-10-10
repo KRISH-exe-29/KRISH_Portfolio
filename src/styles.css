@@ -150,9 +150,9 @@ ul, ol, dl { margin: 0; padding: 0; list-style: none; }
   .level:last-child { padding-bottom: 7rem; }
   .gauge { top: auto; right: 0; width: auto; padding: 0; background: var(--bg-now); border-top: 2px solid; pointer-events: auto; }
   .gauge p, .gauge i { display: none; }
-  .gauge ol { display: flex; border: 0; }
+  .gauge ol { display: flex; width: auto; border: 0; padding: 0; }
   .gauge li { flex: 1; }
-  .gauge a { padding: 0.9rem 0; text-align: center; font-size: 0.85rem; }
+  .gauge a { padding: 0.9rem 0; text-align: center; font-size: 0.85rem; white-space: nowrap; }
   .gauge a[aria-current] { box-shadow: inset 0 4px 0 currentColor; }
 }
 
