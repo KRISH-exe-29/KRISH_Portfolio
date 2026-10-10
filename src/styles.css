@@ -66,8 +66,8 @@ h3 { font-size: clamp(1.9rem, 3.4vw, 3.2rem); line-height: 0.92; font-weight: 80
 .apps a { justify-self: start; font-weight: 600; }
 .extras p { max-width: 24em; }
 .extras :is(a, b) { font-weight: 700; }
-@media (min-width: 800px) and (prefers-reduced-motion: no-preference) {
-  .apps { height: 100vh; overflow: hidden; }
+@media (min-width: 800px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+  .apps { height: 100vh; overflow: clip; }
   .apps ol { display: flex; width: max-content; height: 100%; }
   .apps li { width: 30rem; border-top: 0; border-left: 3px solid var(--ink); align-content: end; padding-bottom: 12vh; }
   .apps .folio { font-size: 44vh; margin-bottom: 4vh; }
