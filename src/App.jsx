@@ -219,7 +219,7 @@ function Drive({ onLog }) {
   }, [sound])
 
   const jump = (i) => {
-    car.current = { ...car.current, z: gateZ(i) + 3 * SEG, x: 0, speed: 0 }
+    car.current = { ...car.current, z: gateZ(i) + 8 * SEG, x: 0, speed: 0 }
   }
   const hold = (key, value) => ({
     onPointerDown: (e) => { e.preventDefault(); input.current[key] = value },
