@@ -1,15 +1,12 @@
-# Krishna Raju S | Grid Run
+# Krishna Raju S | Kolam
 
-**Live site: https://krish-exe-29.github.io/KRISH_Portfolio/**
+The portfolio of Krishna Raju S, an electrical engineer who ships software, drawn as one line.
 
-The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a night drive.
+A kolam is the pattern drawn each morning on a Tamil doorstep: a grid of dots first, then one line of rice flour looped around them. This page works the same way. The dots are already down when you arrive. As you scroll, a single unbroken line weaves past them, running down the left of one chapter, crossing over, and running down the right of the next. Each chapter unfolds like paper as the line reaches it.
 
-You steer a car down a highway at dusk, and every gate you pass is a stage of his career: five internships, an IIT Bombay ranking, a patent, nine production apps and his AI work. The street lights brighten as the car gets close, a nod to his patented street light.
+Two chapters have their own small kolam that stays pinned while you read: the five internships complete one ring each, and the nine apps are nine dots threaded one by one.
 
-- **Drive:** arrow keys or WASD on a keyboard, on-screen pedals on a phone. Scrolling moves the car too.
-- **Route map:** the dots along the bottom jump straight to any gate.
-- **Not in the mood to drive?** "Skip the drive, read the log" shows the same content as a normal page. Visitors who ask for reduced motion get the log first.
-- **Sound** is off until you turn it on.
+Visitors who ask for reduced motion get the finished drawing and every chapter already open.
 
 ## Run it locally
 
@@ -18,18 +15,11 @@ npm install
 npm run dev
 ```
 
-`node src/game/track.check.js` checks the driving model. All facts live in `src/content.js`. Built with Vite and React; the road is drawn on a plain canvas.
+`node src/kolam.check.js` checks the line maths. All facts live in `src/content.js`. Built with Vite and React. The line is one SVG path generated from the page layout and rebuilt whenever the layout changes.
 
-## Deploying
+## The music
 
-Every push or merge to `main` rebuilds and publishes the site through GitHub Actions (`.github/workflows/deploy.yml`). It is usually live within a minute or two.
-
-## Other concepts
-
-Two alternative designs with the same content live on their own branches:
-
-- `portfolio/issue-01`: a one-engineer magazine with type that reacts to your pointer.
-- `portfolio/energize`: a single-line diagram that powers up as you scroll.
+There are no audio files. `src/audio.js` builds a slow lo-fi beat with the Web Audio API: a soft kick, brushes, record crackle and a low drone. The melody is a plucked string, and you play it: every dot the line passes plucks the next note of the tune, so scrolling back up plays it in reverse. It is off until you press Sound.
 
 ## Contact
 
