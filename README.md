@@ -1,15 +1,10 @@
-# Krishna Raju S | Grid Run
+# Krishna Raju S | Step Down
 
-**Live site: https://krish-exe-29.github.io/KRISH_Portfolio/**
+The portfolio of Krishna Raju S, an electrical engineer who ships software, built as one long dive.
 
-The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a night drive.
+Scrolling moves the camera into the screen instead of down a page. You start at a 400 kV transmission line and fly through a tower into a 161 kV transformer test bay, through its nameplate into a 415 V control panel, through a lamp onto a 3.3 V circuit board, into the chip, and out at ground. Each level holds one part of his career, and the gauge on the left shows the voltage falling as you go. The gauge is also the menu.
 
-You steer a car down a highway at dusk, and every gate you pass is a stage of his career: five internships, an IIT Bombay ranking, a patent, nine production apps and his AI work. The street lights brighten as the car gets close, a nod to his patented street light.
-
-- **Drive:** arrow keys or WASD on a keyboard, on-screen pedals on a phone. Scrolling moves the car too.
-- **Route map:** the dots along the bottom jump straight to any gate.
-- **Not in the mood to drive?** "Skip the drive, read the log" shows the same content as a normal page. Visitors who ask for reduced motion get the log first.
-- **Sound** is off until you turn it on.
+Visitors who ask for reduced motion get the same six levels as a flat page with no flights.
 
 ## Run it locally
 
@@ -18,18 +13,11 @@ npm install
 npm run dev
 ```
 
-`node src/game/track.check.js` checks the driving model. All facts live in `src/content.js`. Built with Vite and React; the road is drawn on a plain canvas.
+`node src/dive.check.js` checks the dive maths. All facts live in `src/content.js`. Built with Vite and React. The drawings are plain SVG, zoomed by scroll position.
 
-## Deploying
+## The music
 
-Every push or merge to `main` rebuilds and publishes the site through GitHub Actions (`.github/workflows/deploy.yml`). It is usually live within a minute or two.
-
-## Other concepts
-
-Two alternative designs with the same content live on their own branches:
-
-- `portfolio/issue-01`: a one-engineer magazine with type that reacts to your pointer.
-- `portfolio/energize`: a single-line diagram that powers up as you scroll.
+There are no audio files. `src/audio.js` builds a slow ambient score with the Web Audio API: a pad whose chord steps down one note per level, a filter that closes as you go deeper, a low thump each time you cross into a new level, and a soft bell every few seconds. It is off until you press Sound.
 
 ## Contact
 
