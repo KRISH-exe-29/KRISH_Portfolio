@@ -6,6 +6,8 @@ import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, ce
 gsap.registerPlugin(ScrollTrigger)
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+// The pinned tap changer needs room; short screens get the plain list instead.
+const flat = calm || window.innerHeight < 700
 const sheets = ['Source', 'Tap changer', 'Distribution board', 'Control logic', 'Protection', 'Load']
 const slug = (s) => s.toLowerCase().replace(/ /g, '-')
 
@@ -40,7 +42,7 @@ function Meter({ value, unit, label }) {
   }, [value])
   return (
     <li>
-      <b ref={ref}>{value}</b>
+      <b ref={ref}>{calm ? value : 0}</b>
       <span>{unit}</span>
       <small>{label}</small>
     </li>
@@ -54,12 +56,12 @@ function TapChanger() {
   const n = experience.length
 
   useEffect(() => {
-    if (calm) return
+    if (flat) return
     trigger.current = ScrollTrigger.create({
       trigger: box.current, start: 'top top', end: `+=${n * 60}%`, pin: true,
       onUpdate: (s) => setTap(Math.min(n - 1, Math.floor(s.progress * n))),
     })
-    return () => trigger.current.kill()
+    return () => trigger.current?.kill()
   }, [n])
 
   const go = (i) => {
@@ -67,7 +69,7 @@ function TapChanger() {
     if (t) window.scrollTo({ top: t.start + ((i + 0.5) / n) * (t.end - t.start), behavior: 'smooth' })
   }
 
-  if (calm) {
+  if (flat) {
     return (
       <ol className="taps-flat">
         {experience.map((e) => (
@@ -76,6 +78,7 @@ function TapChanger() {
             <h3>{e.company}</h3>
             <p className="role">{e.role}</p>
             <p>{e.text}</p>
+            {e.photo && <img src={e.photo} alt={e.photoAlt} loading="lazy" />}
           </li>
         ))}
       </ol>

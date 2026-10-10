@@ -79,7 +79,7 @@ h3 { font-size: 1.6rem; line-height: 1.05; }
 .hint { font: 0.8rem var(--mono); color: var(--live); }
 
 /* Sheet 2: tap changer */
-.taps { min-height: 100vh; display: grid; grid-template-columns: minmax(16rem, 0.8fr) 1.2fr; gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding-right: 1rem; }
+.taps { height: 100vh; padding-bottom: 3rem; display: grid; grid-template-columns: minmax(16rem, 0.8fr) 1.2fr; gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding-right: 1rem; }
 .dial svg { width: 100%; max-width: 26rem; overflow: visible; }
 .arc { fill: none; stroke: var(--dead); stroke-width: 2; stroke-dasharray: 4 6; }
 .wiper { stroke: var(--live); stroke-width: 5; stroke-linecap: round; transition: transform 0.5s cubic-bezier(0.5, 1.6, 0.4, 1); filter: drop-shadow(0 0 6px var(--live)); }
@@ -101,6 +101,7 @@ h3 { font-size: 1.6rem; line-height: 1.05; }
 .taps img { max-height: 34vh; width: auto; border: 1px solid var(--dead); padding: 0.4rem; background: var(--deep); }
 .taps-flat { display: grid; gap: 2.5rem; max-width: 42rem; }
 .taps-flat li { display: grid; gap: 0.5rem; }
+.taps-flat img { max-height: 22rem; width: auto; border: 1px solid var(--dead); padding: 0.4rem; background: var(--deep); }
 
 /* Sheet 3: distribution board */
 .board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--dead); border: 1px solid var(--dead); }
