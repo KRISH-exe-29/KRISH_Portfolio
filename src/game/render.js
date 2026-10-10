@@ -162,7 +162,8 @@ function car(ctx, W, H, s, braking) {
   ctx.fillRect(w * 0.34, -h * 0.34, w * 0.16, h * 0.34)
   ctx.fillStyle = C.paint // body
   ctx.beginPath()
-  ctx.roundRect(-w * 0.46, -h * 0.62, w * 0.92, h * 0.5, h * 0.1)
+  if (ctx.roundRect) ctx.roundRect(-w * 0.46, -h * 0.62, w * 0.92, h * 0.5, h * 0.1)
+  else ctx.rect(-w * 0.46, -h * 0.62, w * 0.92, h * 0.5)
   ctx.fill()
   ctx.beginPath() // cabin
   ctx.moveTo(-w * 0.34, -h * 0.6)
