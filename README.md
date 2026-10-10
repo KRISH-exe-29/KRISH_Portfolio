@@ -1,17 +1,15 @@
-# Krishna Raju S | Issue 01
+# Krishna Raju S | Grid Run
 
 **Live site: https://krish-exe-29.github.io/KRISH_Portfolio/**
 
-The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a one-engineer magazine.
+The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a night drive.
 
-- **Cover:** the name is a variable font whose weight follows your pointer.
-- **Nine apps:** a horizontal spread of the apps running in production at Indo Tech Transformers.
-- **Feature:** five internships, with photos pinned beside the text.
-- **Centrefold:** growing an AI agent in twelve versions, plus a retrieval assistant for work instructions.
-- **Classifieds:** the patent, awards, skills and certifications.
-- **Back cover:** email, resume, LinkedIn and GitHub.
+You steer a car down a highway at dusk, and every gate you pass is a stage of his career: five internships, an IIT Bombay ranking, a patent, nine production apps and his AI work. The street lights brighten as the car gets close, a nod to his patented street light.
 
-The soundtrack is off until you press "Play soundtrack". Phones, and visitors who ask for reduced motion, get a plain vertical magazine.
+- **Drive:** arrow keys or WASD on a keyboard, on-screen pedals on a phone. Scrolling moves the car too.
+- **Route map:** the dots along the bottom jump straight to any gate.
+- **Not in the mood to drive?** "Skip the drive, read the log" shows the same content as a normal page. Visitors who ask for reduced motion get the log first.
+- **Sound** is off until you turn it on.
 
 ## Run it locally
 
@@ -20,7 +18,7 @@ npm install
 npm run dev
 ```
 
-All facts live in `src/content.js`. Built with Vite, React and GSAP.
+`node src/game/track.check.js` checks the driving model. All facts live in `src/content.js`. Built with Vite and React; the road is drawn on a plain canvas.
 
 ## Deploying
 
@@ -30,7 +28,7 @@ Every push or merge to `main` rebuilds and publishes the site through GitHub Act
 
 Two alternative designs with the same content live on their own branches:
 
-- `portfolio/grid-run`: a playable night drive, with a gate for every stage of the career.
+- `portfolio/issue-01`: a one-engineer magazine with type that reacts to your pointer.
 - `portfolio/energize`: a single-line diagram that powers up as you scroll.
 
 ## Contact
