@@ -1,22 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// base './' so the build runs from any sub-folder (GitHub Pages)
 export default defineConfig({
-  plugins: [
-    react(),
-  ],
-  esbuild: {
-    drop: ['console', 'debugger'],
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          animations: ['framer-motion', 'gsap', 'lenis'],
-        },
-      },
-    },
-  },
+  base: './',
+  plugins: [react()],
 })
