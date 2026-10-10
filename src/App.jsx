@@ -6,7 +6,7 @@ import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, ce
 gsap.registerPlugin(ScrollTrigger)
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const MOTION = '(min-width: 800px) and (prefers-reduced-motion: no-preference)'
+const MOTION = '(min-width: 800px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)'
 
 // The cover name. Each letter is a variable-font instance whose weight follows the pointer;
 // with no pointer on the page, a slow wave walks across instead.
@@ -76,7 +76,7 @@ function Apps() {
       const far = () => track.current.scrollWidth - window.innerWidth
       gsap.to(track.current, {
         x: () => -far(), ease: 'none',
-        scrollTrigger: { trigger: wrap.current, pin: true, scrub: 0.5, end: () => `+=${far()}`, invalidateOnRefresh: true },
+        scrollTrigger: { trigger: wrap.current, pin: true, scrub: 0.5, refreshPriority: 1, end: () => `+=${far()}`, invalidateOnRefresh: true },
       })
     })
     return () => mm.revert()

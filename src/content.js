@@ -98,7 +98,7 @@ export const apps = [
 export const sideProjects = [
   { name: 'dMAT Practice', pitch: 'A full exam simulator in one HTML file.', url: 'https://krishna-ittl.github.io/dmat-practice/' },
   { name: 'GUI Automation Tool', pitch: 'Hardware documentation in Python, PyQt and Pandas.' },
-  { name: 'Flood Alerting System', pitch: 'Arduino and sensors that raise the alarm early.' },
+  { name: 'Flood Alerting System', pitch: 'Arduino and sensors that send real-time flood alerts.' },
 ]
 
 export const ai = {
@@ -118,7 +118,7 @@ export const ai = {
   },
   browser: {
     name: 'AI in the browser',
-    pitch: 'Job Lens ranks resumes and reads scans on the device with Transformers.js and Tesseract, so sensitive files never leave it.',
+    pitch: 'Job Lens ranks resumes and reads scans on the device with Transformers.js and Tesseract.',
   },
   stack: ['Claude', 'OpenAI', 'LangChain', 'LangGraph', 'Ollama', 'Transformers.js', 'Tesseract'],
 }
