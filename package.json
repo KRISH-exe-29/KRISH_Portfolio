@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "check": "node src/circuit/path.check.js && node src/circuit/identity.check.js",
     "preview": "vite preview"
   },
   "dependencies": {
     "gsap": "^3.15.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

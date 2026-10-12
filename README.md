@@ -2,6 +2,10 @@
 
 An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
 
+## Electron concept
+
+`portfolio/electron` is a Vite + React + three.js concept: scrolling drives a glowing electron across seven procedural circuit boards. The identity and external project links remain locked until the final Output board. It includes reduced-motion and WebGL-loss document fallbacks; run `npm run dev` to view it.
+
 ## 🚀 Performance Optimization
 This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
 - **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
