@@ -1,339 +1,265 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset } from './content.js'
-import { MAX_SPEED, SEG, gateZ, gatesPassed, start, step, trackLength } from './game/track.js'
-import { draw } from './game/render.js'
 
-const job = (id) => experience.find((e) => e.id === id)
-const award = (title) => awards.find((a) => a.title.startsWith(title))
+gsap.registerPlugin(ScrollTrigger)
 
-function Job({ e }) {
-  return (
-    <>
-      <p className="meta">{e.role}, {e.place}</p>
-      <p>{e.text}</p>
-      {e.photo && <img src={e.photo} alt={e.photoAlt} loading="lazy" />}
-    </>
-  )
-}
+const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const MOTION = '(min-width: 800px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)'
 
-function Links({ items }) {
-  return (
-    <ul className="rows">
-      {items.map((a) => (
-        <li key={a.name}>
-          {a.url ? <a href={a.url} target="_blank" rel="noopener noreferrer">{a.name}</a> : <b>{a.name}</b>}
-          <span>{a.pitch}</span>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
-// The route, in the order it was driven. `gate` is the short name painted on the arch.
-const stops = [
-  ...['railway', 'mettur', 'inovate'].map((id) => {
-    const e = job(id)
-    return { gate: e.company, year: e.year, title: e.company, body: <Job e={e} /> }
-  }),
-  {
-    gate: 'E-Cell', year: 'On campus', title: leadership.title,
-    body: (
-      <>
-        <p>{leadership.text}</p>
-        <p>{award('National finalist').title}, {award('National finalist').detail.toLowerCase()}, {award('National finalist').year}.</p>
-        <div className="pair">{leadership.photos.slice(0, 2).map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />)}</div>
-      </>
-    ),
-  },
-  { gate: 'Bühler India', year: '2025', title: job('buhler').company, body: <Job e={job('buhler')} /> },
-  {
-    gate: 'IIT Bombay', year: '2025', title: award('Rank 7').title,
-    body: (
-      <>
-        <p className="meta">{award('Rank 7').detail}</p>
-        <p>{award('Runner-up').title} at the {award('Runner-up').detail}, too.</p>
-        <img src={award('Rank 7').photo} alt={award('Rank 7').photoAlt} loading="lazy" />
-      </>
-    ),
-  },
-  {
-    gate: 'Patent', year: '2025', title: award('Patent').title,
-    body: (
-      <>
-        <p>{award('Patent').detail}.</p>
-        <p>The street lights on this road brighten as the car gets close, a nod to the patent.</p>
-      </>
-    ),
-  },
-  { gate: 'Indo Tech', year: '2026', title: job('indotech').company, body: <Job e={job('indotech')} /> },
-  {
-    gate: 'The garage', year: '2026', title: 'Nine apps in production',
-    body: (
-      <>
-        <p>{me.lines[0]} {numbers[1].value} {numbers[1].unit} {numbers[1].label}.</p>
-        <Links items={apps} />
-        <p className="meta">Off the clock</p>
-        <Links items={sideProjects} />
-      </>
-    ),
-  },
-  {
-    gate: 'AI pit stop', year: 'Now', title: 'Agents and retrieval',
-    body: (
-      <>
-        <p><b>{ai.agent.name}.</b> {ai.agent.pitch}</p>
-        <ol className="versions">{ai.agent.versions.map((v) => <li key={v}>{v}</li>)}</ol>
-        <p><b>{ai.rag.name}.</b> {ai.rag.pitch}</p>
-        <p className="flow">{ai.rag.steps.join(' → ')}</p>
-        <p><b>{ai.browser.name}.</b> {ai.browser.pitch}</p>
-        <p className="meta">{ai.stack.join(', ')}</p>
-      </>
-    ),
-  },
-  {
-    gate: 'Finish', year: 'Next', title: me.lines[1],
-    body: (
-      <>
-        <p>{me.lines[2]}</p>
-        <p className="cta">
-          <a href={`mailto:${me.email}`}>{me.email}</a>
-          <a href={me.resume} download>Download resume</a>
-          <a href={me.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href={me.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-        </p>
-        {Object.entries(skills).map(([group, list]) => (
-          <p key={group}><b>{group}.</b> {list.join(', ')}</p>
-        ))}
-        <p><b>Certified.</b> {certifications.join('; ')}.</p>
-      </>
-    ),
-  },
-]
-const labels = stops.map((s) => s.gate)
-const N = stops.length
-
-function Drive({ onLog }) {
-  const canvas = useRef(null)
-  const car = useRef(start())
-  const input = useRef({ gas: false, brake: false, steer: 0, scroll: 0 })
-  const speedEl = useRef(null)
-  const markEl = useRef(null)
-  const audio = useRef(null)
-  const [passed, setPassed] = useState(0)
-  const [open, setOpen] = useState(true)
-  const [sound, setSound] = useState(false)
-
+// The cover name. Each letter is a variable-font instance whose weight follows the pointer;
+// with no pointer on the page, a slow wave walks across instead.
+function Name() {
+  const ref = useRef(null)
   useEffect(() => {
-    const keys = { ArrowUp: 'gas', w: 'gas', W: 'gas', ArrowDown: 'brake', s: 'brake', S: 'brake' }
-    const steer = { ArrowLeft: -1, a: -1, A: -1, ArrowRight: 1, d: 1, D: 1 }
-    const held = new Set()
-    const onKey = (e) => {
-      const down = e.type === 'keydown'
-      // Up and down scroll the card while it has focus; key releases always count.
-      if (down && e.key.startsWith('Arrow') && !(e.key in steer) && e.target.closest?.('.sheet')) return
-      if (keys[e.key]) { input.current[keys[e.key]] = down; e.preventDefault() }
-      if (steer[e.key]) {
-        if (down) held.add(steer[e.key])
-        else held.delete(steer[e.key])
-        input.current.steer = [...held].reduce((a, b) => a + b, 0)
-        e.preventDefault()
-      }
+    if (calm) return
+    const el = ref.current
+    const letters = [...el.querySelectorAll('i')]
+    let pointer = null
+    let raf = 0
+    let visible = true
+    const move = (e) => { pointer = e.pointerType === 'mouse' ? e.clientX : null }
+    const out = () => { pointer = null }
+    const frame = (now) => {
+      raf = requestAnimationFrame(frame)
+      if (!visible) return
+      const x = pointer ?? (0.5 + 0.5 * Math.sin(now / 1300)) * window.innerWidth
+      const mids = letters.map((l) => { const r = l.getBoundingClientRect(); return r.left + r.width / 2 })
+      letters.forEach((l, i) => {
+        const far = Math.min(1, (Math.abs(mids[i] - x) / window.innerWidth) * 2.4)
+        l.style.fontVariationSettings = `'wght' ${Math.round(900 - 680 * far)}`
+      })
     }
-    const onWheel = (e) => {
-      if (e.target.closest?.('.card')) return
-      e.preventDefault()
-      input.current.scroll += e.deltaY * 6
-    }
-    const release = () => { held.clear(); Object.assign(input.current, { gas: false, brake: false, steer: 0 }) }
-    window.addEventListener('blur', release)
-    window.addEventListener('keydown', onKey)
-    window.addEventListener('keyup', onKey)
-    window.addEventListener('wheel', onWheel, { passive: false })
+    const seen = new IntersectionObserver(([e]) => { visible = e.isIntersecting })
+    seen.observe(el)
+    window.addEventListener('pointermove', move)
+    document.addEventListener('pointerleave', out)
+    raf = requestAnimationFrame(frame)
     return () => {
-      window.removeEventListener('blur', release)
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('keyup', onKey)
-      window.removeEventListener('wheel', onWheel)
+      cancelAnimationFrame(raf)
+      seen.disconnect()
+      window.removeEventListener('pointermove', move)
+      document.removeEventListener('pointerleave', out)
     }
   }, [])
-
-  useEffect(() => {
-    const cv = canvas.current
-    const ctx = cv.getContext('2d')
-    if (!ctx) { onLog(); return } // no canvas: the log has everything
-    let raf
-    let last = performance.now()
-    let seen = 0
-    let slowUntil = 0
-    const size = () => {
-      const dpr = Math.min(2, window.devicePixelRatio || 1)
-      cv.width = cv.clientWidth * dpr
-      cv.height = cv.clientHeight * dpr
-    }
-    size()
-    window.addEventListener('resize', size)
-    const frame = (now) => {
-      const dt = Math.min(0.05, (now - last) / 1000) * (now < slowUntil ? 0.35 : 1)
-      last = now
-      const inp = input.current
-      car.current = { ...step(car.current, inp, dt, N), steer: inp.steer }
-      inp.scroll = 0
-      const s = car.current
-      const count = gatesPassed(s.z, N)
-      if (count !== seen) {
-        if (count > seen) slowUntil = now + 900 // a beat of slow motion under each arch
-        seen = count
-        setPassed(count)
-        setOpen(true)
-        audio.current?.click()
-      }
-      audio.current?.rev(s.speed / MAX_SPEED)
-      draw(ctx, cv.width, cv.height, s, labels, count, inp.brake)
-      speedEl.current.textContent = Math.round((s.speed / MAX_SPEED) * 240)
-      markEl.current.style.left = `${(s.z / trackLength(N)) * 100}%`
-      raf = requestAnimationFrame(frame)
-    }
-    raf = requestAnimationFrame(frame)
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', size) }
-  }, [onLog])
-
-  // Sound is built only after the visitor asks for it.
-  useEffect(() => {
-    if (!sound) return
-    const ac = new AudioContext()
-    const osc = ac.createOscillator()
-    const filter = ac.createBiquadFilter()
-    const gain = ac.createGain()
-    osc.type = 'sawtooth'
-    filter.type = 'lowpass'
-    filter.frequency.value = 420
-    gain.gain.value = 0.035
-    osc.connect(filter).connect(gain).connect(ac.destination)
-    osc.start()
-    const blip = new Audio(asset('audio/click.mp3'))
-    audio.current = {
-      rev: (r) => osc.frequency.setTargetAtTime(48 + r * 110, ac.currentTime, 0.08),
-      click: () => { blip.currentTime = 0; blip.play().catch(() => {}) },
-    }
-    return () => { audio.current = null; ac.close() }
-  }, [sound])
-
-  const jump = (i) => {
-    car.current = { ...car.current, z: gateZ(i) + 8 * SEG, x: 0, speed: 0 }
-  }
-  const hold = (key, value) => ({
-    onPointerDown: (e) => { e.preventDefault(); input.current[key] = value },
-    onPointerUp: () => { input.current[key] = key === 'steer' ? 0 : false },
-    onPointerLeave: () => { input.current[key] = key === 'steer' ? 0 : false },
-    onPointerCancel: () => { input.current[key] = key === 'steer' ? 0 : false },
-    onContextMenu: (e) => e.preventDefault(),
-  })
-
-  const stop = stops[passed - 1]
+  const line = (word) => <span>{[...word].map((c, i) => <i key={i}>{c}</i>)}</span>
   return (
-    <main className="drive">
-      <canvas ref={canvas} aria-label="A car driving down a highway at dusk, past gates named after each stage of Krishna's career" role="img" />
-      <header className="bar">
-        <h1>Grid Run</h1>
-        <span className="count">{passed} of {N} gates</span>
-        <span className="speed"><b ref={speedEl}>0</b> km/h</span>
-        <button onClick={() => setSound(!sound)} aria-pressed={sound}>Sound {sound ? 'on' : 'off'}</button>
-        <button onClick={onLog}>Read the log</button>
-      </header>
-
-      <aside className={`card ${open ? '' : 'shut'}`} aria-live="polite">
-        {stop ? (
-          <>
-            <button className="x" onClick={() => setOpen(!open)} aria-expanded={open}>{open ? 'Hide' : `Show ${stop.gate}`}</button>
-            {open && (
-              <div className="sheet" key={passed} tabIndex={0}>
-                <p className="year">{stop.year}</p>
-                <h2>{stop.title}</h2>
-                {stop.body}
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="sheet">
-            <h2>First gate ahead: {stops[0].gate}</h2>
-            <p className="keys">Hold <kbd>↑</kbd> or <kbd>W</kbd> to drive, <kbd>←</kbd> <kbd>→</kbd> to steer. Scrolling works too.</p>
-            <p className="taps">Hold Go to drive. Steer with the arrows.</p>
-          </div>
-        )}
-      </aside>
-
-      <div className="pedals">
-        <button aria-label="Steer left" {...hold('steer', -1)}>◀</button>
-        <button aria-label="Steer right" {...hold('steer', 1)}>▶</button>
-        <button className="go" {...hold('gas', true)}>Go</button>
-      </div>
-
-      <nav className="map" aria-label="Route">
-        <i ref={markEl} aria-hidden="true" />
-        {stops.map((s, i) => (
-          <button
-            key={s.gate}
-            style={{ left: `${(gateZ(i) / trackLength(N)) * 100}%` }}
-            className={i < passed ? 'done' : ''}
-            aria-current={i === passed - 1 ? 'step' : undefined}
-            onClick={() => jump(i)}
-          >
-            <span>{s.gate}</span>
-          </button>
-        ))}
-      </nav>
-    </main>
+    <h1 ref={ref} aria-label={me.name}>
+      <span className="back" aria-hidden="true">{line('Krishna')}</span>
+      <span className="front" aria-hidden="true">{line('Raju S')}</span>
+    </h1>
   )
 }
 
-function Log({ onDrive }) {
+function Cover() {
   return (
-    <main className="log">
-      <header>
-        <p className="kicker">Grid Run, the trip log</p>
-        <h1>{me.name}</h1>
-        <p className="lede">{me.role}. {me.field}, {me.city}.</p>
-        <ul className="tally">
-          {numbers.map((n) => <li key={n.unit}><b>{n.value}</b> {n.unit} <span>{n.label}</span></li>)}
-        </ul>
-        <p className="cta">
-          <button onClick={onDrive}>Drive it instead</button>
-          <a href={me.resume} download>Download resume</a>
-          <a href={`mailto:${me.email}`}>{me.email}</a>
-        </p>
-      </header>
-      <ol>
-        {stops.map((s) => (
-          <li key={s.gate}>
-            <p className="year">{s.year}</p>
-            <h2>{s.title}</h2>
-            {s.body}
+    <header className="cover">
+      <p className="masthead"><b>Krish</b> <span>Issue 01</span> <span>{me.city}</span> <span>{me.field}</span></p>
+      <div className="plate"><img src={me.portrait} alt={`${me.name}, portrait`} /></div>
+      <Name />
+      <ul className="coverlines">
+        {numbers.slice(0, 4).map((n) => <li key={n.unit}><b>{n.value}</b> {n.unit} {n.label}</li>)}
+      </ul>
+      <p className="standfirst">{me.role}. {me.lines[0]}</p>
+      <div className="barcode" aria-hidden="true" />
+    </header>
+  )
+}
+
+function Apps() {
+  const wrap = useRef(null)
+  const track = useRef(null)
+  useEffect(() => {
+    const mm = gsap.matchMedia()
+    mm.add(MOTION, () => {
+      const far = () => track.current.scrollWidth - window.innerWidth
+      gsap.to(track.current, {
+        x: () => -far(), ease: 'none',
+        scrollTrigger: { trigger: wrap.current, pin: true, scrub: 0.5, refreshPriority: 1, end: () => `+=${far()}`, invalidateOnRefresh: true },
+      })
+    })
+    return () => mm.revert()
+  }, [])
+  return (
+    <section className="apps" ref={wrap} aria-labelledby="apps-h">
+      <ol ref={track}>
+        <li className="intro">
+          <h2 id="apps-h" className="kin">Nine apps. One factory.</h2>
+          <p>Zero spreadsheets left behind. Most of these run on a real shop floor, every shift. {numbers[1].value} {numbers[1].unit} guard dispatch alone.</p>
+        </li>
+        {apps.map((a, i) => (
+          <li key={a.name}>
+            <p className="folio">{i + 1}</p>
+            <h3>{a.name}</h3>
+            <p>{a.pitch}</p>
+            {a.url && <a href={a.url} target="_blank" rel="noopener noreferrer">{a.url.includes('github.com') ? 'Read the code' : 'Open the app'}</a>}
           </li>
         ))}
+        <li className="extras">
+          <h3>Also in this issue</h3>
+          {sideProjects.map((p) => (
+            <p key={p.name}>
+              {p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a> : <b>{p.name}</b>} {p.pitch}
+            </p>
+          ))}
+        </li>
       </ol>
-    </main>
+    </section>
+  )
+}
+
+function Feature() {
+  const [at, setAt] = useState(0)
+  const jobs = [...experience].reverse() // newest first, the way a profile is written
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setAt(Number(e.target.dataset.i))),
+      { rootMargin: '-45% 0px -45% 0px' },
+    )
+    document.querySelectorAll('.feature article').forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+  const now = jobs[at]
+  return (
+    <section className="feature" aria-labelledby="feature-h">
+      <h2 id="feature-h" className="kin">{me.lines[3]}</h2>
+      <div className="columns">
+        <figure>
+          {now.photo ? <img key={now.id} src={now.photo} alt={now.photoAlt} /> : <div key={now.id} className="year" aria-hidden="true">{now.year}</div>}
+          <figcaption>{now.company}, {now.year}</figcaption>
+        </figure>
+        <div>
+          {jobs.map((e, i) => (
+            <article key={e.id} data-i={i} className={i === at ? 'on' : ''}>
+              <p className="when">{e.year}, {e.place}</p>
+              <h3>{e.company}</h3>
+              <p className="role">{e.role}</p>
+              <p>{e.text}</p>
+            </article>
+          ))}
+          <blockquote>{me.lines[2]}</blockquote>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Centrefold() {
+  const ref = useRef(null)
+  const total = ai.agent.versions.length
+  const [lit, setLit] = useState(calm ? total : 0)
+  useEffect(() => {
+    if (calm) return
+    const t = ScrollTrigger.create({
+      trigger: ref.current, start: 'top 75%', end: 'bottom 55%',
+      onUpdate: (s) => setLit(Math.round(s.progress * total)),
+    })
+    return () => t.kill()
+  }, [total])
+  return (
+    <section className="fold" aria-labelledby="fold-h">
+      <h2 id="fold-h" className="kin">How to grow an agent</h2>
+      <p className="deck">{ai.agent.name}. {ai.agent.pitch}</p>
+      <ol className="versions" ref={ref}>
+        {ai.agent.versions.map((v, i) => <li key={v} className={i < lit ? 'lit' : ''}><sup>{i + 1}</sup>{v}</li>)}
+      </ol>
+      <div className="two">
+        <div>
+          <h3>{ai.rag.name}</h3>
+          <p>{ai.rag.pitch}</p>
+          <ol className="steps">{ai.rag.steps.map((s) => <li key={s}>{s}</li>)}</ol>
+        </div>
+        <div>
+          <h3>{ai.browser.name}</h3>
+          <p>{ai.browser.pitch}</p>
+          <p className="small">Works with {ai.stack.join(', ')}.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Classifieds() {
+  return (
+    <section className="ads" aria-labelledby="ads-h">
+      <h2 id="ads-h" className="kin">Classifieds</h2>
+      <div className="grid">
+        {awards.map((a) => (
+          <article key={a.title} className={a.photo ? 'pic' : ''}>
+            {a.photo && <img src={a.photo} alt={a.photoAlt} loading="lazy" />}
+            <h3>{a.title}</h3>
+            <p>{a.detail}. {a.year}.</p>
+          </article>
+        ))}
+        <article className="wide">
+          <h3>{leadership.title}</h3>
+          <p>{leadership.text}</p>
+          <div className="strip">{leadership.photos.map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />)}</div>
+        </article>
+        {Object.entries(skills).map(([group, list]) => (
+          <article key={group}>
+            <h3>{group}</h3>
+            <p>{list.join(', ')}.</p>
+          </article>
+        ))}
+        <article>
+          <h3>Certified</h3>
+          <p>{certifications.join('. ')}.</p>
+        </article>
+      </div>
+    </section>
   )
 }
 
 export default function App() {
-  const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  const [mode, setMode] = useState(calm ? 'log' : 'start')
+  const root = useRef(null)
+  const audio = useRef(null)
+  const [playing, setPlaying] = useState(false)
 
-  const toLog = useCallback(() => setMode('log'), [])
-  if (mode === 'log') return <Log onDrive={() => setMode('drive')} />
-  if (mode === 'drive') return <Drive onLog={toLog} />
+  // Headlines put on weight as they travel up the page.
+  useEffect(() => {
+    const mm = gsap.matchMedia(root)
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.utils.toArray('.kin').forEach((el) => {
+        gsap.fromTo(el, { '--w': 120 }, { '--w': 900, ease: 'none', scrollTrigger: { trigger: el, start: 'top 98%', end: 'top 45%', scrub: true } })
+      })
+    })
+    return () => mm.revert()
+  }, [])
+
+  const toggle = () => {
+    const a = audio.current
+    if (a.paused) a.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
+    else { a.pause(); setPlaying(false) }
+  }
+
   return (
-    <main className="startline">
-      <img src={me.portrait} alt={`${me.name}, portrait`} />
-      <div>
-        <h1>Grid Run</h1>
-        <p className="lede">{me.name} is an {me.role.toLowerCase()}. This is his career as a road: {N} gates, from a railway battery bay to AI agents. Drive it.</p>
-        <p className="cta">
-          <button className="primary" onClick={() => setMode('drive')} autoFocus>Start engine</button>
-          <button onClick={() => setMode('log')}>Skip the drive, read the log</button>
-        </p>
-        <p className="keys">Arrow keys or WASD. On a phone, hold Go.</p>
+    <div ref={root}>
+      <audio ref={audio} src={asset('audio/soundtrack.mp3')} preload="none" loop />
+      <button className="sound" onClick={toggle} aria-pressed={playing}>{playing ? 'Pause soundtrack' : 'Play soundtrack'}</button>
+      <Cover />
+      <div className="ticker" aria-hidden="true">
+        <p>{[...apps, ...apps].map((a, i) => <span key={i}>{a.name}</span>)}</p>
       </div>
-    </main>
+      <main>
+        <Apps />
+        <Feature />
+        <Centrefold />
+        <Classifieds />
+      </main>
+      <footer className="backcover">
+        <h2 className="kin">{me.lines[1]}</h2>
+        <p className="deck">{me.lines[2]}</p>
+        <p className="links">
+          <a className="mail" href={`mailto:${me.email}`}>{me.email}</a>
+          <a href={me.resume} download>Download resume</a>
+          <a href={me.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={me.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        </p>
+        <div className="barcode" aria-hidden="true" />
+        <p className="small">{me.name}, {me.city}. Issue 01.</p>
+      </footer>
+    </div>
   )
 }
