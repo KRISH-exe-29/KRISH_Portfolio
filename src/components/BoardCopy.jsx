@@ -1,4 +1,4 @@
-import { ai, apps, awards, certifications, experience, leadership, me, numbers } from '../content.js'
+import { ai, apps, awards, certifications, experience, field, leadership, me, numbers } from '../content.js'
 import Chip from './Chip.jsx'
 import KineticHeading from './KineticHeading.jsx'
 import { scatter } from './scatter.js'
@@ -128,6 +128,25 @@ function OutputPending() {
   )
 }
 
+// Photo sets from content.js, one block per set. `only` picks a single set by id.
+function Field({ only }) {
+  return field.filter((f) => !only || f.id === only).map((f) => (
+    <article className="field" key={f.id}>
+      <h3>{f.title}</h3>
+      <p className="where">{f.when}</p>
+      <p className="say">{f.text}</p>
+      <div className="shots">
+        {f.photos.map((p) => (
+          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+            <img src={p.src} alt={p.alt} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
+}
+
 // Rendered only after the reveal: this is the first place identity enters the DOM.
 function Output() {
   const photos = [
@@ -161,6 +180,7 @@ function Output() {
           <img key={photo.src} src={photo.src} alt={photo.alt} />
         ))}
       </div>
+      <Field />
       <div className="unlocked-apps">
         {apps
           .filter((item) => item.url)
