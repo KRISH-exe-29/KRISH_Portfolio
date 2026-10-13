@@ -73,11 +73,11 @@ export const experience = [
   {
     id: 'indotech',
     year: '2026',
-    role: 'Engineer Intern',
+    role: 'Associate Engineer',
     company: 'Indo Tech Transformers Limited',
-    place: 'Chennai, Tamil Nadu',
+    place: 'Kanchipuram, Tamil Nadu',
     short: '161 kV test bay by day, nine shipped apps by night',
-    text: 'Tested transformers to IEC 60076 and IS 2026 in the 161 kV test bay. Built Python and PyQt5 desktop automation for hardware-list standardisation, and ran a fastener standardisation study across 60+ specifications for the CEO.',
+    text: 'Joined as an R&D intern testing transformers to IEC 60076 and IS 2026 in the 161 kV test bay, now Associate Engineer. Built Python automation for five workflow gaps across Testing, Production, Quality and Dispatch, cut test planning from 2 hours to 5 minutes, ran a fastener standardisation study across 60+ specifications for the CEO, and now leads the OT-IT integration of sensors, energy meters and cloud.',
     photo: asset('img/indotech.jpg'),
     photoAlt: 'Krishna at Indo Tech Transformers',
   },
@@ -125,7 +125,8 @@ export const ai = {
 
 export const awards = [
   { year: '2024', title: 'National finalist', detail: 'Technical symposium' },
-  { year: '2024', title: 'Entrepreneurship Intern', detail: 'Centre for Entrepreneurship Development, Anna University', photo: asset('img/ced-team.jpg'), photoAlt: 'Students under the Centre for Entrepreneurship Development and AIC-Anna Incubator signs' },
+  { year: '2024', title: 'Entrepreneurship Intern', detail: 'Centre for Entrepreneurship Development, Anna University: design thinking, lean start-up and a dam-failure early-warning project', photo: asset('img/ced-team.jpg'), photoAlt: 'Students under the Centre for Entrepreneurship Development and AIC-Anna Incubator signs' },
+  { year: '2024', title: 'Top 8, NEC Basic Track', detail: 'National Entrepreneurship Challenge' },
   { year: '2025', title: 'Patent published', detail: 'Intelligent street lighting with fault detection: ESP8266, IR sensing and GPS' },
   { year: '2025', title: 'Rank 7 of 1500+ colleges', detail: 'National Entrepreneurship Challenge, IIT Bombay', photo: asset('img/iitb.jpg'), photoAlt: 'Krishna in front of the IIT Bombay sign' },
   { year: '2025', title: 'Runner-up, Fish Tank', detail: 'IIT Bombay E-Summit' },
@@ -166,14 +167,18 @@ export const field = [
 ]
 
 export const certifications = [
+  "B.E. Electrical and Electronics Engineering, St. Joseph's College of Engineering, 2022 to 2026",
   'Arduino and Raspberry Pi with Python, UC Irvine',
   'Internet of Things, NPTEL',
   'Digital Circuits, NPTEL',
   'Logistics and Supply Chain Management, CII',
+  'SQL',
+  'Java',
+  'Introduction to Programming Using HTML and CSS',
 ]
 
 export const skills = {
-  'Factory floor': ['IEC 60076 testing', 'MCC panels', 'Protection relays', 'OLTC', 'ESP8266', 'Proteus'],
+  'Factory floor': ['IEC 60076 testing', 'MCC panels', 'Protection relays', 'OLTC', 'ESP8266', 'Proteus', 'MATLAB'],
   Code: ['TypeScript', 'React', 'Next.js', 'Python', 'Java', 'Node', 'Supabase', 'PostgreSQL', 'Three.js'],
   AI: ai.stack,
   Habits: ['Row-level security', 'Role-based access', 'Offline-first for sensitive data'],
