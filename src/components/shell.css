@@ -1,0 +1,53 @@
+/* The fixed instrument: trace canvas, top bar, bottom ruler, and the hero that sits over them. */
+
+.trace { position: fixed; z-index: 0; top: 0; bottom: var(--rail); left: var(--gutter); width: calc(100% - 2 * var(--gutter)); height: calc(100% - var(--rail)); transition: opacity 0.7s var(--ease); }
+.trace.back { opacity: 0.28; }
+
+.top { position: fixed; z-index: 10; inset: 0 0 auto 0; display: flex; align-items: center; gap: 1rem; padding: 1.1rem var(--gutter) 1.6rem; pointer-events: none; background: linear-gradient(var(--graphite) 45%, transparent); }
+.top > * { pointer-events: auto; }
+.mark { display: inline-flex; align-items: center; gap: 0.65rem; font: 500 1rem / 1 var(--display); letter-spacing: -0.01em; text-decoration: none; margin-right: auto; }
+.mark span { display: grid; gap: 3px; }
+.mark i { display: block; width: 18px; height: 2px; }
+.top nav { display: flex; gap: 0.4rem; }
+.now { min-width: 7.5rem; text-align: right; }
+.now b { font-weight: 500; color: var(--paper); }
+
+.ruler { position: fixed; z-index: 10; inset: auto 0 0 0; height: var(--rail); padding: 0 var(--gutter); background: var(--graphite); border-top: 1px solid var(--line); }
+.ruler-axis { position: relative; height: 100%; }
+.ruler-axis i { position: absolute; top: 0; width: 1px; height: 6px; background: var(--dim); opacity: 0.55; }
+.ruler-axis span { position: absolute; top: 0; padding-top: 14px; transform: translateX(-50%); font: 400 0.6875rem / 1 var(--mono); color: var(--dim); white-space: nowrap; }
+.ruler-axis span::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 10px; background: var(--paper); }
+.ruler-axis span:first-of-type { transform: none; }
+.ruler-axis span:first-of-type::before { left: 0; }
+.ruler-axis span:last-of-type { transform: translateX(-100%); }
+.ruler-axis span:last-of-type::before { left: 100%; }
+.ruler-axis b { position: absolute; top: -1px; width: 0; height: 100%; border-left: 2px solid var(--yellow); }
+.ruler-axis b::before { content: ''; position: absolute; top: 0; left: -6px; border: 5px solid transparent; border-top-color: var(--yellow); }
+
+/* Hero */
+.hero { position: relative; min-height: 100svh; padding: clamp(5.5rem, 13vh, 8rem) var(--gutter) calc(var(--rail) + 1.5rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); grid-template-rows: auto 1fr auto; column-gap: 2rem; overflow: clip; }
+.hero-lead { grid-column: 1; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem 1.4rem; transform: translate3d(0, calc(var(--progress, 0) * -9vh), 0); opacity: calc(1 - var(--progress, 0) * 1.6); }
+.hero h1 { font: 500 clamp(2.9rem, 7.4vw, 6.9rem) / 0.92 var(--display); letter-spacing: -0.045em; }
+.hero h1 span { display: block; padding-bottom: 0.06em; }
+.hero-by { font-size: var(--t-small); line-height: 1.35; padding-bottom: 0.9em; }
+
+.hero-note { grid-column: 2; grid-row: 2; align-self: start; margin-top: 5vh; display: grid; gap: 1.1rem; padding: 1.4rem; justify-items: start; background: rgba(24, 27, 31, 0.82); backdrop-filter: blur(6px); }
+.hero-note p { font-size: 1rem; line-height: 1.45; }
+.hero-note ul { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
+.hero-note li { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--paper); }
+.hero-note li i { width: 14px; height: 2px; }
+
+.hero-numbers { grid-column: 1 / -1; grid-row: 3; padding-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.35rem 2.2rem; font-size: var(--t-small); color: var(--dim); position: relative; z-index: 1; }
+.hero-numbers b { font: 500 1rem var(--mono); color: var(--paper); }
+
+/* The name, as large as the viewport allows. The traces run through it. */
+.hero-word { grid-column: 1 / -1; grid-row: 2; align-self: end; margin: 0 -0.04em 0; font: 500 14.8vw / 0.92 var(--display); letter-spacing: -0.055em; white-space: nowrap; color: rgba(236, 232, 223, 0.2); pointer-events: none; user-select: none; transform: translate3d(0, calc(var(--progress, 0) * 16vh), 0); }
+
+@media (max-width: 799px) {
+  .top nav { display: none; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr auto; row-gap: 1.5rem; }
+  .hero-note { grid-column: 1; grid-row: 2; align-self: start; max-width: 26rem; }
+  .hero-word { grid-row: 3; font-size: 16.5vw; }
+  .hero-numbers { grid-row: 4; }
+  .ruler-axis span:nth-of-type(even) { display: none; }
+}

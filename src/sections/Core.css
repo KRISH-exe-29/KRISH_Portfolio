@@ -1,0 +1,43 @@
+/* Core band: work experience. Mobile first: a plain vertical list. */
+.core-grid { --core-gap: clamp(1.5rem, 4vw, 4rem); }
+.core-side, .core-rail { display: none; }
+
+.core-list { display: grid; gap: clamp(3.5rem, 10vh, 6rem); }
+.core-entry { display: grid; gap: 0.6rem; justify-items: start; }
+.core-entry h3 { margin-top: 0.2rem; }
+.core-role { color: var(--dim); }
+.core-text { max-width: 60ch; margin-top: 0.4rem; }
+.core-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 0.9rem; }
+
+.core-notebook { display: grid; gap: 1.25rem; justify-items: start; width: 100%; max-width: 34rem; margin-top: 1rem; }
+.core-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; width: 100%; }
+.core-shot { overflow: hidden; }
+.core-shot img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.core-shot figcaption { padding: 0.6rem 0.75rem 0.7rem; font-size: var(--t-small); line-height: 1.35; color: var(--dim); }
+
+@media (min-width: 800px) {
+  .core-grid { display: grid; grid-template-columns: minmax(0, 5fr) 1px minmax(0, 6fr); column-gap: var(--core-gap); }
+
+  /* Specimen plate: stays put while the entries pass. */
+  .core-side { display: block; }
+  .core-stick { position: sticky; top: 14vh; display: grid; gap: 1rem; }
+  .core-year { font: 500 clamp(5rem, 11vw, 11rem) / 0.85 var(--display); letter-spacing: -0.045em; font-variant-numeric: tabular-nums; }
+  .core-frame { position: relative; aspect-ratio: 4 / 3; max-height: 50vh; overflow: hidden; }
+  .core-layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s var(--ease); }
+  .core-layer.is-active { opacity: 1; }
+  /* No photo for this entry: thin rules keep the frame from reading as broken. */
+  .core-blank { inset: 12% 10%; width: auto; height: auto; background: repeating-linear-gradient(180deg, var(--line) 0 1px, transparent 1px 1.5rem); }
+
+  /* Rail: fills with the section's scroll progress. */
+  .core-rail { display: block; position: relative; background: var(--line); }
+  .core-rail i { position: absolute; inset: 0; background: var(--paper); transform-origin: top; transform: scaleY(var(--progress, 0)); }
+
+  .core-list { gap: 0; }
+  .core-entry { position: relative; align-content: start; min-height: 62vh; padding: 0 0 4rem 1.5rem; border-left: 2px solid transparent; opacity: 0.45; transition: opacity 0.4s var(--ease), border-color 0.4s var(--ease); }
+  .core-entry:last-child { min-height: 0; padding-bottom: 0; }
+  .core-entry.is-active, .core-entry:focus-within { opacity: 1; }
+  .core-entry.is-active { border-left-color: var(--yellow); }
+  /* Tick on the rail beside each entry: 9px wide, centred on the 1px rail. */
+  .core-entry::before { content: ''; position: absolute; top: 0.5rem; left: calc(-1 * var(--core-gap) - 7px); width: 9px; height: 1px; background: var(--dim); }
+  .core-photo { display: none; }
+}
