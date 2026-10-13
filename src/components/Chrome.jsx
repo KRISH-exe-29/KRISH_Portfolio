@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BANDS, F_MIN, PHASES, fmt, onSweep, xOf } from '../sweep.js'
 import { scrollTo } from '../motion.js'
+import Sound from './Sound.jsx'
 
 const LINKS = [
   { band: 'core', label: 'Experience' },
@@ -46,6 +47,7 @@ export default function Chrome() {
             </a>
           ))}
         </nav>
+        <Sound />
         <p className="now readout" aria-hidden="true">
           f <b ref={value}>{fmt(F_MIN)}</b>
         </p>

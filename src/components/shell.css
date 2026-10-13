@@ -9,6 +9,7 @@
 .mark span { display: grid; gap: 3px; }
 .mark i { display: block; width: 18px; height: 2px; }
 .top nav { display: flex; gap: 0.4rem; }
+.sound { font-size: 0.85rem; }
 .now { min-width: 7.5rem; text-align: right; }
 .now b { font-weight: 500; color: var(--paper); }
 
