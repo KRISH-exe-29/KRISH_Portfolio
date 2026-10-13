@@ -56,9 +56,10 @@ function Field({ only }) {
       <h3>{f.title}</h3>
       <p className="where">{f.when}</p>
       <p className="say">{f.text}</p>
+      {f.link && <a href={f.link.url} target="_blank" rel="noopener noreferrer">{f.link.label} ↗</a>}
       <div className="shots">
         {f.photos.map((p) => (
-          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+          <figure key={p.src}>
             <img src={p.src} alt={p.alt} loading="lazy" />
             <figcaption>{p.caption}</figcaption>
           </figure>
@@ -294,11 +295,10 @@ export default function App() {
             <h3 className="sub">Certified</h3>
             <ul className="spares">{certifications.map((c) => <li key={c}>{c}</li>)}</ul>
           </div>
-          {[...leadership.photos, { src: awards[2].photo, alt: awards[2].photoAlt }].map((p) => (
+          {[...leadership.photos, ...awards.filter((a) => a.title.startsWith('Rank 7')).map((a) => ({ src: a.photo, alt: a.photoAlt }))].map((p) => (
             <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />
           ))}
         </div>
-        <Field only="ced" />
       </Sheet>
 
       <Sheet index={5} className="load">
