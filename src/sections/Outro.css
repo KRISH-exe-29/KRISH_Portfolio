@@ -1,0 +1,15 @@
+/* Outro: the call to action, then the wordmark running edge to edge. */
+.outro { display: grid; justify-items: start; gap: 1.5rem; padding-bottom: 9rem; overflow: clip; }
+
+.outro-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; max-width: 100%; }
+.outro-links .pill { max-width: 100%; overflow-wrap: anywhere; }
+
+/* Slides in from the left as the section rises. */
+.outro-mark { justify-self: stretch; margin: clamp(3rem, 9vw, 8rem) calc(var(--gutter) * -1) 0; padding-top: 0.08em; font-size: 21vw; color: var(--bone); text-align: center; transform: translateX(calc((1 - clamp(0, calc(var(--progress, 1) * 2.2), 1)) * -12vw)); }
+.outro-mark sup { font-size: 0.16em; letter-spacing: 0; color: var(--red); vertical-align: top; position: relative; top: 0.6em; margin-left: 0.2em; }
+
+.outro-foot { justify-self: stretch; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.6rem 2rem; margin-top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .outro-mark { transform: none; }
+}

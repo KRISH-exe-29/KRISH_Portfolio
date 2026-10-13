@@ -1,0 +1,27 @@
+/* Four giant letters, one per column, each drifting by its own amount as the section passes. */
+.ship-word { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); justify-items: center; font-weight: 500; font-size: clamp(6rem, 24vw, 26rem); line-height: 0.8; color: var(--bone); }
+.ship-word span { transform: translateY(calc((var(--progress, 0.5) - 0.5) * var(--drift))); }
+.ship-word span:nth-child(1) { --drift: -10vh; }
+.ship-word span:nth-child(2) { --drift: 6vh; }
+.ship-word span:nth-child(3) { --drift: -4vh; }
+.ship-word span:nth-child(4) { --drift: 12vh; }
+
+.ship-line { margin-top: clamp(3rem, 10vh, 6rem); }
+
+.ship-list { display: grid; gap: 2.5rem 1.5rem; margin-top: clamp(2rem, 6vh, 4rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.ship-list li { display: grid; gap: 0.9rem; align-content: start; min-width: 0; }
+.ship-mark { color: var(--red); }
+.ship-list p { font-size: var(--t-lead); line-height: 1.25; letter-spacing: -0.02em; max-width: 28ch; }
+
+.ship-extra { margin-top: 2.5rem; }
+
+@media (min-width: 600px) {
+  .ship-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1000px) {
+  .ship-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ship-word span { transform: none; }
+}

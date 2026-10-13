@@ -1,0 +1,49 @@
+/* Guides: work experience as the reference site's "Principles" list. */
+.guides { overflow-x: clip; } /* the titles slide in from the right */
+
+.guides-mantra { display: grid; gap: 1.5rem; margin-bottom: clamp(6rem, 18vh, 12rem); }
+.guides-statement { max-width: 13ch; }
+
+.guides-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: clamp(2.5rem, 6vh, 4.5rem); }
+.guides-head-title { font-size: clamp(2rem, 5vw, 4.5rem); line-height: 0.95; letter-spacing: -0.04em; }
+
+/* One row per posting. --in runs 0 to 1 over the first third of the row's trip up the screen;
+   with --progress unset it is 1, so everything sits in its final state. */
+.guides-item { --in: clamp(0, calc(var(--progress, 1) * 3), 1); position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding: 5vh 0; }
+.guides-item::before { content: ''; position: absolute; inset: 0 0 auto; height: 1px; background: var(--line); transform: scaleX(var(--in)); transform-origin: left; }
+
+.guides-lead { display: grid; gap: 0.9rem; align-content: start; }
+.guides-year { display: flex; align-items: center; gap: 0.6rem; }
+.guides-year::before { content: ''; width: 0.4rem; height: 0.4rem; background: var(--red); }
+.guides-title { font-size: clamp(1.8rem, 4.2vw, 3.8rem); line-height: 1; letter-spacing: -0.04em; transform: translateX(calc((1 - var(--in)) * 3rem)); opacity: calc(0.25 + var(--in) * 0.75); }
+.guides-short { font-size: var(--t-lead); line-height: 1.3; letter-spacing: -0.02em; color: var(--ash); max-width: 30ch; }
+
+.guides-body { display: grid; gap: 0.6rem; align-content: start; }
+.guides-role { font-size: var(--t-lead); line-height: 1.2; letter-spacing: -0.02em; }
+.guides-text { max-width: 52ch; }
+.guides-body .guides-text { margin-top: 0.6rem; }
+
+.guides-photo { width: 11rem; max-width: 100%; overflow: hidden; }
+.guides-photo img, .guides-note-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+/* The Bühler notebook, inside that row only. */
+.guides-note { display: grid; gap: 1.25rem; justify-items: start; }
+.guides-note-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; width: 100%; max-width: 34rem; }
+.guides-note-photo { overflow: hidden; }
+.guides-note-photo figcaption { padding: 0.75rem 0.9rem 0.9rem; }
+
+@media (min-width: 900px) {
+  .guides-item { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 5rem); }
+  .guides-lead { grid-column: 1; }
+  .guides-body, .guides-photo, .guides-note { grid-column: 2; }
+}
+
+@media (min-width: 1200px) {
+  .guides-item { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 11rem; }
+  .guides-photo { grid-column: 3; grid-row: 1; align-self: start; }
+  .guides-note { grid-column: 2 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guides-item { --in: 1; }
+}

@@ -1,0 +1,33 @@
+.minds-head { display: grid; gap: 1.5rem; margin-bottom: clamp(3rem, 8vh, 6rem); }
+
+.minds-cards { display: grid; gap: 1rem; }
+.minds-card { display: flex; flex-direction: column; gap: 1.25rem; padding: clamp(1.4rem, 2.4vw, 2.25rem); min-width: 0; }
+.minds-pitch { color: var(--ash); max-width: 60ch; }
+
+/* Twelve versions, read down each column. */
+.minds-versions { columns: 2; column-gap: 1.5rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: var(--t-small); }
+.minds-versions li { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.3rem 0; break-inside: avoid; }
+.minds-versions .caption { flex: none; }
+
+/* Five steps as a chain: square markers joined by a 1px line. */
+.minds-chain { margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.minds-chain li { position: relative; padding: 0 0 1.1rem 1.6rem; line-height: 1.2; }
+.minds-chain li:last-child { padding-bottom: 0; }
+.minds-chain li::before { content: ''; position: absolute; left: 0; top: 0.35em; width: 7px; height: 7px; background: var(--bone); }
+.minds-chain li:last-child::before { background: var(--red); }
+.minds-chain li:not(:last-child)::after { content: ''; position: absolute; left: 3px; top: calc(0.35em + 7px); bottom: -0.35em; width: 1px; background: var(--line); }
+
+.minds-stack { display: grid; gap: 0.6rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+
+@media (min-width: 900px) {
+  .minds-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* Cards start staggered and settle level as the section reaches mid-screen. Level when --progress is unset. */
+  .minds-card { transform: translateY(calc((1 - clamp(0, calc(var(--progress, 1) * 2.4), 1)) * (var(--n) * 2.5rem))); }
+  .minds-card:nth-child(1) { --n: 1; }
+  .minds-card:nth-child(2) { --n: 2; }
+  .minds-card:nth-child(3) { --n: 3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .minds-card { transform: none; }
+}

@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "gsap": "^3.15.0",
+    "@fiddle-digital/string-tune": "^1.2.6",
+    "animejs": "^4.5.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.180.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
