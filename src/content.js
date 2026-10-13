@@ -66,7 +66,7 @@ export const experience = [
     company: 'Bühler India Pvt. Ltd.',
     place: 'Bangalore, Karnataka',
     short: 'MCC panels and a tool that removed 90% of calculation errors',
-    text: 'Classified feeders, calculated loads and selected switchgear for MCC panels. Co-developed a GUI automation tool for hardware documentation that removed 90% of manual calculation errors.',
+    text: 'Classified feeders, calculated loads and budgeted I/O cards for a rice plant and a 150 TPD flour mill, and selected switchgear for MCC panels. Co-developed a GUI automation tool that does the same hardware documentation in under 30 seconds instead of 30 to 40 minutes, and removed 90% of manual calculation errors.',
     photo: asset('img/buhler.jpg'),
     photoAlt: 'Krishna at his desk at Bühler India',
   },
@@ -97,7 +97,7 @@ export const apps = [
 
 export const sideProjects = [
   { name: 'dMAT Practice', pitch: 'A full exam simulator in one HTML file.', url: 'https://krishna-ittl.github.io/dmat-practice/' },
-  { name: 'GUI Automation Tool', pitch: 'Hardware documentation in Python, PyQt and Pandas.' },
+  { name: 'GUI Automation Tool', pitch: 'One Excel in, the load and I/O card sheet out. Python, pandas and Streamlit.' },
   { name: 'Flood Alerting System', pitch: 'Arduino and sensors that send real-time flood alerts.' },
 ]
 
@@ -140,6 +140,57 @@ export const leadership = {
     { src: asset('img/nec-top7.jpg'), alt: 'National Entrepreneurship Challenge finalist poster' },
   ],
 }
+
+// Photo sets with the story behind them. The captions carry the facts.
+export const field = [
+  {
+    id: 'buhler',
+    title: 'Bühler India',
+    when: 'June 2025, Bengaluru',
+    text: 'Four weeks in Automation Hardware Engineering and the Customer Operations Centre. The team sized every project by hand in Excel: classify each feeder, sum the load, budget the I/O cards. I co-built a Python tool that does it in one click, first on the desktop with tkinter and pandas, then in the browser.',
+    photos: [
+      {
+        src: asset('img/buhler-tool.jpg'),
+        wide: true,
+        alt: 'Bühler Automation Processing App with an Excel file uploaded and the message: Processed successfully, total power 236.6 kW, total current 432.0 A',
+        caption: 'The web version, built with Streamlit. Upload one Excel with three sheets (starters, equipment, JB info) and the processed file is ready to download in milliseconds. This run: 236.6 kW, 432 A.',
+      },
+      {
+        src: asset('img/buhler-kiosk.jpg'),
+        alt: 'Krishna, in a mask, leaning on a Bühler touchscreen kiosk',
+        caption: 'At the Bühler Virtual World 2.0 kiosk.',
+      },
+      {
+        src: asset('img/buhler-badge.jpg'),
+        alt: 'ID badge reading: We are Bühler. Krishna Raju S, Internship',
+        caption: 'Intern badge, valid till 30 June 2025.',
+      },
+    ],
+  },
+  {
+    id: 'ced',
+    title: 'AIC-Anna Incubator',
+    when: 'Centre for Entrepreneurship Development, Anna University',
+    text: 'Incubated a startup at the AIC-Anna Incubator, working out of the Makers Lab.',
+    photos: [
+      {
+        src: asset('img/ced-team.jpg'),
+        alt: 'Thirteen students under the Centre for Entrepreneurship Development and AIC-Anna Incubator signs',
+        caption: 'Outside the Centre for Entrepreneurship Development.',
+      },
+      {
+        src: asset('img/ced-makers-lab.jpg'),
+        alt: 'Students around laptops at a long table in the Makers Lab',
+        caption: 'Makers Lab, mid-session.',
+      },
+      {
+        src: asset('img/ced-desk.jpg'),
+        alt: 'A laptop and an open notebook on a shared table in the lab',
+        caption: 'Opportunity identification: pain points on paper, research on screen.',
+      },
+    ],
+  },
+]
 
 export const certifications = [
   'Arduino and Raspberry Pi with Python, UC Irvine',

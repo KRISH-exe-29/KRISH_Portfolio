@@ -3,7 +3,7 @@ import { me, numbers } from './content.js'
 import { LEVELS, ZOOM, blend, depth, scene, voltage, volts } from './dive.js'
 import { Scene } from './scenes.jsx'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -21,6 +21,7 @@ const chapters = [
     <h2>Five internships</h2>
     <p>Oldest first, one tap position each.</p>
     <Jobs />
+    <Field only="buhler" />
   </>,
   <>
     <h2>Nine apps in production</h2>
@@ -34,6 +35,7 @@ const chapters = [
     <h2>A patent, a ranking, a team</h2>
     <Awards />
     <Leadership />
+    <Field only="ced" />
     <Certifications />
   </>,
   <>
