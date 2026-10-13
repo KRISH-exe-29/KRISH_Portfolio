@@ -97,7 +97,7 @@ export const apps = [
 
 export const sideProjects = [
   { name: 'dMAT Practice', pitch: 'A full exam simulator in one HTML file.', url: 'https://krishna-ittl.github.io/dmat-practice/' },
-  { name: 'GUI Automation Tool', pitch: 'One Excel in, the load and I/O card sheet out. Python, pandas and Streamlit.' },
+  { name: 'GUI Automation Tool', pitch: 'One Excel in, the load and I/O card sheet out. Python, pandas and Streamlit.', url: 'https://bulhergroupofcompany.streamlit.app/' },
   { name: 'Flood Alerting System', pitch: 'Arduino and sensors that send real-time flood alerts.' },
 ]
 
@@ -125,6 +125,7 @@ export const ai = {
 
 export const awards = [
   { year: '2024', title: 'National finalist', detail: 'Technical symposium' },
+  { year: '2024', title: 'Entrepreneurship Intern', detail: 'Centre for Entrepreneurship Development, Anna University', photo: asset('img/ced-team.jpg'), photoAlt: 'Students under the Centre for Entrepreneurship Development and AIC-Anna Incubator signs' },
   { year: '2025', title: 'Patent published', detail: 'Intelligent street lighting with fault detection: ESP8266, IR sensing and GPS' },
   { year: '2025', title: 'Rank 7 of 1500+ colleges', detail: 'National Entrepreneurship Challenge, IIT Bombay', photo: asset('img/iitb.jpg'), photoAlt: 'Krishna in front of the IIT Bombay sign' },
   { year: '2025', title: 'Runner-up, Fish Tank', detail: 'IIT Bombay E-Summit' },
@@ -147,14 +148,9 @@ export const field = [
     id: 'buhler',
     title: 'Bühler India',
     when: 'June 2025, Bengaluru',
-    text: 'Four weeks in Automation Hardware Engineering and the Customer Operations Centre. The team sized every project by hand in Excel: classify each feeder, sum the load, budget the I/O cards. I co-built a Python tool that does it in one click, first on the desktop with tkinter and pandas, then in the browser.',
+    text: 'Four weeks in Automation Hardware Engineering and the Customer Operations Centre. The team sized every project by hand in Excel: classify each feeder, sum the load, budget the I/O cards. I co-built a Python tool that does it in one click, first on the desktop with tkinter and pandas, then in the browser with Streamlit. Upload one Excel with three sheets and the finished sheet downloads in milliseconds.',
+    link: { url: 'https://bulhergroupofcompany.streamlit.app/', label: 'Open the live tool' },
     photos: [
-      {
-        src: asset('img/buhler-tool.jpg'),
-        wide: true,
-        alt: 'Bühler Automation Processing App with an Excel file uploaded and the message: Processed successfully, total power 236.6 kW, total current 432.0 A',
-        caption: 'The web version, built with Streamlit. Upload one Excel with three sheets (starters, equipment, JB info) and the processed file is ready to download in milliseconds. This run: 236.6 kW, 432 A.',
-      },
       {
         src: asset('img/buhler-kiosk.jpg'),
         alt: 'Krishna, in a mask, leaning on a Bühler touchscreen kiosk',
@@ -164,29 +160,6 @@ export const field = [
         src: asset('img/buhler-badge.jpg'),
         alt: 'ID badge reading: We are Bühler. Krishna Raju S, Internship',
         caption: 'Intern badge, valid till 30 June 2025.',
-      },
-    ],
-  },
-  {
-    id: 'ced',
-    title: 'AIC-Anna Incubator',
-    when: 'Centre for Entrepreneurship Development, Anna University',
-    text: 'Incubated a startup at the AIC-Anna Incubator, working out of the Makers Lab.',
-    photos: [
-      {
-        src: asset('img/ced-team.jpg'),
-        alt: 'Thirteen students under the Centre for Entrepreneurship Development and AIC-Anna Incubator signs',
-        caption: 'Outside the Centre for Entrepreneurship Development.',
-      },
-      {
-        src: asset('img/ced-makers-lab.jpg'),
-        alt: 'Students around laptops at a long table in the Makers Lab',
-        caption: 'Makers Lab, mid-session.',
-      },
-      {
-        src: asset('img/ced-desk.jpg'),
-        alt: 'A laptop and an open notebook on a shared table in the lab',
-        caption: 'Opportunity identification: pain points on paper, research on screen.',
       },
     ],
   },

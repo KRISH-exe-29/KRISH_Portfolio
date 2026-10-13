@@ -62,7 +62,7 @@ const chapters = [
       </>
     ),
   },
-  { id: 'awards', nav: 'Awards', body: <><h2>A patent, a ranking, a team</h2><Awards /><Leadership /><Field only="ced" /><Certifications /></> },
+  { id: 'awards', nav: 'Awards', body: <><h2>A patent, a ranking, a team</h2><Awards /><Leadership /><Certifications /></> },
   { id: 'ai', nav: 'AI', body: <><h2>Agents and retrieval</h2><Agent /><Rag /><BrowserAI /></> },
   { id: 'contact', nav: 'Contact', body: <><h2>{me.lines[1]}</h2><p className="lede">{me.lines[2]} {me.lines[3]}</p><Contact /><Skills /></> },
 ]
