@@ -18,9 +18,10 @@ export function Field({ only }) {
       <h3>{f.title}</h3>
       <p className="where">{f.when}</p>
       <p className="say">{f.text}</p>
+      {f.link && <a href={f.link.url} target="_blank" rel="noopener noreferrer">{f.link.label} ↗</a>}
       <div className="shots">
         {f.photos.map((p) => (
-          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+          <figure key={p.src}>
             <img src={p.src} alt={p.alt} loading="lazy" />
             <figcaption>{p.caption}</figcaption>
           </figure>

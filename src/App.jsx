@@ -35,7 +35,6 @@ const chapters = [
     <h2>A patent, a ranking, a team</h2>
     <Awards />
     <Leadership />
-    <Field only="ced" />
     <Certifications />
   </>,
   <>
