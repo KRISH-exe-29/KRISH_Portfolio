@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset } from './content.js'
+import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 import { MAX_SPEED, SEG, gateZ, gatesPassed, start, step, trackLength } from './game/track.js'
 import { draw } from './game/render.js'
 
@@ -14,6 +14,25 @@ function Job({ e }) {
       {e.photo && <img src={e.photo} alt={e.photoAlt} loading="lazy" />}
     </>
   )
+}
+
+// Photo sets from content.js, one block per set. `only` picks a single set by id.
+function Field({ only }) {
+  return field.filter((f) => !only || f.id === only).map((f) => (
+    <article className="field" key={f.id}>
+      <h3>{f.title}</h3>
+      <p className="where">{f.when}</p>
+      <p className="say">{f.text}</p>
+      <div className="shots">
+        {f.photos.map((p) => (
+          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+            <img src={p.src} alt={p.alt} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
 }
 
 function Links({ items }) {
@@ -42,10 +61,11 @@ const stops = [
         <p>{leadership.text}</p>
         <p>{award('National finalist').title}, {award('National finalist').detail.toLowerCase()}, {award('National finalist').year}.</p>
         <div className="pair">{leadership.photos.slice(0, 2).map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />)}</div>
+        <Field only="ced" />
       </>
     ),
   },
-  { gate: 'Bühler India', year: '2025', title: job('buhler').company, body: <Job e={job('buhler')} /> },
+  { gate: 'Bühler India', year: '2025', title: job('buhler').company, body: <><Job e={job('buhler')} /><Field only="buhler" /></> },
   {
     gate: 'IIT Bombay', year: '2025', title: award('Rank 7').title,
     body: (
