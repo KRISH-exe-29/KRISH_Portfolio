@@ -23,9 +23,10 @@ function Field({ only }) {
       <h3>{f.title}</h3>
       <p className="where">{f.when}</p>
       <p className="say">{f.text}</p>
+      {f.link && <a href={f.link.url} target="_blank" rel="noopener noreferrer">{f.link.label} ↗</a>}
       <div className="shots">
         {f.photos.map((p) => (
-          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+          <figure key={p.src}>
             <img src={p.src} alt={p.alt} loading="lazy" />
             <figcaption>{p.caption}</figcaption>
           </figure>
@@ -60,8 +61,8 @@ const stops = [
       <>
         <p>{leadership.text}</p>
         <p>{award('National finalist').title}, {award('National finalist').detail.toLowerCase()}, {award('National finalist').year}.</p>
+        <p>{award('Entrepreneurship').title}, {award('Entrepreneurship').detail}, {award('Entrepreneurship').year}.</p>
         <div className="pair">{leadership.photos.slice(0, 2).map((p) => <img key={p.src} src={p.src} alt={p.alt} loading="lazy" />)}</div>
-        <Field only="ced" />
       </>
     ),
   },
