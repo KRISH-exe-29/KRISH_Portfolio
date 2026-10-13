@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership } from './content.js'
+import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field } from './content.js'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const no = (n) => String(n).padStart(3, '0')
@@ -69,6 +69,25 @@ function Band() {
   return <div className="band" aria-hidden="true"><div>{line}{line}</div></div>
 }
 
+// Photo sets from content.js, one block per set. `only` picks a single set by id.
+function Field({ only }) {
+  return field.filter((f) => !only || f.id === only).map((f) => (
+    <article className="field" key={f.id}>
+      <h3>{f.title}</h3>
+      <p className="where">{f.when}</p>
+      <p className="say">{f.text}</p>
+      <div className="shots">
+        {f.photos.map((p) => (
+          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+            <img src={p.src} alt={p.alt} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
+}
+
 function Why() {
   return (
     <section className="why" id="why">
@@ -89,6 +108,8 @@ function Why() {
           </li>
         ))}
       </ol>
+      <h3 className="sub">Field notes</h3>
+      <Field />
       <h3 className="sub">On the record</h3>
       <ul className="record">
         {awards.map((a) => <li key={a.title} className="pill"><time>{a.year}</time> {a.title}</li>)}
