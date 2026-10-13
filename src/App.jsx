@@ -28,7 +28,7 @@ const chapters = [
     id: 'patent', nav: 'Patent', shape: 'streetlight',
     body: <><h2>{patent.title}</h2><p className="lede">{patent.detail}.</p><Certifications /></>,
   },
-  { id: 'awards', nav: 'Awards', shape: 'seven', body: <><h2>{rank.title}</h2><Awards /><Leadership /><Field only="ced" /></> },
+  { id: 'awards', nav: 'Awards', shape: 'seven', body: <><h2>{rank.title}</h2><Awards /><Leadership /></> },
   {
     id: 'apps', nav: 'Apps', shape: 'tiles',
     body: (
