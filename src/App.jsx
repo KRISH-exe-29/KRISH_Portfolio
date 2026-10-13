@@ -4,7 +4,7 @@ import { segment } from './morph.js'
 import { buildShapes } from './shapes.js'
 import { createSwarm } from './swarm.js'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 const patent = awards.find((a) => a.title.startsWith('Patent'))
@@ -23,12 +23,12 @@ const chapters = [
       </>
     ),
   },
-  { id: 'internships', nav: 'Internships', shape: 'transformer', body: <><h2>Five internships</h2><Jobs /></> },
+  { id: 'internships', nav: 'Internships', shape: 'transformer', body: <><h2>Five internships</h2><Jobs /><Field only="buhler" /></> },
   {
     id: 'patent', nav: 'Patent', shape: 'streetlight',
     body: <><h2>{patent.title}</h2><p className="lede">{patent.detail}.</p><Certifications /></>,
   },
-  { id: 'awards', nav: 'Awards', shape: 'seven', body: <><h2>{rank.title}</h2><Awards /><Leadership /></> },
+  { id: 'awards', nav: 'Awards', shape: 'seven', body: <><h2>{rank.title}</h2><Awards /><Leadership /><Field only="ced" /></> },
   {
     id: 'apps', nav: 'Apps', shape: 'tiles',
     body: (
