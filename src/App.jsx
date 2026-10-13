@@ -25,6 +25,10 @@ export default function App() {
         <Windings />
         <Interaction />
         <Leads />
+        <p className="credit readout">
+          Music: Floating Cities by <a href="https://incompetech.com/" target="_blank" rel="noopener noreferrer">Kevin MacLeod</a>,{' '}
+          <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>
+        </p>
       </main>
     </>
   )

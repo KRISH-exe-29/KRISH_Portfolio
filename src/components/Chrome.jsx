@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BANDS, F_MIN, PHASES, fmt, onSweep, xOf } from '../sweep.js'
 import { scrollTo } from '../motion.js'
 import Sound from './Sound.jsx'
+import { chime } from '../sound.js'
 
 const LINKS = [
   { band: 'core', label: 'Experience' },
@@ -10,12 +11,17 @@ const LINKS = [
   { band: 'leads', label: 'Contact' },
 ]
 const DECADES = [20, 200, 2e3, 2e4, 2e5, 2e6]
+// One note per band, rising with the sweep.
+const NOTES = { core: 220, windings: 330, interaction: 440, leads: 660 }
 // Minor ticks at 2x to 9x of each decade start (40 Hz, 60 Hz, ...), as on log graph paper.
 const MINOR = DECADES.slice(0, -1).flatMap((d) => [2, 3, 4, 5, 6, 7, 8, 9].map((k) => d * k))
 
 // Fixed instrument chrome: name and nav on top, the live frequency, and the ruler along the bottom.
 export default function Chrome() {
   const [band, setBand] = useState('')
+  useEffect(() => {
+    if (NOTES[band]) chime(NOTES[band])
+  }, [band])
   const value = useRef(null)
   const marker = useRef(null)
 
@@ -47,7 +53,7 @@ export default function Chrome() {
             </a>
           ))}
         </nav>
-        <Sound />
+        <Sound track="floating-cities.mp3" />
         <p className="now readout" aria-hidden="true">
           f <b ref={value}>{fmt(F_MIN)}</b>
         </p>

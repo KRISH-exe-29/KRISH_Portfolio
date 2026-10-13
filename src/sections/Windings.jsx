@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Band from '../components/Band.jsx'
-import { apps, me, sideProjects } from '../content.js'
+import { apps, sideProjects } from '../content.js'
 import { calm } from '../motion.js'
 import './Windings.css'
 
@@ -49,7 +49,7 @@ export default function Windings() {
   }
 
   return (
-    <Band band="windings" title="Nine apps wound into one factory." lede={me.lines[0]}>
+    <Band band="windings" title="Nine apps. Zero spreadsheets left alive." lede="Every one started as somebody's manual task. All nine run in production.">
       <div
         ref={pin}
         className={calm ? 'windings-pin' : 'windings-pin windings-run'}

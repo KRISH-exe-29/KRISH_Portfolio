@@ -22,7 +22,7 @@ export default function Core() {
   }, [])
 
   return (
-    <Band band="core" title="Five places that built the core." lede="Railway yard to transformer test bay. Oldest first.">
+    <Band band="core" title="Five floors. Zero shortcuts." lede="Railway yard to a 161 kV test bay. Oldest first.">
       <div className="core-grid">
         <div className="core-side">
           <div className="core-stick">

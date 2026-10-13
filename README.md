@@ -14,6 +14,10 @@ The trace is synthetic (see `src/sweep.js`); it is shaped like a real response b
 
 Vite, React, plain CSS. Smooth scrolling and scroll progress come from [StringTune](https://string-tune.fiddle.digital/); entrances and the hero sequence use [anime.js](https://animejs.com/) v4. All facts live in `src/content.js`, shared with the other concept branches.
 
+## Sound
+
+Sound is off until the visitor turns it on. Hover ticks, clicks and the note played on entering each band are synthesized in `src/sound.js`. The music is "Floating Cities" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/. The credit shown at the foot of the page must stay while the track is used.
+
 ## Run
 
 ```bash

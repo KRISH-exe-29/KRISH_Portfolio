@@ -60,7 +60,7 @@ export default function Hero() {
             </li>
           ))}
         </ul>
-        <button className="pill solid" onClick={() => scrollTo('#core')}>Start the sweep</button>
+        <button className="pill solid" onClick={() => scrollTo('#core')}>Run the sweep</button>
       </aside>
 
       <ul className="hero-numbers">

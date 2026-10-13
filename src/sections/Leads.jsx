@@ -23,7 +23,7 @@ export default function Leads() {
   }, [])
 
   return (
-    <Band band="leads" title="Leads and connections." lede="What the record shows, and where to reach me.">
+    <Band band="leads" title="Receipts, not adjectives." lede="The record first. Then the inbox.">
       <ul className="leads-record" ref={record} aria-label="The record">
         {awards.map((a) => (
           <li key={a.title} className={a.photo ? 'leads-row leads-has-shot' : 'leads-row'} tabIndex={a.photo ? 0 : undefined}>

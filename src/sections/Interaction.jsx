@@ -20,7 +20,7 @@ export default function Interaction() {
   }, [])
 
   return (
-    <Band band="interaction" title="Agents and retrieval, coupled." lede={ai.agent.pitch}>
+    <Band band="interaction" title="I taught the factory to answer back." lede={ai.agent.pitch}>
       <div className="interaction-grid">
         <div className="interaction-agent">
           <h3>{ai.agent.name}</h3>
