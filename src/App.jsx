@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset } from './content.js'
+import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -107,6 +107,25 @@ function Apps() {
       </ol>
     </section>
   )
+}
+
+// Photo sets from content.js, one block per set. `only` picks a single set by id.
+function Field({ only }) {
+  return field.filter((f) => !only || f.id === only).map((f) => (
+    <article className="field" key={f.id}>
+      <h3>{f.title}</h3>
+      <p className="where">{f.when}</p>
+      <p className="say">{f.text}</p>
+      <div className="shots">
+        {f.photos.map((p) => (
+          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+            <img src={p.src} alt={p.alt} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
 }
 
 function Feature() {
@@ -245,6 +264,10 @@ export default function App() {
       <main>
         <Apps />
         <Feature />
+        <section className="notes" aria-labelledby="notes-h">
+          <h2 id="notes-h" className="kin">Field notes</h2>
+          <Field />
+        </section>
         <Centrefold />
         <Classifieds />
       </main>
