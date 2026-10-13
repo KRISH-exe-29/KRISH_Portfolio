@@ -119,7 +119,7 @@ blockquote::first-line { background: var(--marker); }
 .ads .pic { grid-row: span 2; }
 .ads .pic img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
 .ads .wide { grid-column: span 2; }
-.ads article:nth-child(2) { background: var(--marker); }
+.ads article:nth-child(3) { background: var(--marker); }
 .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
 .strip img { aspect-ratio: 1; object-fit: cover; width: 100%; }
 
@@ -156,8 +156,7 @@ blockquote::first-line { background: var(--marker); }
 .field .say { max-width: 60ch; }
 .field .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; margin-top: 0.75rem; }
 .field .shots figure { margin: 0; position: static; }
-.field .shots .full { grid-column: 1 / -1; }
 .field .shots img { display: block; width: 100%; max-width: none; height: auto; max-height: none; margin-top: 0; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 25%; }
-.field .shots .full img { aspect-ratio: auto; }
+.field a { justify-self: start; }
 .field figcaption { margin-top: 0.4rem; font-size: 0.85rem; line-height: 1.4; opacity: 0.8; }
 .notes { padding: clamp(4rem, 12vh, 9rem) var(--pad); border-top: 3px solid var(--ink); }
