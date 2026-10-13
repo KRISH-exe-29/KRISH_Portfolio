@@ -27,7 +27,7 @@ export default function Record() {
     <section id="record" className="chapter record">
       <header className="record-head">
         <p className="caption">For when you need precision.</p>
-        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">On the record</h2>
+        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">Do not take my word for it.</h2>
       </header>
 
       <div

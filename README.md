@@ -17,6 +17,10 @@ Amp, the pixel foreman in the corner, says one line per section. Sound is off un
 
 Vite, React, plain CSS. Smooth scrolling, scroll progress and text splitting come from StringTune; the hero sequence and entrances use [anime.js](https://animejs.com/) v4; the transformer is a procedural [three.js](https://threejs.org/) model with no external assets. All facts live in `src/content.js`, shared with the other concept branches.
 
+## Sound
+
+Sound is off until the visitor turns it on. Hover ticks, clicks, Amp's typing and the 100 Hz transformer hum in the pinned sequence are synthesized in `src/sound.js`. The music is "Ishikari Lore" by Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0, https://creativecommons.org/licenses/by/4.0/. The credit shown at the foot of the page must stay while the track is used.
+
 ## Run
 
 ```bash

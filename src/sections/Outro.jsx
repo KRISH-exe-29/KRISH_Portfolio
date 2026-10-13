@@ -7,7 +7,7 @@ export default function Outro() {
   return (
     <section id="contact" className="chapter outro" data-string="progress" data-string-id="outro">
       <p className="caption">Attribute driven. No meetings until you truly need one.</p>
-      <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">Start a project</h2>
+      <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">Hand me your worst spreadsheet.</h2>
       <p className="lede">{me.lines[1]}</p>
 
       <div className="outro-links">

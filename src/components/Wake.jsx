@@ -1,5 +1,5 @@
 // The pinned sequence after the hero: four short lines sharpen and fade in turn while the transformer turns behind them.
-const MANTRAS = ['Energise.', 'Keep scrolling.', 'The unit wakes.', 'Now listen to the hum.']
+const MANTRAS = ['161,000 volts.', 'One engineer.', 'Zero spreadsheets.', 'Now hear it hum.']
 
 export default function Wake() {
   return (

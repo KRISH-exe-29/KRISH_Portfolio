@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import { calm } from '../motion.js'
+import { setHum, type } from '../sound.js'
 
 // What Amp says in each section, by section id.
 const LINES = {
-  top: 'Welcome. I am Amp. Scroll, and I will show you around.',
-  wake: 'This is a power transformer. Krishna tests these for a living.',
-  guides: 'Five postings. Railway yard to transformer test bay.',
-  hub: 'Nine apps. All of them in production.',
-  ai: 'The tools think. They also cite their sources.',
-  ship: 'Numbers, not adjectives.',
-  record: 'The paperwork. It checks out.',
-  contact: 'That is the tour. Send it over.',
+  top: 'Oh good, you are awake. I am Amp. Scroll, and I will show you the unit.',
+  wake: 'That is a power transformer. He tests these for a living. Casually.',
+  guides: 'Five postings. Railway yard to a 161 kV test bay.',
+  hub: 'Nine apps, all in production. None of them is a spreadsheet.',
+  ai: 'The tools think for themselves. They still cite their sources.',
+  ship: 'Numbers. He does not do adjectives.',
+  record: 'Go on, check the paperwork. I will wait.',
+  contact: 'End of the tour. Your move.',
 }
 
 // A 12 x 13 sprite: an engineer in a hard hat. Letters map to colours in PALETTE.
@@ -50,11 +51,13 @@ export default function Guide() {
   }, [])
 
   useEffect(() => {
+    setHum(id === 'wake' ? 1 : 0) // the unit hums while it is on screen
     if (calm) return setShown(LINES[id].length)
     setShown(0)
     const timer = setInterval(() => {
       setShown((n) => {
         if (n >= LINES[id].length) clearInterval(timer)
+        else if (n % 3 === 0) type()
         return n + 1
       })
     }, 24)

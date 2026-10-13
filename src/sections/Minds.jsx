@@ -6,8 +6,8 @@ export default function Minds() {
     <section id="ai" className="chapter minds" data-string="progress">
       <header className="minds-head">
         <p className="caption">Modular by nature. Build small, scale sharp.</p>
-        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">What it thinks with</h2>
-        <p className="lede">Three ways the tools reason. Each one cites its work.</p>
+        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">It reads. It reasons. It cites.</h2>
+        <p className="lede">Three ways the tools think. None of them guesses.</p>
       </header>
 
       <div className="minds-cards">

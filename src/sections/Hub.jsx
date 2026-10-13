@@ -35,7 +35,7 @@ export default function Hub() {
     <section id="hub" className="chapter hub">
       <header className="hub-head">
         <p className="caption">It is minimal, expressive, and production first.</p>
-        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">Skill hub</h2>
+        <h2 className="blur-in" data-string="split|progress" data-string-split="word|char">Nine skills. All unlocked.</h2>
         <p className="lede">{me.lines[0]}</p>
       </header>
 

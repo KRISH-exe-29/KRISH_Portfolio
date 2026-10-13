@@ -15,7 +15,7 @@ export default function Ship() {
         ))}
       </div>
 
-      <p className="caption ship-line">Built to remove manual work, not to add dashboards.</p>
+      <p className="caption ship-line">Your manual step is living on borrowed time.</p>
 
       <ol className="ship-list">
         {numbers.slice(0, 4).map((n, i) => (

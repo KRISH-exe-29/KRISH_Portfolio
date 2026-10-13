@@ -85,7 +85,7 @@ export default function Chrome() {
             </a>
           ))}
         </nav>
-        <Sound />
+        <Sound track="ishikari-lore.mp3" />
         <p className="pct caption" ref={pct} aria-hidden="true">0%</p>
       </header>
       <p className="edge caption" aria-hidden="true">

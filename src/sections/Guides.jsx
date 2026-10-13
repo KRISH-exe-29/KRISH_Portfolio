@@ -8,7 +8,7 @@ export default function Guides() {
     <section id="guides" className="chapter guides">
       <div className="guides-mantra">
         <p className="caption">Automate with evidence, not overhead.</p>
-        <h2 className="guides-statement blur-in" data-string="split|progress" data-string-split="word|char">To master the test bay is to master the detail.</h2>
+        <h2 className="guides-statement blur-in" data-string="split|progress" data-string-split="word|char">Respect the voltage. Automate the rest.</h2>
       </div>
 
       <div className="guides-head">

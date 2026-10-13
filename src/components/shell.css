@@ -51,6 +51,7 @@
 .hero-for { left: var(--gutter); }
 .hero-how { left: 58%; }
 .sound { font-size: 0.85rem; padding: 0.4rem 0.8rem; }
+.credit { padding: 0 var(--gutter) 1.4rem; }
 
 /* Wake: the pinned mantras */
 .wake { position: relative; height: 420vh; }
