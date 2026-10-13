@@ -1,5 +1,5 @@
 // Every fact block, read straight from content.js. Styling belongs to the concept, not here.
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills } from './content.js'
+import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, field } from './content.js'
 
 const out = { target: '_blank', rel: 'noopener noreferrer' }
 
@@ -9,6 +9,25 @@ export function Numbers() {
       {numbers.map((n) => <li key={n.unit}><b>{n.value}</b> <span>{n.unit}</span> <small>{n.label}</small></li>)}
     </ul>
   )
+}
+
+// Photo sets from content.js, one block per set. `only` picks a single set by id.
+export function Field({ only }) {
+  return field.filter((f) => !only || f.id === only).map((f) => (
+    <article className="field" key={f.id}>
+      <h3>{f.title}</h3>
+      <p className="where">{f.when}</p>
+      <p className="say">{f.text}</p>
+      <div className="shots">
+        {f.photos.map((p) => (
+          <figure key={p.src} className={p.wide ? 'full' : undefined}>
+            <img src={p.src} alt={p.alt} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </article>
+  ))
 }
 
 export function Jobs() {

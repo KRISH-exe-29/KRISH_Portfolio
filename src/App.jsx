@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { me, numbers } from './content.js'
 import { drawnAt, headAt, reached, rings, route, thread } from './kolam.js'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 const RINGS = rings(5)
@@ -38,6 +38,7 @@ const chapters = [
           </figure>
           <Jobs />
         </div>
+        <Field only="buhler" />
       </>
     ),
   },
@@ -61,7 +62,7 @@ const chapters = [
       </>
     ),
   },
-  { id: 'awards', nav: 'Awards', body: <><h2>A patent, a ranking, a team</h2><Awards /><Leadership /><Certifications /></> },
+  { id: 'awards', nav: 'Awards', body: <><h2>A patent, a ranking, a team</h2><Awards /><Leadership /><Field only="ced" /><Certifications /></> },
   { id: 'ai', nav: 'AI', body: <><h2>Agents and retrieval</h2><Agent /><Rag /><BrowserAI /></> },
   { id: 'contact', nav: 'Contact', body: <><h2>{me.lines[1]}</h2><p className="lede">{me.lines[2]} {me.lines[3]}</p><Contact /><Skills /></> },
 ]
