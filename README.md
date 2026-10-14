@@ -1,49 +1,25 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Killswitch Lullaby
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, set in a factory control room at 2 a.m. Every alarm on the board is a job somebody does by hand; scrolling switches them off, one app at a time, until the plant is asleep and only a lullaby is left.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Intro:** the control room, every machine running.
+- **The board:** pinned while you scroll. Nine machines, each a manual chore (taken from what each app does). Every tenth of the way, one breaker drops: the fan stops, the needle falls, the lamp goes from red to a calm teal and the machine is relabelled with the app that automated it.
+- **Signed off, Shift log, Readings, Night watch, Commendations, Spares:** the apps and side projects, the five jobs, the numbers, the AI work, awards with leadership and photo sets, then skills and certificates.
+- **One switch left:** a big red button, "Hire the engineer who did this". Pressing it puts the lights out. Contact sits beside it.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+## Sound
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+Nothing plays until the visitor walks in with sound. The score is synthesised in `src/score.js`, no audio files. Nine machine drones (a motor hum, a band of grinding noise and a chug at each machine's own speed) and a two-tone alarm fill the room. Each breaker thrown clunks and spins its machine down; as the plant goes quiet, an original lullaby in 3/4 rises underneath. The last switch lands it on a long D major chord.
 
-## 📦 Installation & Setup
+## Stack
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+Vite, React and plain CSS; the board is HTML and inline SVG. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them.
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+## Run
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+```bash
+npm install
+npm run dev
+```
 
----
-Modified and Optimized for production by Krishna Raju S.
+Visitors who ask for reduced motion get a still board: no blinking, spinning or shaking, and the breakers change state without animating.
