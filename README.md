@@ -1,49 +1,28 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Mixtape
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, on a cassette. Side A is the career, side B is the person; the J-card on the right is the tracklist, with handwritten notes, and the tape on the left plays along as you scroll.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Intro:** "Krish, the mixtape." Some people send a resume.
+- **Side A, the career:** A1 to A5 are the five jobs, oldest first, then the numbers, the nine production apps as a medley and the side projects.
+- **Turn over:** halfway down, the cassette flips and the label changes colour.
+- **Side B, the person:** the agent's twelve versions, the work-instruction assistant, AI in the browser, the trophy case, E-Cell, the photo sets and the liner notes (skills and certificates).
+- **Hidden track:** "Send it over." Contact.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+The cassette (`src/Cassette.jsx`) is SVG: the hubs turn with the scroll, tape winds from one spool to the other with its area conserved, and a counter runs from 000 to 999. On a phone it shrinks into a now-playing bar.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor presses play. The score is synthesised in `src/score.js`, no audio files. Side A is an electric-piano groove in D with a soft kit; side B is a slower plucked guitar (Karplus-Strong) in E minor. Both run through tape: a low-pass, hiss and a slow wobble in pitch. Scrolling fast drags the tape and bends the pitch with it; turning over clicks the deck and leaves a second of hiss before side B starts.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React, plain CSS and SVG. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get no flip animation and straight, untilted photos.
