@@ -1,49 +1,31 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Projector
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, shown as a planetarium. Every chapter is a constellation, and scrolling makes the projector draw it, one line at a time, with each star labelled from the facts it stands for.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Lights down:** the projector warms up and the dome fills with stars. "Every project is a constellation."
+- **The Path:** five stars, one per job, oldest first.
+- **The Five:** a pentagram of the five headline numbers.
+- **The Transformer:** nine stars in the shape of a transformer core, two limbs and a yoke, one per production app.
+- **The Agent:** a twelve-star spiral, one star per version of the agent, beside the rest of the AI work.
+- **The Crown:** seven stars for the awards, with leadership and the photo sets.
+- **Charts:** skills and certificates.
+- **The last constellation:** the stars spell KRISH. Contact.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+The sky (`src/sky.js`) wheels slowly as the page scrolls and leans with the mouse; the shapes live in `src/constellations.js`.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor starts the show with sound. The score is synthesised in `src/score.js`, no audio files. A lamp switch clacks, the projector's motor starts and its shutter ticks quietly at 24 frames a second. An FM music box plays a slow lullaby in E major pentatonic, and every line the reader draws between two stars rings a brighter bell, so each constellation plays its own phrase.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React, plain CSS and a 2D canvas. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get a still sky: no twinkle, no lean, and the lamp comes on at once.
