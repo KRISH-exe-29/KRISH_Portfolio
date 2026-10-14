@@ -1,49 +1,31 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Depth
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S that you dive through: 200 metres down, to where the ocean's sunlight zone ends. Scroll position is depth.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Surface, 0 m:** bright water, light shafts and caustics. "How deep does it go?"
+- **The shallows, 0 to 30 m:** the five jobs, oldest first.
+- **Pressure, 30 to 60 m:** the numbers.
+- **The reef, 60 to 100 m:** the nine production apps and the side projects.
+- **Bioluminescence, 100 to 140 m:** the AI work, glowing from inside.
+- **Found down here, 140 to 175 m:** awards, leadership and the photo sets.
+- **The floor, 175 to 200 m:** skills and certificates.
+- **200 m:** "Most people stay at the surface." Contact.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+A gauge on the right shows depth, absolute pressure and the zone. The water is one fragment shader (`src/water.js`): its colour darkens with depth, the light dies out by about 60 m and marine snow drifts upward as you sink. Without WebGL the page falls back to a plain colour that still darkens.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor chooses "Dive with sound". The score is synthesised in `src/score.js`, no audio files: a slow lo-fi loop (Fmaj7, Em7, Dm9, Cmaj7) on a soft electric piano. Above the water you hear waves; the plunge at 0 m is a rush of bubbles. From then on everything runs through a low-pass filter that closes with depth, the beat fades out by 60 m, scrolling makes bubbles, and past 120 m a sonar ping sounds every few seconds.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React, plain CSS and WebGL. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get still water: the shader only redraws when the depth changes.
