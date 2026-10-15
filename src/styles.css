@@ -187,3 +187,7 @@ figcaption { font: 500 12px var(--mono); color: var(--dim); }
   .card { opacity: 1; transform: none; filter: none; }
 }
 .route { padding: 10px 14px 6px; border-radius: 12px; background: rgba(7, 11, 24, 0.78); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+
+/* Nothing shows through the gate; the page fades in on entering. */
+main { transition: opacity 0.9s ease; }
+main[inert] { opacity: 0; }
