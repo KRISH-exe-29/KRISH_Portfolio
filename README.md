@@ -1,49 +1,30 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# The Retrospective
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, hung as a museum show: "Krishna Raju S: Works 2023–2026". Scrolling walks you down a gallery corridor built in CSS 3D, room by room, and the walls turn as you pass. Every piece hangs whole in its frame, under its own spotlight, with a wall label beside it. Nine works. All of them in use.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Entrance:** the title wall and the numbers.
+- **Gallery I, Early works:** Southern Railway, Mettur Thermal Power Plant and Inovate Technologies.
+- **Gallery II, The permanent collection:** Indo Tech Transformers and the nine apps, each with its own wall label.
+- **Gallery III, After hours:** the agent, the work-instruction assistant, AI in the browser and the side projects.
+- **Gallery IV, Honours:** the trophy case and E-Cell.
+- **Gallery V, Field photographs:** Bühler India and the tool that took 30 minutes down to 30 seconds.
+- **Exit through the gift shop:** contact, skills and certificates.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+The corridor (`.hall` in `src/App.jsx` and `src/styles.css`) is plain DOM: a floor, a ceiling, two painted walls and a doorway per room, placed with `translate3d` and `rotateY`/`rotateX` under one `perspective`. Scrolling moves a single `translateZ` on the world, so the camera walks; it lingers in each room and yaws a few degrees through each doorway. Only the room you are in and the two ahead are painted. The corridor scales with the window, so a phone sees the same gallery a monitor does.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor enters with sound. Each wing has its own song (`public/music/retrospective-1..3.mp3`), crossfaded through Web Audio by `src/music.js`: Parfum d'étoiles for the first rooms, Great Fairy Fountain in the middle, pluto projector ending (instrumental) for the last. The third file is not in the repo yet; drop it in and it plays, until then its rooms stay silent. A song loads only when the wing before it starts. Walking fast closes a low-pass filter so the music sounds muffled, and it opens again when the reader stops. All audio pauses while muted or while the tab is hidden. The songs belong to their artists and are credited in the footer.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React and Lenis for smooth scrolling. No WebGL: the 3D is CSS transforms, and only `transform` and `opacity` animate. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them. Photos are always shown whole, never cropped.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get native scrolling, no yaw, no card animations, and a corridor that steps from room to room instead of gliding.
