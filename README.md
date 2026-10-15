@@ -1,49 +1,28 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Coil
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, from inside a transformer winding. The camera flies down the bore of a copper coil in three.js; each turn is a chapter, and the coil runs hotter the further down you go, until it reaches the core.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Turn 00, no load:** "Wound tight. Built to carry load."
+- **Turns 01 to 05:** Southern Railway (110 V), Mettur (4 × 210 MW), Inovate, Bühler with the photo set, and Indo Tech at 161 kV with the numbers and the nine apps.
+- **Turn 06, overload:** the agent, the work-instruction assistant and AI in the browser.
+- **Turn 07, type tested:** the trophy case, E-Cell and the side projects.
+- **The core:** contact, skills and certificates.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+The scene (`src/scene.js`) is built in code: two layers of copper wound as helix tubes, pressboard spacers between the turns, blue marker rings, electrons running along the conductor, and a stack of steel laminations at the far end. The view rolls with the winding and widens at speed. A meter at the top shows the turn and the load, and the copper's glow follows it from dark to orange to white-hot. If WebGL fails or the context is lost, the page falls back to a plain background.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor energises with sound. FIN DE LA ODISEA plays down to full load, then Killswitch Lullaby takes over for the last turns and the core (`public/music/coil-1..2.mp3`, crossfaded through Web Audio by `src/music.js`). The second song loads only once the first is playing. Scrolling fast muffles the music, and all audio pauses while muted or while the tab is hidden. The songs belong to their artists and are credited in the footer.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React, three.js and Lenis for smooth scrolling. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them. Photos are always shown whole, never cropped.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get native scrolling, no roll or drift, and no card animations.
