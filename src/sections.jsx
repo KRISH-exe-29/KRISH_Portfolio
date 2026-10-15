@@ -140,11 +140,17 @@ export function Skills() {
 
 export function Contact() {
   return (
-    <p className="contact">
-      <a href={`mailto:${me.email}`}>{me.email}</a>
-      <a href={me.resume} download>Download resume</a>
-      <a href={me.linkedin} {...out}>LinkedIn</a>
-      <a href={me.github} {...out}>GitHub</a>
-    </p>
+    <>
+      <p className="sign">
+        <img src={me.portrait} alt={`${me.name}, portrait`} loading="lazy" />
+        <span><strong>{me.name}</strong> · {me.role} · {me.field} · {me.city}. {me.lines[3]}</span>
+      </p>
+      <p className="contact">
+        <a href={`mailto:${me.email}`}>{me.email}</a>
+        <a href={me.resume} download>Download resume</a>
+        <a href={me.linkedin} {...out}>LinkedIn</a>
+        <a href={me.github} {...out}>GitHub</a>
+      </p>
+    </>
   )
 }

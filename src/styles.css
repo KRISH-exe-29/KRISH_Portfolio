@@ -136,7 +136,7 @@ html.lights-out .chapter, html.lights-out .intro, html.lights-out .board { opaci
 .contact { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .contact a { font: 600 14px var(--mono); padding: 13px 18px; border: 1px solid var(--sleep); border-radius: 4px; text-decoration: none; }
 .contact a:first-child { background: var(--sleep); color: var(--room); }
-.foot { max-width: 760px; margin: 0 auto; color: #56635d; text-transform: none; letter-spacing: 0; }
+.foot { max-width: 760px; margin: 0 auto; color: #7f8c86; text-transform: none; letter-spacing: 0; }
 
 .btn { font: 600 14px var(--mono); color: var(--text); padding: 13px 20px; border: 1px solid var(--muted); border-radius: 4px; background: transparent; cursor: pointer; }
 .btn:hover { border-color: var(--amber); }
@@ -168,7 +168,18 @@ html.lights-out .chapter, html.lights-out .intro, html.lights-out .board { opaci
   .apps li { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 860px) and (max-height: 720px) {
+  /* short phones: the pinned board and its caption must fit one screen */
+  .dial { display: none; }
+  .machine { grid-template-areas: 'plate fan' 'chore chore'; }
+  .caption { min-height: 0; }
+  .caption h2 { font-size: 26px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .machine.on, .machine.on .lamp, .machine.on .needle, .machine.on .fan g, .hint::before { animation: none; }
   .needle, .breaker i, .killswitch .cover { transition: none; }
 }
+
+/* Sign-off above the contact links: every fact in content.js appears somewhere. */
+.sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }

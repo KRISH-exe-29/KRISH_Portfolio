@@ -109,6 +109,7 @@ function beep(at) {
 }
 
 function schedule() {
+  if (nextAt < ac.currentTime) nextAt = ac.currentTime + 0.05 // skip beats missed while throttled
   while (nextAt < ac.currentTime + 0.15) {
     const [name, beats] = TUNE[note % TUNE.length]
     key(D[name], nextAt, 0.09, beats * BEAT + 1.4)
@@ -128,6 +129,7 @@ function schedule() {
 export function startScore() {
   if (ac) return
   ac = new AudioContext()
+  document.addEventListener('visibilitychange', sleep)
   master = ac.createGain()
   master.gain.value = 0
   const limiter = ac.createDynamicsCompressor()
@@ -156,10 +158,17 @@ export function startScore() {
   setMachines(machines.map((m, i) => i >= quiet))
 }
 
+// Muted or tab hidden: stop the audio clock, so no notes are built and none pile up for later.
+function sleep() {
+  if (!ac) return
+  if (muted || document.hidden) setTimeout(() => (muted || document.hidden) && ac.suspend(), 400) // after the fade
+  else ac.resume()
+}
+
 export function setMuted(next) {
   muted = next
   if (!ac) return
-  if (!muted) ac.resume()
+  sleep()
   master.gain.setTargetAtTime(muted ? 0 : LEVEL, ac.currentTime, 0.3)
 }
 
@@ -168,12 +177,13 @@ export function setMachines(on) {
   quiet = on.filter((x) => !x).length
   if (!ac) return
   const now = ac.currentTime
+  let thrown = 0 // a scroll jump throws several breakers: stagger them, and only hear the first three
   on.forEach((want, i) => {
     const m = machines[i]
     m.gain.gain.setTargetAtTime(want ? 1 : 0, now, want ? 0.3 : 0.9)
     if (m.on !== want) {
       m.hum.frequency.setTargetAtTime(want ? m.base : m.base * 0.18, now, want ? 0.3 : 0.8)
-      if (!want && !muted) clunk(now)
+      if (!want && !muted && thrown < 3) clunk(now + 0.07 * thrown++)
       m.on = want
     }
   })
