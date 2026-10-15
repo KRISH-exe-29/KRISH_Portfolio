@@ -4,7 +4,11 @@
 const VERT = `attribute vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }`
 
 const FRAG = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float; // the caustics need it: mediump turns them blocky on phones
+#else
 precision mediump float;
+#endif
 uniform vec2 res;
 uniform float time;
 uniform float depth;
@@ -85,13 +89,14 @@ export function startWater(canvas, read, calm) {
     const s = gl.createShader(type)
     gl.shaderSource(s, src)
     gl.compileShader(s)
-    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s))
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.warn(gl.getShaderInfoLog(s))
     return s
   }
   const prog = gl.createProgram()
   gl.attachShader(prog, shader(gl.VERTEX_SHADER, VERT))
   gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, FRAG))
   gl.linkProgram(prog)
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null // the page falls back to flat colour
   gl.useProgram(prog)
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
@@ -115,7 +120,7 @@ export function startWater(canvas, read, calm) {
     if (!calm || dirty) {
       const { depth, travel } = read()
       gl.uniform2f(u.res, canvas.width, canvas.height)
-      gl.uniform1f(u.time, calm ? 12 : (now - start) / 1000)
+      gl.uniform1f(u.time, calm ? 12 : ((now - start) / 1000) % 3600)
       gl.uniform1f(u.depth, depth)
       gl.uniform1f(u.travel, travel)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
@@ -125,6 +130,11 @@ export function startWater(canvas, read, calm) {
   }
   resize()
   window.addEventListener('resize', resize)
+  // ponytail: a lost context (phones do this after backgrounding) drops to the flat fallback for good; restore it if anyone notices.
+  canvas.addEventListener('webglcontextlost', () => {
+    cancelAnimationFrame(frame)
+    document.documentElement.classList.add('flat')
+  })
   frame = requestAnimationFrame(loop)
   return {
     changed: () => { dirty = true },

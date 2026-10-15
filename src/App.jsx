@@ -151,7 +151,7 @@ export default function App() {
       if (!water) document.body.style.setProperty('--sea', `${Math.round(48 - (m / FLOOR) * 46)}%`)
 
       metres.current.textContent = Math.round(m)
-      bar.current.textContent = (1 + m / 10.06).toFixed(1)
+      bar.current.textContent = (1.013 + m / 9.94).toFixed(1) // bar: atmosphere plus seawater
       marker.current.style.transform = `translateY(${(m / FLOOR) * 100}%)`
       zone.current.textContent = name
     }
@@ -171,6 +171,7 @@ export default function App() {
 
   const enter = (withSound) => {
     setEntered(true)
+    requestAnimationFrame(() => document.querySelector('.sound')?.focus()) // the gate's button is gone; keep keyboard focus on the page
     if (withSound) {
       startScore()
       setSound(true)
