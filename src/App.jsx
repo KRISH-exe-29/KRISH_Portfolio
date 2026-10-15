@@ -8,15 +8,15 @@ const out = { target: '_blank', rel: 'noopener noreferrer' }
 
 // The manual job each app replaced, in the words of its own pitch. One machine per app.
 const CHORES = {
-  'Dispatch Management': 'Phone calls to chase every gate pass',
-  EPMS: 'Project status chased by hand',
+  'Dispatch Management': 'Phone calls from work order to gate pass',
+  EPMS: 'Projects with no Gantt to track them',
   'Fasteners Automation': 'A 30-minute fastener calculation',
-  'Industrial Data System': 'Test data hunted down by hand',
+  'Industrial Data System': 'Test data with no QR tag to find it',
   'Job Lens': '100 resumes, read one by one',
-  KioskSentinel: 'Attendance lost in every power cut',
-  'RTCC & M.Box Tracker': 'Pending points chased in person',
-  'Shop Floor Job Status': 'Walking the bays to ask for status',
-  'Transformer Test Planner': 'Two hours to plan each unit’s tests',
+  KioskSentinel: 'Attendance at risk in a power cut',
+  'RTCC & M.Box Tracker': 'Pending points chased by people',
+  'Shop Floor Job Status': 'No live status for the bays',
+  'Transformer Test Planner': 'Two hours of test planning',
 }
 const machines = apps.map((a, i) => ({ ...a, tag: `M-0${i + 1}`, chore: CHORES[a.name] }))
 

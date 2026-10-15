@@ -88,7 +88,7 @@ main { padding: 0 16px 80px; }
 .jobs .when { margin: 0; color: var(--amber); }
 .jobs .meta { margin: 0 0 6px; color: var(--muted); font-size: 15px; }
 .jobs p { margin: 0 0 8px; }
-.jobs img { margin-top: 12px; max-height: 260px; width: 100%; object-fit: cover; border-radius: 4px; }
+.jobs img { margin-top: 12px; max-height: 440px; max-width: 100%; width: auto; height: auto; border-radius: 4px; }
 
 .numbers { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .numbers li { background: var(--steel); border: 1px solid var(--rule); border-radius: 4px; padding: 16px; }
@@ -110,9 +110,9 @@ main { padding: 0 16px 80px; }
 .awards { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 18px; }
 .awards .when { margin: 0; color: var(--amber); }
 .awards p { margin: 0; color: var(--muted); }
-.awards img { margin-top: 10px; max-height: 220px; width: 100%; object-fit: cover; border-radius: 4px; }
+.awards img { margin-top: 10px; max-height: 440px; max-width: 100%; width: auto; height: auto; border-radius: 4px; }
 .lead .photos, .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
-.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
+.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; border-radius: 4px; }
 .field { margin-top: 34px; }
 .field .where { margin: 0 0 8px; color: var(--muted); }
 .shots figure { margin: 0; }
@@ -182,4 +182,4 @@ html.lights-out .chapter, html.lights-out .intro, html.lights-out .board { opaci
 
 /* Sign-off above the contact links: every fact in content.js appears somewhere. */
 .sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
-.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; flex: none; }
