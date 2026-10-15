@@ -74,7 +74,7 @@ main { position: relative; z-index: 1; padding-bottom: 120px; }
 .chapter.half { align-items: center; min-height: 110vh; }
 
 .byline { display: flex; gap: 14px; align-items: center; margin-top: 28px; }
-.byline img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line); filter: grayscale(0.4); }
+.byline img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 1px solid var(--line); filter: grayscale(0.4); }
 .byline p { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.4; }
 .byline b { color: var(--ink); }
 .hint { margin-top: 13vh; display: flex; align-items: center; gap: 10px; }
@@ -88,7 +88,7 @@ main { position: relative; z-index: 1; padding-bottom: 120px; }
 .jobs .when { margin: 0; color: var(--violet); }
 .jobs .meta { margin: 0 0 6px; color: var(--soft); font-size: 15px; }
 .jobs p { margin: 0 0 8px; }
-.jobs img { margin-top: 12px; border-radius: 3px; max-height: 260px; width: 100%; object-fit: cover; }
+.jobs img { margin-top: 12px; border-radius: 3px; max-height: 440px; max-width: 100%; width: auto; height: auto; }
 
 /* The crest numbers. */
 .numbers { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 10px 32px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
@@ -120,9 +120,9 @@ main { position: relative; z-index: 1; padding-bottom: 120px; }
 .awards li { border-left: 2px solid var(--arc); padding-left: 14px; }
 .awards .when { margin: 0; }
 .awards p { margin: 0; color: var(--soft); }
-.awards img { margin-top: 10px; border-radius: 3px; max-height: 220px; width: 100%; object-fit: cover; }
+.awards img { margin-top: 10px; border-radius: 3px; max-height: 440px; max-width: 100%; width: auto; height: auto; }
 .lead .photos, .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
-.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 3px; }
+.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; border-radius: 3px; }
 .field { margin-top: 36px; }
 .field .where { margin: 0 0 8px; }
 .shots figure { margin: 0; }
@@ -195,4 +195,4 @@ main { position: relative; z-index: 1; padding-bottom: 120px; }
 
 /* Sign-off above the contact links: every fact in content.js appears somewhere. */
 .sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
-.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; flex: none; }
