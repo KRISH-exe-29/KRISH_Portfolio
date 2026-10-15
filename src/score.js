@@ -51,6 +51,7 @@ function room() {
 export function startScore() {
   if (ac) return
   ac = new AudioContext()
+  document.addEventListener('visibilitychange', sleep)
   master = ac.createGain()
   master.gain.value = 0
   const limiter = ac.createDynamicsCompressor()
@@ -79,10 +80,17 @@ export function startScore() {
   follow(0)
 }
 
+// Muted or tab hidden: stop the audio clock, so no notes are built and none pile up for later.
+function sleep() {
+  if (!ac) return
+  if (muted || document.hidden) setTimeout(() => (muted || document.hidden) && ac.suspend(), 400) // after the fade
+  else ac.resume()
+}
+
 export function setMuted(next) {
   muted = next
   if (!ac) return
-  if (!muted) ac.resume()
+  sleep()
   master.gain.setTargetAtTime(muted ? 0 : LEVEL, ac.currentTime, 0.3)
 }
 
@@ -130,9 +138,10 @@ function crackle(at) {
 }
 
 // The return stroke: a crack, then thunder rolling off.
+let lastStrike = -Infinity
 export function strike() {
-  if (!ac || muted) return
-  const now = ac.currentTime
+  if (!ac || muted || ac.currentTime - lastStrike < 3) return // one roll at a time
+  const now = (lastStrike = ac.currentTime)
   burst(now, { filter: 'highpass', freq: 1200, peak: 0.5, decay: 0.25, length: 0.3 })
   burst(now + 0.08, { filter: 'lowpass', freq: 160, peak: 0.9, decay: 4.5, length: 4 })
   const sub = ac.createOscillator()

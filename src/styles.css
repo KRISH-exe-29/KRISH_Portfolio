@@ -38,6 +38,7 @@ h1, h2 {
   margin: 0 0 0.35em;
 }
 h1 { font-size: clamp(64px, 13vw, 168px); }
+@media (max-width: 600px) { h1 { font-size: 15vw; } } /* "MICROSECONDS." is one unbreakable word: ~5.8 em wide */
 h2 { font-size: clamp(48px, 8vw, 104px); }
 h2 em { font-style: normal; color: var(--arc); text-shadow: 0 0 24px rgba(157, 140, 255, 0.6); }
 h3 { font-size: 19px; margin: 0 0 4px; }
@@ -191,3 +192,7 @@ main { position: relative; z-index: 1; padding-bottom: 120px; }
   .hint::after { animation: none; }
   .apps li, .apps li::before { transition: none; }
 }
+
+/* Sign-off above the contact links: every fact in content.js appears somewhere. */
+.sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }

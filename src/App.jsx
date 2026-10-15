@@ -20,8 +20,8 @@ const chapters = [
         <p className="kicker">Lightning impulse · 1.2/50 <Us /></p>
         <h1>Fifty<br />microseconds.</h1>
         <p className="lede">
-          The standard lightning impulse: the shock a power transformer is built to survive, and it&rsquo;s over in fifty
-          millionths of a second. I started in a transformer test bay. This page slows one strike down until a career fits inside it.
+          The standard lightning impulse: the shock a power transformer is built to survive. It peaks within two millionths
+          of a second and has fallen to half by fifty. I fire it at transformers in a 161 kV test bay. This page slows one strike down until a career fits inside it.
         </p>
         <div className="byline">
           <img src={me.portrait} alt={`${me.name}, portrait`} />
@@ -198,6 +198,7 @@ export default function App() {
 
   const enter = (withSound) => {
     setEntered(true)
+    requestAnimationFrame(() => document.querySelector('.sound')?.focus()) // the gate's button is gone; keep keyboard focus on the page
     if (withSound) {
       startScore()
       follow(state.current.t)
