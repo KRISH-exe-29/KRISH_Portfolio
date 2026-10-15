@@ -5,7 +5,7 @@ import { asset } from './content.js'
 
 // Slot 3 (pluto projector) plays as soon as public/music/retrospective-3.mp3 exists; until then it stays silent.
 // The third song isn't in public/music yet. Drop retrospective-3.mp3 in and set this to true.
-export const PLUTO = false
+export const PLUTO = true
 const files = (PLUTO ? [1, 2, 3] : [1, 2]).map((n) => asset(`music/retrospective-${n}.mp3`))
 
 let ctx = null
