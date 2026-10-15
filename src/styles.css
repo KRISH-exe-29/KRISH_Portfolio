@@ -166,3 +166,7 @@ figcaption { font: 500 12px var(--mono); color: var(--dim); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .card { opacity: 1; transform: none; filter: none; }
 }
+
+/* Nothing shows through the gate; the page fades in on entering. */
+main { transition: opacity 0.9s ease; }
+main[inert] { opacity: 0; }
