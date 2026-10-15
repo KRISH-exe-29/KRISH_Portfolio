@@ -176,6 +176,7 @@ export default function App() {
 
   const enter = (withSound) => {
     setEntered(true)
+    requestAnimationFrame(() => document.querySelector('.sound')?.focus()) // the gate's button is gone; keep keyboard focus on the page
     if (withSound) {
       startScore()
       setSound(true)

@@ -116,3 +116,7 @@ main { position: relative; z-index: 1; padding-bottom: 80px; }
 @media (prefers-reduced-motion: reduce) {
   .hint::before { animation: none; }
 }
+
+/* Sign-off above the contact links: every fact in content.js appears somewhere. */
+.sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }

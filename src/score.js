@@ -51,6 +51,7 @@ function bell(freq, at, level, length = 3.2) {
 }
 
 function schedule() {
+  if (nextAt < ac.currentTime) nextAt = ac.currentTime + 0.05 // skip beats missed while throttled
   while (nextAt < ac.currentTime + 0.15) {
     const note = TUNE[step % TUNE.length]
     if (note >= 0) bell(STARS[note], nextAt, 0.05)
@@ -63,6 +64,7 @@ function schedule() {
 export function startScore() {
   if (ac) return
   ac = new AudioContext()
+  document.addEventListener('visibilitychange', sleep)
   master = ac.createGain()
   master.gain.value = 0
   const limiter = ac.createDynamicsCompressor()
@@ -107,10 +109,17 @@ export function startScore() {
   clack(ac.currentTime + 0.05)
 }
 
+// Muted or tab hidden: stop the audio clock, so no notes are built and none pile up for later.
+function sleep() {
+  if (!ac) return
+  if (muted || document.hidden) setTimeout(() => (muted || document.hidden) && ac.suspend(), 400) // after the fade
+  else ac.resume()
+}
+
 export function setMuted(next) {
   muted = next
   if (!ac) return
-  if (!muted) ac.resume()
+  sleep()
   master.gain.setTargetAtTime(muted ? 0 : LEVEL, ac.currentTime, 0.3)
 }
 
@@ -129,7 +138,12 @@ function clack(at) {
 }
 
 // A line between two stars just closed. `n` picks the note, so a constellation plays a phrase.
+// A jump across many edges at once arpeggiates the first few and drops the rest.
+let nextRing = 0
 export function ring(n) {
   if (!ac || muted) return
-  bell(STARS[n % STARS.length], ac.currentTime + 0.01, 0.11, 4)
+  const at = Math.max(ac.currentTime + 0.01, nextRing)
+  if (at > ac.currentTime + 0.3) return
+  nextRing = at + 0.07
+  bell(STARS[n % STARS.length], at, 0.11, 4)
 }
