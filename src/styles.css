@@ -148,3 +148,7 @@ h3 { font: 800 clamp(24px, 2.6vw, 32px)/1.05 var(--display); margin: 0; letter-s
   .spin.turning .cassette { animation: none; }
   .hand, .turn-over p, .track img, .lead img, .shots img { transform: none; }
 }
+
+/* Sign-off above the contact links: every fact in content.js appears somewhere. */
+.sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }

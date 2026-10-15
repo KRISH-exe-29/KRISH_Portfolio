@@ -133,6 +133,7 @@ function schedule() {
     nextAt = pausedUntil
     return
   }
+  if (nextAt < ac.currentTime) nextAt = ac.currentTime + 0.05 // skip beats missed while throttled
   while (nextAt < ac.currentTime + 0.12) {
     const swing = step % 2 ? 0.9 : 1.1
     play(nextAt)
@@ -143,6 +144,7 @@ function schedule() {
 export function startScore() {
   if (ac) return
   ac = new AudioContext()
+  document.addEventListener('visibilitychange', sleep)
   master = ac.createGain()
   master.gain.value = 0
   const limiter = ac.createDynamicsCompressor()
@@ -190,10 +192,17 @@ export function startScore() {
   click(ac.currentTime)
 }
 
+// Muted or tab hidden: stop the audio clock, so no notes are built and none pile up for later.
+function sleep() {
+  if (!ac) return
+  if (muted || document.hidden) setTimeout(() => (muted || document.hidden) && ac.suspend(), 400) // after the fade
+  else ac.resume()
+}
+
 export function setMuted(next) {
   muted = next
   if (!ac) return
-  if (!muted) ac.resume()
+  sleep()
   master.gain.setTargetAtTime(muted ? 0 : LEVEL, ac.currentTime, 0.2)
 }
 

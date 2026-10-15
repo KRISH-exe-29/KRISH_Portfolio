@@ -100,6 +100,7 @@ export default function App() {
 
   const enter = (withSound) => {
     setEntered(true)
+    requestAnimationFrame(() => document.querySelector('.sound')?.focus()) // the gate's button is gone; keep keyboard focus on the page
     if (withSound) {
       startScore()
       flip(sideRef.current)
@@ -160,7 +161,7 @@ export default function App() {
           <header className="intro">
             <p className="kicker">{me.name} · {now.role}, {now.company}</p>
             <h1>Krish,<br /><em>the mixtape.</em></h1>
-            <p className="lede">Some people send a resume. I made you a tape: the career on one side, the person on the other. {me.lines[3]}</p>
+            <p className="lede">Some people send a resume. I made you a tape: the career on one side, the person on the other.</p>
             <p className="hand">♡ for whoever&rsquo;s hiring</p>
           </header>
 
