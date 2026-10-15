@@ -69,7 +69,7 @@ h3 { font: 800 clamp(24px, 2.6vw, 32px)/1.05 var(--display); margin: 0; letter-s
 .no { font: 600 14px var(--mono); color: var(--card); background: var(--ink); width: 44px; height: 30px; display: grid; place-items: center; border-radius: 3px; margin: 4px 0 0; }
 .track .where { margin: 0 0 6px; color: var(--pencil); }
 .track p { margin: 0 0 10px; }
-.track img { margin-top: 12px; max-height: 280px; width: 100%; object-fit: cover; border: 8px solid #fff; box-shadow: 0 6px 18px rgba(60, 40, 20, 0.18); transform: rotate(-1deg); }
+.track img { margin-top: 12px; max-height: 440px; max-width: 100%; width: auto; height: auto; border: 8px solid #fff; box-shadow: 0 6px 18px rgba(60, 40, 20, 0.18); transform: rotate(-1deg); }
 
 .turn-over { min-height: 60vh; display: grid; place-items: center; }
 .turn-over p { font: 700 clamp(48px, 7vw, 88px) var(--hand); color: var(--teal); transform: rotate(-4deg); margin: 0; }
@@ -95,9 +95,9 @@ h3 { font: 800 clamp(24px, 2.6vw, 32px)/1.05 var(--display); margin: 0; letter-s
 .awards .when { margin: 0; color: var(--tomato); font-weight: 600; }
 .awards p { margin: 0; color: var(--pencil); }
 .awards img, .lead img, .shots img { border: 6px solid #fff; box-shadow: 0 6px 16px rgba(60, 40, 20, 0.16); }
-.awards img { margin-top: 10px; max-height: 220px; width: 100%; object-fit: cover; }
+.awards img { margin-top: 10px; max-height: 440px; max-width: 100%; width: auto; height: auto; }
 .lead .photos, .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 12px; }
-.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; }
 .lead .photos img:nth-child(odd), .shots figure:nth-child(odd) img { transform: rotate(-1.5deg); }
 .lead .photos img:nth-child(even), .shots figure:nth-child(even) img { transform: rotate(1.2deg); }
 .field + .field { margin-top: 30px; }
@@ -151,4 +151,4 @@ h3 { font: 800 clamp(24px, 2.6vw, 32px)/1.05 var(--display); margin: 0; letter-s
 
 /* Sign-off above the contact links: every fact in content.js appears somewhere. */
 .sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
-.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; flex: none; }
