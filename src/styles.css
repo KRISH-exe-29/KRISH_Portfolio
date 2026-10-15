@@ -55,7 +55,7 @@ section { min-height: 150vh; padding: 20vh 16px 12vh clamp(16px, 8vw, 128px); }
 .jobs .when { margin: 0; color: var(--glow); }
 .jobs .meta { margin: 0 0 6px; color: var(--spray); font-size: 15px; }
 .jobs p { margin: 0 0 8px; }
-.jobs img { margin-top: 12px; border-radius: 12px; max-height: 260px; width: 100%; object-fit: cover; }
+.jobs img { margin-top: 12px; border-radius: 12px; max-height: 440px; max-width: 100%; width: auto; height: auto; }
 
 .numbers { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 22px 36px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 .numbers b { font: 400 clamp(64px, 8vw, 104px)/0.9 var(--display); color: #fff; }
@@ -81,9 +81,9 @@ section { min-height: 150vh; padding: 20vh 16px 12vh clamp(16px, 8vw, 128px); }
 .awards { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 18px; }
 .awards .when { margin: 0; color: var(--glow); }
 .awards p { margin: 0; color: var(--spray); }
-.awards img { margin-top: 10px; border-radius: 12px; max-height: 220px; width: 100%; object-fit: cover; }
+.awards img { margin-top: 10px; border-radius: 12px; max-height: 440px; max-width: 100%; width: auto; height: auto; }
 .lead .photos, .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin-top: 12px; }
-.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.lead img, .shots img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 20%; border-radius: 10px; }
 .field { margin-top: 34px; }
 .field .where { margin: 0 0 8px; color: var(--spray); }
 .shots figure { margin: 0; }
@@ -144,4 +144,4 @@ section { min-height: 150vh; padding: 20vh 16px 12vh clamp(16px, 8vw, 128px); }
 
 /* Sign-off above the contact links: every fact in content.js appears somewhere. */
 .sign { display: flex; align-items: center; gap: 12px; margin: 1.5em 0 0.6em; font-size: 0.9em; line-height: 1.4; }
-.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex: none; }
+.sign img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; flex: none; }
