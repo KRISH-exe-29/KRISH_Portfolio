@@ -1,49 +1,32 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Pop-up
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, as a pop-up book. "Some people tell stories. I build them, page by page." A book sits open beside the text, and each scroll folds the last spread flat, turns the page around the spine and stands the next paper model up out of it.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Cover:** the title spread. A banner with his name, hills, a sun and a pylon.
+- **Chapter 1, the current:** Southern Railway and Mettur Thermal Power Plant. A locomotive in front of a cooling tower and a 4 × 210 MW plant.
+- **Chapter 2, remote:** Inovate and Project: Phantom, on a paper laptop.
+- **Chapter 3, Bengaluru:** Bühler. The Virtual World 2.0 kiosk, an MCC panel, flour-mill silos, and the photo set.
+- **Chapter 4, the test bay:** Indo Tech today. A transformer with bushings and radiators in the 161 kV bay, the numbers and the nine apps.
+- **Chapter 5, after hours:** the agent, the work-instruction assistant, AI in the browser and the side projects.
+- **Chapter 6, the stage:** E-Cell, a podium, a mic and a 500+ crowd.
+- **Chapter 7, the shelf:** the trophy and the awards.
+- **Back cover:** contact, skills and certificates. "Your next quick manual step is my next app."
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+The book is plain CSS 3D: one `perspective`, `preserve-3d` all the way down, `rotateY` for the turning leaf and `rotateX` for every paper piece, which folds up on its bottom edge. Pieces are styled divs; the paper grain, creases and fold shadows are gradients. Scroll position drives one `--u` value per spread, so the animation is transforms only. On phones the book sits in a band at the top and the text scrolls beneath it. Photos live in the text, never on a folding piece, and are always shown whole.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Sound
 
-## 📦 Installation & Setup
+Nothing plays until the visitor opens the book with sound. The early, middle and final chapters each have their own song (`public/music/popup-1..3.mp3`), crossfaded through Web Audio by `src/music.js`. A song loads only when the part before it starts. Scrolling fast closes a low-pass filter so the music sounds muffled, and it opens again when the reader stops. All audio pauses while muted or while the tab is hidden. The songs belong to their artists and are credited in the footer.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Stack
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+Vite, React and Lenis for smooth scrolling. No 3D library. All facts come from `src/content.js`, shared with the other concept branches; `src/sections.jsx` renders them.
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
+## Run
 
----
-Modified and Optimized for production by Krishna Raju S.
+```bash
+npm install
+npm run dev
+```
+
+Visitors who ask for reduced motion get native scrolling, no page turns and no card animations: each spread simply stands open while its chapter is in view.
