@@ -416,6 +416,14 @@ export default function App() {
             <a className="pill outline" href={me.github} target="_blank" rel="noopener">GitHub <Arrow /></a>
           </div>
           <p className="sign">{me.name} · {me.field}</p>
+          <div className="marquee" aria-hidden="true">
+            <div>
+              {[0, 1].map(k => (
+                <span key={k}>{me.lines.map(l => <span key={l}>{l}<i>✦</i></span>)}</span>
+              ))}
+            </div>
+          </div>
+          <p className="finale" aria-hidden="true" data-reveal><em>krishna</em>raju<sup>®</sup></p>
         </section>
       </main>
     </>

@@ -270,12 +270,9 @@ h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.03em; }
 .chapter .year { font-family: var(--serif); font-style: italic; font-size: clamp(72px, 9vw, 120px); line-height: 0.8; letter-spacing: -0.04em; }
 .chapter h3 { font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.05em; margin-top: 12px; line-height: 1.05; font-weight: 450; }
 .role { font-size: 13px; text-transform: uppercase; color: var(--soft); margin: 6px 0 14px; }
-.photos { display: flex; gap: 8px; margin-top: 18px; }
-.photos img {
-  flex: 1; min-width: 0; height: 170px; object-fit: cover; border-radius: 16px;
-  filter: saturate(0.6) sepia(0.15); transition: filter 0.6s var(--ease), flex 0.6s var(--ease);
-}
-.photos img:hover { filter: none; flex: 1.6; }
+.photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); align-items: start; gap: 8px; margin-top: 18px; }
+.photos img { width: 100%; height: auto; border-radius: 16px; filter: saturate(0.6) sepia(0.15); transition: filter 0.6s var(--ease); }
+.photos img:hover { filter: none; }
 
 /* wins */
 .wins { list-style: none; columns: 2 320px; column-gap: 40px; }
@@ -283,7 +280,7 @@ h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.03em; }
 .wins small { grid-row: span 2; font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1.1; }
 .wins strong { font-weight: 500; letter-spacing: -0.03em; }
 .wins span { font-size: 14px; color: var(--soft); line-height: 1.35; }
-.wins img { grid-column: 2; margin-top: 10px; height: 150px; width: 100%; object-fit: cover; border-radius: 14px; filter: saturate(0.6) sepia(0.15); transition: filter 0.6s; }
+.wins img { grid-column: 2; margin-top: 10px; width: 100%; height: auto; border-radius: 14px; filter: saturate(0.6) sepia(0.15); transition: filter 0.6s; }
 .wins img:hover { filter: none; }
 .lead { display: grid; grid-template-columns: 1fr 1.6fr; gap: 24px; align-items: end; margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
 .lead p { color: var(--soft); margin-top: 6px; }
@@ -310,6 +307,27 @@ details ul { margin: 10px 0 0 18px; color: var(--soft); line-height: 1.5; }
 .contact .pill.outline { background: rgba(255, 255, 255, 0.25); }
 .sign { margin-top: 30px; font-size: 13px; color: var(--soft); }
 
+/* finale: a running line of his sayings, then the name, big and pearly */
+.marquee { width: 100vw; overflow: hidden; margin-top: 64px; padding: 14px 0; border-block: 1px solid var(--line); }
+.marquee > div { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+.marquee > div > span { display: flex; }
+.marquee span span {
+  display: flex; align-items: center; gap: 28px; padding-right: 28px; white-space: nowrap;
+  font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.6vw, 34px);
+}
+.marquee i { font-style: normal; font-size: 0.5em; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.finale {
+  margin-top: 36px; white-space: nowrap; line-height: 0.82;
+  font-size: clamp(76px, 14vw, 260px); font-weight: 450; letter-spacing: -0.075em;
+  background: linear-gradient(100deg, #231c20 0%, #231c20 30%, #8b7bc0 42%, #e8a6c2 50%, #f6dcc3 56%, #231c20 70%, #231c20 100%);
+  background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: sheen 7s ease-in-out infinite alternate;
+}
+.finale em { letter-spacing: -0.03em; margin-right: 0.05em; }
+.finale sup { font-size: 0.16em; vertical-align: 4.2em; letter-spacing: 0; }
+@keyframes sheen { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
 /* phones */
 @media (max-width: 760px) {
   .top nav { display: none; }
@@ -322,7 +340,6 @@ details ul { margin: 10px 0 0 18px; color: var(--soft); line-height: 1.5; }
   .work li > * em { display: none; }
   .work .lock, .work .arrow { grid-column: 3; grid-row: 1 / span 2; }
   .pair, .lead { grid-template-columns: 1fr; }
-  .photos img { height: 130px; }
   .quiet { bottom: 40px; }
 }
 
