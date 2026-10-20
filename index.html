@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krishna's Notebook</title>
+<meta name="description" content="Krishna Raju S: electrical engineer who ships software. A keyboard-first notebook portfolio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#fbf8f1;--ink:#24211c;--soft:#6d675c;--rule:#e4ddcc;--margin:#e8a0a0;--accent:#2f5bd3;--hi:#fff2a8;--card:#fffdf8}
+:root:not([data-theme="light"]){color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#1b1a17;--ink:#ece6d8;--soft:#a39d90;--rule:#2c2a25;--margin:#6b3a3a;--accent:#8fb0ff;--hi:#5a4f1a;--card:#232220}}
+:root[data-theme="dark"]{--paper:#1b1a17;--ink:#ece6d8;--soft:#a39d90;--rule:#2c2a25;--margin:#6b3a3a;--accent:#8fb0ff;--hi:#5a4f1a;--card:#232220}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);background-image:linear-gradient(var(--rule) 1px,transparent 1px);background-size:100% 32px;color:var(--ink);font:16px/2 Inter,system-ui,sans-serif}
+body::before{content:"";position:fixed;top:0;bottom:0;left:max(12px,calc(50% - 400px));border-left:2px solid var(--margin);opacity:.6;pointer-events:none}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:3px}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px 64px 32px}
+.hand{font-family:Caveat,cursive}
+.mono{font-family:"JetBrains Mono",monospace;font-size:13px}
+mark{background:var(--hi);color:inherit;padding:0 3px}
+kbd{font-family:"JetBrains Mono",monospace;font-size:12px;border:1px solid var(--soft);border-bottom-width:2px;border-radius:4px;padding:0 5px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header .name{font-size:30px;font-weight:700;text-decoration:none;color:var(--ink)}
+header .tools{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:14px}
+.pillbtn{border:1px solid var(--soft);border-radius:99px;padding:0 12px;line-height:28px;text-decoration:none;color:var(--ink);font-size:14px}
+.pillbtn:hover{background:var(--hi)}
+nav{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:15px;margin:8px 0 24px}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{text-decoration:underline wavy var(--margin)}
+nav a kbd{margin-left:4px;opacity:.6}
+
+h2{font-family:Caveat,cursive;font-size:34px;line-height:1.4;margin:48px 0 8px}
+h2::before{content:"✦ ";color:var(--margin)}
+section{scroll-margin-top:16px}
+ul.dots{list-style:none;padding:0}
+ul.dots li::before{content:"• ";color:var(--margin)}
+.hero h1{font-family:Caveat,cursive;font-size:clamp(48px,9vw,76px);line-height:1.1;margin:8px 0}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+
+/* notebook pages */
+.desk{position:relative;height:440px;margin:8px 0;touch-action:none}
+.page{position:absolute;width:210px;background:var(--card);padding:10px 10px 4px;box-shadow:0 6px 18px #0002,0 1px 3px #0003;cursor:grab;user-select:none;transition:box-shadow .2s}
+.page.drag{cursor:grabbing;box-shadow:0 16px 40px #0004;z-index:10}
+.page img{width:100%;height:150px;object-fit:cover;display:block;pointer-events:none}
+.page p{font-family:Caveat,cursive;font-size:20px;line-height:1.3;margin:6px 2px}
+.page::before{content:"";position:absolute;top:-10px;left:50%;width:70px;height:20px;margin-left:-35px;background:#f4e3a1cc;transform:rotate(-3deg)}
+.page.note{background:#fff7b0;color:#2a2617}
+.hint{font-size:14px;color:var(--soft)}
+
+ol.wins{padding-left:28px}
+ol.wins li::marker{font-family:Caveat,cursive;font-size:22px;color:var(--margin)}
+.proj{display:grid;gap:2px;margin:0 0 16px}
+.proj b a{color:var(--ink)}
+.proj span{color:var(--soft);font-size:15px;line-height:1.6}
+.work{display:grid;grid-template-columns:64px 1fr;gap:0 16px}
+.work .yr{font-family:Caveat,cursive;font-size:22px;color:var(--margin)}
+.work div{margin-bottom:16px;line-height:1.6}
+.work small{color:var(--soft)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{border:1px dashed var(--soft);border-radius:4px;padding:0 8px;font-size:14px;line-height:28px}
+
+footer{margin-top:64px;padding-top:16px;border-top:1px dashed var(--soft);display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--soft)}
+footer .links{margin-left:auto;display:flex;gap:14px}
+
+dialog{border:2px solid var(--ink);border-radius:6px;background:var(--card);color:var(--ink);padding:20px 24px;width:min(380px,calc(100% - 32px))}
+dialog::backdrop{background:#0006}
+dialog table{width:100%;border-collapse:collapse;font-size:15px}
+dialog td{padding:2px 0}
+dialog td:last-child{text-align:right}
+#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:2px 12px;border-radius:4px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+
+@media (max-width:640px){.desk{height:auto;display:grid;gap:24px;justify-items:center}.page{position:relative;left:auto!important;top:auto!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <a class="name hand" href="#top" id="top">krishna raju s</a>
+  <div class="tools">
+    <a class="pillbtn" href="Krishna_Raju_S_Resume.pdf" download>resume ↓</a>
+    <a class="pillbtn" href="Krishna_Raju_S_Resume.pdf" target="_blank" rel="noopener">open ↗</a>
+    <button class="pillbtn" id="theme" aria-label="toggle dark mode">◐</button>
+    <button class="pillbtn" id="help" aria-label="keyboard shortcuts"><kbd>?</kbd></button>
+  </div>
+</header>
+
+<nav aria-label="sections">
+  <a href="#projects">projects<kbd>g p</kbd></a>
+  <a href="#work">work<kbd>g w</kbd></a>
+  <a href="#about">about me<kbd>g a</kbd></a>
+  <a href="#wins">wins<kbd>g r</kbd></a>
+  <a href="#contact">contact<kbd>g c</kbd></a>
+</nav>
+
+<section class="hero">
+  <p class="mono">hi there ✦</p>
+  <h1>i'm krishna.<br>i delete busywork.</h1>
+  <ul class="dots">
+    <li>associate engineer @ <mark>indo tech transformers</mark></li>
+    <li>testing 161 kV transformers by day, shipping apps by night</li>
+    <li>nine of those apps now run the shop floor</li>
+  </ul>
+  <div class="cta">
+    <a class="pillbtn" href="mailto:krishnarajus2004@gmail.com">say hi ↗</a>
+    <a class="pillbtn" href="#about">read my story ↓</a>
+  </div>
+</section>
+
+<h2>a few pages from my notebook</h2>
+<p class="hint">go on, drag them around.</p>
+<div class="desk" id="desk">
+  <figure class="page" style="left:0;top:20px;transform:rotate(-4deg)"><img src="img/iitb.jpg" alt="Krishna in front of the IIT Bombay sign"><p>rank 7 of 1500+ colleges. iit bombay, 2025</p></figure>
+  <figure class="page" style="left:180px;top:70px;transform:rotate(3deg)"><img src="img/buhler.jpg" alt="Krishna at his desk at Bühler India"><p>bühler: 30 min of paperwork → 30 s</p></figure>
+  <figure class="page note" style="left:400px;top:10px;transform:rotate(-2deg)"><p>todo:<br>☑ ship dispatch<br>☑ 128 tests<br>☐ delete the last spreadsheet<br>☐ your manual task?</p></figure>
+  <figure class="page" style="left:440px;top:200px;transform:rotate(5deg)"><img src="img/speaking.jpg" alt="Krishna speaking to a hall of students"><p>e-cell vp. 500+ students, one mic</p></figure>
+  <figure class="page" style="left:60px;top:230px;transform:rotate(-1deg)"><img src="img/indotech.jpg" alt="Krishna at Indo Tech Transformers"><p>the 161 kV test bay. home.</p></figure>
+</div>
+
+<section id="about">
+  <h2>about me</h2>
+  <p>i studied electrical & electronics engineering at st. joseph's (cgpa 8.38, class of 2026) and kept getting distracted by software. internships took me from <mark>railway batteries</mark> to <mark>a 4 x 210 MW power plant</mark> to <mark>mcc panels at bühler</mark>. now i test transformers to iec 60076 and write the apps the plant runs on.</p>
+  <p>i like boring tech that never pages anyone at 3am: row-level security, role-based access, offline-first when the data is sensitive.</p>
+  <h2>right now</h2>
+  <ul class="dots">
+    <li>leading the ot-it integration: sensors, energy meters, cloud</li>
+    <li>growing one ai agent through twelve versions on local models</li>
+    <li>open to problems that eat a team's afternoon</li>
+  </ul>
+</section>
+
+<section id="wins">
+  <h2>wins so far</h2>
+  <ol class="wins">
+    <li><b>rank 7 / 1500+</b>, national entrepreneurship challenge, iit bombay (2025)</li>
+    <li><b>runner-up</b>, fish tank, iit bombay e-summit (2025)</li>
+    <li><b>patent published</b>, intelligent street lighting with fault detection (2025)</li>
+    <li><b>top 8</b>, nec basic track (2024)</li>
+    <li><b>national finalist</b>, technical symposium (2024)</li>
+    <li><b>nine apps shipped</b>, indo tech transformers (2026)</li>
+  </ol>
+</section>
+
+<section id="projects">
+  <h2>projects</h2>
+  <div id="projlist"></div>
+</section>
+
+<section id="work">
+  <h2>work</h2>
+  <div class="work" id="worklist"></div>
+</section>
+
+<section>
+  <h2>my toolbox</h2>
+  <div class="tags" id="tags"></div>
+</section>
+
+<footer id="contact">
+  <span>© 2026 krishna raju s · chennai</span>
+  <span class="links">
+    <a href="https://github.com/KRISH-exe-29" aria-label="GitHub">github ↗</a>
+    <a href="https://linkedin.com/in/krishnarajus2004" aria-label="LinkedIn">linkedin ↗</a>
+    <a href="mailto:krishnarajus2004@gmail.com" aria-label="Email">email ↗</a>
+  </span>
+</footer>
+</div>
+
+<dialog id="cheat" aria-labelledby="cheat-title">
+  <h3 class="hand" id="cheat-title" style="font-size:28px">keyboard shortcuts</h3>
+  <table>
+    <tr><td>projects</td><td><kbd>g</kbd> <kbd>p</kbd></td></tr>
+    <tr><td>work</td><td><kbd>g</kbd> <kbd>w</kbd></td></tr>
+    <tr><td>about me</td><td><kbd>g</kbd> <kbd>a</kbd></td></tr>
+    <tr><td>wins</td><td><kbd>g</kbd> <kbd>r</kbd></td></tr>
+    <tr><td>contact</td><td><kbd>g</kbd> <kbd>c</kbd></td></tr>
+    <tr><td>top</td><td><kbd>g</kbd> <kbd>h</kbd></td></tr>
+    <tr><td>dark mode</td><td><kbd>d</kbd></td></tr>
+    <tr><td>this sheet</td><td><kbd>?</kbd></td></tr>
+    <tr><td>close</td><td><kbd>esc</kbd></td></tr>
+  </table>
+</dialog>
+<div id="toast" role="status"></div>
+
+<script>
+// Facts mirror KRISH_Portfolio/src/content.js.
+const projects = [
+  ['dispatch management', 'https://github.com/KRISH-exe-29/Dispatch-ITTL', 'work order to gate pass, zero phone calls. 5 roles, 128 tests.'],
+  ['job lens', 'https://krishna-ittl.github.io/Candidate-Screener/', '100 resumes in, a ranked shortlist out. runs offline in the browser.'],
+  ['transformer test planner', 'https://transformer-test-planner.vercel.app', 'every iec 60076 test planned per unit. 2 hours → 5 minutes.'],
+  ['fasteners automation', 'https://github.com/KRISH-exe-29/Fasteners-Project', 'hardware pdf in, weighted bom out. 30 minutes → 30 seconds.'],
+  ['rtcc & m.box tracker', 'https://github.com/KRISH-exe-29/Pannel-Box-Transformers-', 'chases pending points with 48-hour auto emails so nobody has to.'],
+  ['industrial data system', 'https://github.com/KRISH-exe-29/indotech-transformers', 'qr-tagged test data with a 3d transformer model.'],
+  ['epms', 'https://github.com/KRISH-exe-29/PMS', 'project hq with an interactive gantt.'],
+  ['kiosksentinel', null, 'attendance that survives power cuts. private, runs in the plant.'],
+  ['dmat practice', 'https://krishna-ittl.github.io/dmat-practice/', 'a full exam simulator in one html file.'],
+]
+const work = [
+  ['2026', 'associate engineer', 'indo tech transformers', '161 kV test bay by day, nine shipped apps by night. leads ot-it integration.'],
+  ['2025', 'automation engineering intern', 'bühler india', 'mcc panels and a tool that removed 90% of calculation errors.'],
+  ['2024', 'full stack developer intern', 'inovate technologies', 'project: phantom, front to back.'],
+  ['2024', 'electrical engineer intern', 'mettur thermal power plant', 'high-voltage systems at a 4 x 210 MW station.'],
+  ['2023', 'electrical engineer intern', 'southern railway', '110 V battery study for lhb ac coaches.'],
+]
+const tools = ['typescript', 'react', 'next.js', 'python', 'java', 'node', 'supabase', 'postgresql', 'three.js', 'claude', 'langchain', 'langgraph', 'ollama', 'transformers.js', 'iec 60076 testing', 'mcc panels', 'protection relays', 'esp8266', 'matlab']
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+document.getElementById('projlist').innerHTML = projects.map(([n, u, d]) =>
+  `<div class="proj"><b>${u ? `<a href="${u}" target="_blank" rel="noopener">${esc(n)} ↗</a>` : esc(n)}</b><span>${esc(d)}</span></div>`).join('')
+document.getElementById('worklist').innerHTML = work.map(([y, r, c, d]) =>
+  `<span class="yr">${y}</span><div><b>${esc(r)}</b> @ ${esc(c)}<br><small>${esc(d)}</small></div>`).join('')
+document.getElementById('tags').innerHTML = tools.map(t => `<span>${esc(t)}</span>`).join('')
+
+// draggable pages: pointer events cover mouse, touch and pen
+const desk = document.getElementById('desk')
+let z = 1
+desk.querySelectorAll('.page').forEach(p => {
+  p.addEventListener('pointerdown', e => {
+    if (matchMedia('(max-width:640px)').matches) return
+    const sx = e.clientX - p.offsetLeft, sy = e.clientY - p.offsetTop
+    p.setPointerCapture(e.pointerId)
+    p.classList.add('drag')
+    p.style.zIndex = ++z
+    const move = ev => {
+      p.style.left = Math.max(-40, Math.min(desk.clientWidth - 170, ev.clientX - sx)) + 'px'
+      p.style.top = Math.max(-20, Math.min(desk.clientHeight - 120, ev.clientY - sy)) + 'px'
+    }
+    const up = () => { p.classList.remove('drag'); p.removeEventListener('pointermove', move) }
+    p.addEventListener('pointermove', move)
+    p.addEventListener('pointerup', up, { once: true })
+    p.addEventListener('pointercancel', up, { once: true })
+  })
+})
+
+// theme
+const root = document.documentElement
+const setTheme = t => { root.dataset.theme = t; try { localStorage.setItem('theme', t) } catch {} }
+try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t } catch {}
+const toggleTheme = () => setTheme((root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark')
+document.getElementById('theme').onclick = toggleTheme
+
+// keyboard: g + letter jumps, ? opens the sheet
+const cheat = document.getElementById('cheat'), toast = document.getElementById('toast')
+document.getElementById('help').onclick = () => cheat.showModal()
+cheat.addEventListener('click', e => { if (e.target === cheat) cheat.close() })
+const jumps = { p: 'projects', w: 'work', a: 'about', r: 'wins', c: 'contact', h: 'top' }
+let g = 0
+function say(s) { toast.textContent = s; toast.classList.add('on'); clearTimeout(say.t); say.t = setTimeout(() => toast.classList.remove('on'), 900) }
+addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey || /input|textarea/i.test(e.target.tagName)) return
+  if (e.key === '?') { cheat.open ? cheat.close() : cheat.showModal(); return }
+  if (cheat.open) return
+  if (g && jumps[e.key]) {
+    document.getElementById(jumps[e.key]).scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
+    say('→ ' + (jumps[e.key] === 'top' ? 'home' : jumps[e.key]))
+    g = 0
+    return
+  }
+  if (e.key === 'g') { g = 1; say('g…'); setTimeout(() => g = 0, 1200); return }
+  if (e.key === 'd') toggleTheme()
+})
+</script>
+</body>
+</html>
