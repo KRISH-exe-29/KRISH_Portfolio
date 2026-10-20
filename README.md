@@ -1,18 +1,7 @@
-# Issue 01
+# Reverie
 
-Krishna Raju S's portfolio as a one-engineer magazine. The cover name is a variable font whose weight follows your pointer. Inside: a horizontal spread of nine production apps, a long-form feature on five internships with photos pinned beside the text, a centrefold on growing an AI agent in twelve versions, a classifieds page of awards and skills, and a back cover that asks for your next manual task.
+Krishna Raju S's portfolio as a quiet dream room. A blush gate asks whether you want sound, then a real-time Three.js scene takes over: plaster walls, a doorway, stairs into still reflective water, an iridescent pearl, and a corridor of free-standing arches. Scrolling walks the camera through it, one arch per chapter of the career. Click and hold to stir the water. Film grain, soft bloom and a little chromatic aberration finish the frame.
 
-The soundtrack is off until you press "Play soundtrack". Visitors who ask for reduced motion, and phones, get a plain vertical magazine.
+Content sits on frosted glass over the scene: numbers, selected work with filters, the twelve-version agent, the journey, recognition, the toolkit and a contact page. Reduced-motion visitors get a still camera and no letter animation; browsers without WebGL get a painted gradient instead.
 
-Live: https://krish-exe-29.github.io/KRISH_Portfolio/
-
-Every push to `main` rebuilds and publishes the site through GitHub Actions (`.github/workflows/deploy.yml`).
-
-## Run it
-
-```sh
-npm install
-npm run dev
-```
-
-All facts live in `src/content.js`. Two sibling concepts live on the `portfolio/grid-run` and `portfolio/energize` branches.
+`npm install`, then `npm run dev`. Facts come from `src/content.js`, the same file on every concept branch.
