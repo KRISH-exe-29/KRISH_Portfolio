@@ -6,7 +6,6 @@ import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 
@@ -168,7 +167,9 @@ const filmShader = {
 
 export function start(canvas) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' })
-  const pr = Math.min(devicePixelRatio, small() ? 1.25 : 1.6)
+  // starts modest and drops further if frames run slow (see frame())
+  let pr = Math.min(devicePixelRatio, small() ? 1 : 1.25)
+  const REFLECT = 0.35
   renderer.setPixelRatio(pr)
   renderer.setSize(innerWidth, innerHeight, false)
   renderer.toneMapping = THREE.NeutralToneMapping
@@ -188,7 +189,7 @@ export function start(canvas) {
   scene.add(new THREE.HemisphereLight('#fff0f3', '#a98cb3', 0.7))
   const sun = new THREE.DirectionalLight('#fff1e4', 3.2)
   sun.castShadow = true
-  sun.shadow.mapSize.setScalar(small() ? 1024 : 2048)
+  sun.shadow.mapSize.setScalar(1024)
   Object.assign(sun.shadow.camera, { left: -22, right: 22, top: 22, bottom: -22, near: 1, far: 90 })
   sun.shadow.bias = -0.0004
   sun.shadow.normalBias = 0.03
@@ -206,8 +207,8 @@ export function start(canvas) {
 
   // water
   const water = new Reflector(new THREE.PlaneGeometry(400, 400), {
-    textureWidth: innerWidth * pr * 0.5,
-    textureHeight: innerHeight * pr * 0.5,
+    textureWidth: innerWidth * pr * REFLECT,
+    textureHeight: innerHeight * pr * REFLECT,
     color: new THREE.Color('#d9c3d3'),
     shader: waterShader,
   })
@@ -299,7 +300,6 @@ export function start(canvas) {
   composer.setPixelRatio(pr)
   composer.setSize(innerWidth, innerHeight)
   composer.addPass(new RenderPass(scene, camera))
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), 0.22, 0.6, 0.86))
   composer.addPass(new OutputPass())
   const film = new ShaderPass(filmShader)
   composer.addPass(film)
@@ -316,9 +316,11 @@ export function start(canvas) {
   const onResize = () => {
     camera.aspect = innerWidth / innerHeight
     camera.updateProjectionMatrix()
+    renderer.setPixelRatio(pr)
     renderer.setSize(innerWidth, innerHeight, false)
+    composer.setPixelRatio(pr)
     composer.setSize(innerWidth, innerHeight)
-    water.getRenderTarget().setSize(innerWidth * pr * 0.5, innerHeight * pr * 0.5)
+    water.getRenderTarget().setSize(innerWidth * pr * REFLECT, innerHeight * pr * REFLECT)
     onScroll()
   }
   addEventListener('scroll', onScroll, { passive: true })
@@ -328,12 +330,16 @@ export function start(canvas) {
 
   const pos = new THREE.Vector3(), dir = new THREE.Vector3(), aim = new THREE.Vector3()
   const clock = new THREE.Clock()
-  let raf = 0, resolveReady
+  let raf = 0, resolveReady, slow = 0, frames = 0
   const ready = new Promise(r => (resolveReady = r))
 
   function frame() {
     raf = requestAnimationFrame(frame)
-    const time = clock.getElapsedTime()
+    const dt = clock.getDelta()
+    const time = clock.elapsedTime
+    // ponytail: crude adaptive resolution, steps down only; a GPU tier check could pick the start value instead
+    slow += (Math.min(dt, 0.1) - slow) * 0.05 // capped so a tab switch does not count as lag
+    if (++frames % 90 === 0 && slow > 1 / 45 && pr > 0.7) { pr = Math.max(0.7, pr - 0.15); onResize() }
     t += (goal - t) * (reduce ? 1 : 0.055)
     hold += ((holding ? 1 : 0) - hold) * 0.06
     look.lerp(mouse, reduce ? 0 : 0.05)

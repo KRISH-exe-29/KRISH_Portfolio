@@ -62,10 +62,24 @@ export default function App() {
   useEffect(() => {
     const a = audio.current
     if (!a) return
-    const sync = () => (sound && !document.hidden ? a.play().catch(() => setSound(false)) : a.pause())
+    // fades in slowly and out quickly, so it never starts or stops with a jolt
+    let id = 0
+    const fade = (to, done) => {
+      clearInterval(id)
+      id = setInterval(() => {
+        a.volume = Math.min(1, Math.max(0, a.volume + (to > a.volume ? 0.01 : -0.03)))
+        if (Math.abs(a.volume - to) < 0.03) { a.volume = to; clearInterval(id); done?.() }
+      }, 50)
+    }
+    const sync = () => {
+      if (sound && !document.hidden) {
+        if (a.paused) a.volume = 0
+        a.play().then(() => fade(0.45)).catch(() => setSound(false))
+      } else fade(0, () => a.pause())
+    }
     sync()
     document.addEventListener('visibilitychange', sync)
-    return () => document.removeEventListener('visibilitychange', sync)
+    return () => { clearInterval(id); document.removeEventListener('visibilitychange', sync) }
   }, [sound])
 
   // scroll: progress ring, the agent's lit versions
@@ -165,7 +179,7 @@ export default function App() {
     <>
       <canvas ref={canvas} className="stage" aria-hidden="true" />
       <div className="veil" aria-hidden="true" />
-      <audio ref={audio} src={asset('audio/soundtrack.mp3')} loop preload="none" />
+      <audio ref={audio} src={asset('audio/calm.mp3')} loop preload="none" />
       <div id="cursor" aria-hidden="true"><span /></div>
 
       {/* gate */}

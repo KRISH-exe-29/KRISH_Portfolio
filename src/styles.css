@@ -204,7 +204,7 @@ h1 .serif .ch {
 .right-col { justify-content: flex-end; }
 .glass {
   width: min(560px, 100%);
-  background: var(--glass); backdrop-filter: blur(22px) saturate(1.25); -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  background: rgba(251, 241, 240, 0.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 28px;
   padding: clamp(22px, 3vw, 40px);
   box-shadow: 0 30px 80px -40px rgba(110, 70, 90, 0.35);
