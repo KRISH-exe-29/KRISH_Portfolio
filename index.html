@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Krish Originals</title>
+<meta name="description" content="Krishna Raju S, electrical engineer who ships software, told as a streaming series: seasons, originals and awards.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0b0b;--panel:#181818;--line:#2a2a2a;--ink:#f5f5f1;--soft:#a3a3a3;--red:#e50914;--gold:#f5c518}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.display{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.02em;font-weight:400}
+
+/* opening */
+#intro{position:fixed;inset:0;z-index:50;background:#000;display:grid;place-items:center;transition:opacity .6s}
+#intro .k{font-size:clamp(120px,28vw,320px);color:var(--red);text-shadow:0 0 60px #e5091480;animation:zoom 2.2s cubic-bezier(.6,0,.2,1) forwards}
+#intro small{position:absolute;bottom:32px;color:var(--soft);font-size:13px}
+@keyframes zoom{0%{transform:scale(.6);opacity:0}30%{opacity:1}70%{transform:scale(1)}100%{transform:scale(9);opacity:0}}
+
+/* who's watching */
+#who{position:fixed;inset:0;z-index:40;background:var(--bg);display:grid;place-content:center;text-align:center;gap:40px;padding:16px}
+#who h1{font-size:clamp(28px,5vw,52px);font-weight:500}
+.profiles{display:flex;gap:clamp(16px,4vw,40px);justify-content:center;flex-wrap:wrap}
+.profile{background:none;border:0;color:var(--soft);display:grid;gap:12px;justify-items:center}
+.profile .face{width:clamp(96px,14vw,150px);aspect-ratio:1;border-radius:8px;display:grid;place-items:center;font-size:56px;border:3px solid transparent;transition:.2s}
+.profile:hover,.profile:focus-visible{color:var(--ink)}
+.profile:hover .face,.profile:focus-visible .face{border-color:var(--ink)}
+
+/* nav + hero */
+nav{position:fixed;top:0;inset-inline:0;z-index:20;display:flex;align-items:center;gap:24px;padding:16px clamp(16px,4vw,56px);background:linear-gradient(#000c,#0000);transition:background .3s}
+nav.solid{background:var(--bg)}
+nav .logo{color:var(--red);font-size:32px;text-decoration:none}
+nav .links{display:flex;gap:18px;font-size:14px}
+nav .links a{text-decoration:none;color:#e5e5e5}
+nav .links a:hover{color:var(--soft)}
+nav .who{margin-left:auto;background:none;border:0;color:var(--soft);font-size:13px}
+.hero{min-height:92vh;display:flex;align-items:flex-end;padding:0 clamp(16px,4vw,56px) 12vh;position:relative;background:#000}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:70% 20%;opacity:.55}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000 10%,#0000 70%),linear-gradient(0deg,var(--bg),#0000 40%)}
+.hero .copy{position:relative;z-index:1;max-width:620px}
+.tag{color:var(--red);font-weight:700;letter-spacing:.3em;font-size:13px}
+.hero h1{font-size:clamp(56px,9vw,120px);line-height:.9;margin:8px 0 16px}
+.meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--soft);margin-bottom:16px}
+.meta .match{color:#46d369;font-weight:700}
+.meta .box{border:1px solid var(--soft);padding:0 6px}
+.cta{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn{border:0;border-radius:4px;padding:10px 26px;font-weight:700;font-size:17px;text-decoration:none;display:inline-flex;gap:10px;align-items:center}
+.btn.play{background:var(--ink);color:#000}
+.btn.info{background:#6d6d6eb3;color:var(--ink)}
+.btn:hover{opacity:.85}
+
+/* rows */
+main{position:relative;z-index:2;margin-top:-6vh}
+section{padding:24px 0 8px}
+section>h2{font-size:clamp(18px,2vw,24px);font-weight:700;padding:0 clamp(16px,4vw,56px);margin-bottom:10px}
+.row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px clamp(16px,4vw,56px) 24px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.tile{flex:0 0 clamp(220px,24vw,300px);aspect-ratio:16/9;border-radius:6px;border:0;color:var(--ink);text-align:left;padding:14px;display:flex;flex-direction:column;justify-content:space-between;scroll-snap-align:start;transition:transform .25s;position:relative;overflow:hidden}
+.tile:hover,.tile:focus-visible{transform:scale(1.06);z-index:3}
+.tile .n{font-size:13px;font-weight:700;color:#fffc}
+.tile .n b{color:var(--red);font-size:16px;font-family:"Bebas Neue"}
+.tile h3{font-family:"Bebas Neue";font-weight:400;font-size:30px;line-height:1}
+.tile p{font-size:12.5px;color:#fffd}
+.tile.photo{background-size:cover;background-position:center}
+.tile.photo::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#000d,#0003)}
+.tile>*{position:relative}
+.top10 .tile{flex-basis:clamp(240px,26vw,320px);background:none;flex-direction:row;align-items:center;gap:0;padding:0}
+.top10 .num{font-family:"Bebas Neue";font-size:clamp(120px,14vw,170px);line-height:1;color:var(--bg);-webkit-text-stroke:3px #595959;margin-right:-14px}
+.top10 .card{background:var(--panel);border-radius:6px;padding:14px;height:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end}
+.top10 .card small{color:var(--gold);font-weight:700}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 clamp(16px,4vw,56px)}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:14px}
+.chip b{color:var(--red);font-weight:700;margin-right:6px}
+
+/* modal */
+dialog{border:0;border-radius:8px;padding:0;background:var(--panel);color:var(--ink);width:min(760px,calc(100% - 32px));max-height:90vh}
+dialog::backdrop{background:#000b}
+dialog .art{height:220px;display:flex;align-items:flex-end;padding:24px;position:relative;background-size:cover;background-position:center}
+dialog .art::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--panel),#0000 70%)}
+dialog .art h3{position:relative;font-family:"Bebas Neue";font-weight:400;font-size:48px;line-height:1}
+dialog .body{padding:8px 24px 28px;display:grid;gap:14px}
+dialog .close{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:0;background:var(--panel);color:var(--ink);font-size:20px}
+
+/* finale */
+.finale{text-align:center;padding:80px 16px 56px;display:grid;gap:18px;justify-items:center}
+.finale h2{font-size:clamp(36px,6vw,72px);padding:0}
+.finale p{color:var(--soft);max-width:520px}
+footer{border-top:1px solid var(--line);color:var(--soft);font-size:13px;padding:24px clamp(16px,4vw,56px);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+@media (max-width:640px){nav .links{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div id="intro" aria-hidden="true"><span class="k display">K</span><small>click or press any key to skip</small></div>
+
+<div id="who" role="dialog" aria-labelledby="who-title" hidden>
+  <h1 id="who-title">Who's watching?</h1>
+  <div class="profiles">
+    <button class="profile" data-who="recruiter"><span class="face" style="background:#1f6feb">💼</span>Recruiter</button>
+    <button class="profile" data-who="engineer"><span class="face" style="background:#e50914">⚡</span>Engineer</button>
+    <button class="profile" data-who="curious"><span class="face" style="background:#f5c518">✦</span>Just curious</button>
+  </div>
+</div>
+
+<nav id="nav">
+  <a class="logo display" href="#top">KRISH</a>
+  <div class="links"><a href="#originals">Originals</a><a href="#seasons">Seasons</a><a href="#awards">Top 10</a><a href="#cast">Skills</a><a href="#contact">Contact</a></div>
+  <button class="who" id="switch">Switch profile ▾</button>
+</nav>
+
+<header class="hero" id="top">
+  <img src="img/indotech.jpg" alt="">
+  <div class="copy">
+    <div class="tag">K &nbsp;ORIGINAL SERIES</div>
+    <h1 class="display">Zero<br>Spreadsheets</h1>
+    <div class="meta"><span class="match">98% Match</span><span>2022–2026</span><span class="box">ALL</span><span>5 Seasons</span><span class="box">HD</span></div>
+    <p>An electrical engineer tests 161 kV transformers by day. By night he quietly replaces every spreadsheet and phone call in the plant with an app. Nine have shipped so far, and the factory still runs on them.</p>
+    <div class="cta">
+      <a class="btn play" href="#originals">▶ Play</a>
+      <a class="btn info" href="Krishna_Raju_S_Resume.pdf" target="_blank" rel="noopener">ⓘ Resume</a>
+    </div>
+  </div>
+</header>
+
+<main id="rows"></main>
+
+<section class="finale" id="contact">
+  <h2 class="display">Are you still watching?</h2>
+  <p>Next episode: your team's worst manual process. Send it over and I'll turn it into a button.</p>
+  <div class="cta">
+    <a class="btn play" href="mailto:krishnarajus2004@gmail.com">▶ Send it over</a>
+    <a class="btn info" href="https://linkedin.com/in/krishnarajus2004" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <span>Krishna Raju S · Chennai, India</span>
+  <span><a href="https://github.com/KRISH-exe-29">GitHub</a> · <a href="mailto:krishnarajus2004@gmail.com">Email</a> · Esc closes · ← → scroll rows</span>
+</footer>
+
+<dialog id="modal"><button class="close" aria-label="Close">✕</button><div class="art"><h3></h3></div><div class="body"></div></dialog>
+
+<script>
+// Facts mirror KRISH_Portfolio/src/content.js.
+const originals = [
+  ['Dispatch Management', 'Work order to gate pass, zero phone calls.', '5 roles, a dispatch calendar, auto email escalations and 128 tests guarding it.', 'React 19 · Supabase · PL/pgSQL', 'https://github.com/KRISH-exe-29/Dispatch-ITTL', 'PRODUCTION'],
+  ['Job Lens', '100 resumes in. A ranked shortlist out.', 'Scores every resume against one rubric and reads scans on the device. Works fully offline.', 'TypeScript · Transformers.js · Tesseract', 'https://krishna-ittl.github.io/Candidate-Screener/', 'LIVE'],
+  ['Test Planner', 'Every IEC 60076 test, planned per unit.', '40 tests, multi-unit plans and Excel export. Test planning went from 2 hours to 5 minutes.', 'TypeScript · Next.js', 'https://transformer-test-planner.vercel.app', 'LIVE'],
+  ['Fasteners Automation', 'A 30-minute job, now 30 seconds.', 'Drop a hardware PDF, get a weighted BOM in Excel and PDF.', 'Python · PyQt5 · Pandas', 'https://github.com/KRISH-exe-29/Fasteners-Project', 'IN USE'],
+  ['RTCC & M.Box Tracker', 'Chases pending points so nobody has to.', 'Inspection to testing to clearance, with 48-hour auto follow-up emails.', 'React · Express · node-cron', 'https://github.com/KRISH-exe-29/Pannel-Box-Transformers-', 'IN USE'],
+  ['Industrial Data System', 'QR-tagged test data with a 3D model.', 'Four role modules, OTP admin and a Three.js transformer.', 'React · Three.js', 'https://github.com/KRISH-exe-29/indotech-transformers', 'LIVE'],
+  ['EPMS', 'Project HQ with an interactive Gantt.', 'Milestones, tasks and team management in one place.', 'TypeScript · React · Supabase', 'https://github.com/KRISH-exe-29/PMS', 'BUILT'],
+  ['KioskSentinel', 'Attendance that survives power cuts.', 'Offline-first, three shifts, locked down.', 'Java 21 · SQLite · Postgres', null, 'NEW'],
+  ['Shop Floor Job Status', 'Live job status for every bay.', 'Every bay, every job, one screen.', 'React · Supabase', null, 'IN USE'],
+]
+const seasons = [
+  ['S1', '2023', 'Southern Railway', 'Electrical Engineer Intern', 'Evaluated 110 V lead-acid batteries and what a move to Li-ion would take for LHB AC coaches.', 'img/railway.jpg'],
+  ['S2', '2024', 'Mettur Thermal Power Plant', 'Electrical Engineer Intern', 'Inspected high-voltage systems at a 4 x 210 MW station: boiler, turbine and generator.', null],
+  ['S2', '2024', 'Inovate Technologies', 'Full Stack Developer Intern', 'Built UI and backend for Project: Phantom, then made it load faster.', null],
+  ['S3', '2025', 'Bühler India', 'Automation Engineering Intern', 'MCC panels for a rice plant and a 150 TPD flour mill. Co-built a tool that turned 30 minutes of paperwork into 30 seconds.', 'img/buhler.jpg'],
+  ['S4', '2026', 'Indo Tech Transformers', 'Associate Engineer', 'Started in the 161 kV test bay. Now ships the plant\'s software and leads OT-IT integration.', 'img/indotech.jpg'],
+]
+const top10 = [
+  ['Rank 7 of 1500+', 'National Entrepreneurship Challenge, IIT Bombay', '2025'],
+  ['Runner-up', 'Fish Tank, IIT Bombay E-Summit', '2025'],
+  ['Patent published', 'Intelligent street lighting with fault detection', '2025'],
+  ['Top 8', 'NEC Basic Track', '2024'],
+  ['National finalist', 'Technical symposium', '2024'],
+  ['E-Cell Vice President', 'Built the team, spoke to 500+ students', '2024'],
+]
+const cast = {
+  'Factory floor': ['IEC 60076 testing', 'MCC panels', 'Protection relays', 'OLTC', 'ESP8266', 'MATLAB'],
+  Code: ['TypeScript', 'React', 'Next.js', 'Python', 'Java', 'Node', 'Supabase', 'PostgreSQL', 'Three.js'],
+  AI: ['Claude', 'OpenAI', 'LangChain', 'LangGraph', 'Ollama', 'Transformers.js'],
+}
+const hues = [0, 210, 28, 280, 150, 330, 190, 45, 260]
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+const row = (id, title, inner, cls = '') => `<section id="${id}" class="${cls}"><h2>${title}</h2><div class="row" tabindex="0">${inner}</div></section>`
+const sections = {
+  originals: () => row('originals', 'K Originals', originals.map((o, i) =>
+    `<button class="tile" data-o="${i}" style="background:linear-gradient(135deg,hsl(${hues[i]} 70% 32%),hsl(${hues[i] + 40} 60% 12%))">
+      <span class="n"><b>K</b> ${o[5]}</span><span><h3>${esc(o[0])}</h3><p>${esc(o[1])}</p></span></button>`).join('')),
+  seasons: () => row('seasons', 'Seasons: the career so far', seasons.map((s, i) =>
+    `<button class="tile${s[5] ? ' photo' : ''}" data-s="${i}" style="${s[5] ? `background-image:url(${s[5]})` : 'background:#222'}">
+      <span class="n">${s[0]} · E${i + 1} · ${s[1]}</span><span><h3>${esc(s[2])}</h3><p>${esc(s[3])}</p></span></button>`).join('')),
+  awards: () => row('awards', 'Top 10 in recognition', top10.map((a, i) =>
+    `<div class="tile"><span class="num">${i + 1}</span><div class="card"><small>${a[2]}</small><h3 class="display" style="font-size:26px">${esc(a[0])}</h3><p>${esc(a[1])}</p></div></div>`).join(''), 'top10'),
+  cast: () => `<section id="cast"><h2>Cast & crew: the stack</h2><div class="chips">${Object.entries(cast).map(([g, v]) =>
+      v.map(s => `<span class="chip"><b>${g === 'Code' ? '</>' : g === 'AI' ? '✦' : '⚡'}</b>${esc(s)}</span>`).join('')).join('')}</div></section>`,
+}
+const orders = {
+  recruiter: ['awards', 'originals', 'seasons', 'cast'],
+  engineer: ['originals', 'cast', 'seasons', 'awards'],
+  curious: ['seasons', 'originals', 'awards', 'cast'],
+}
+const rows = document.getElementById('rows')
+function render(who) {
+  rows.innerHTML = orders[who].map(k => sections[k]()).join('')
+}
+
+// opening → who's watching
+const intro = document.getElementById('intro'), whoEl = document.getElementById('who')
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+function showWho() {
+  intro.remove()
+  whoEl.hidden = false
+  whoEl.querySelector('button').focus()
+}
+if (reduce) showWho()
+else {
+  const t = setTimeout(showWho, 2200)
+  const skip = () => { clearTimeout(t); removeEventListener('keydown', skip); showWho() }
+  intro.addEventListener('click', skip)
+  addEventListener('keydown', skip, { once: true })
+}
+whoEl.addEventListener('click', e => {
+  const b = e.target.closest('[data-who]')
+  if (!b) return
+  render(b.dataset.who)
+  whoEl.hidden = true
+})
+document.getElementById('switch').onclick = () => { whoEl.hidden = false; whoEl.querySelector('button').focus() }
+render('recruiter')
+
+// modal
+const modal = document.getElementById('modal')
+modal.querySelector('.close').onclick = () => modal.close()
+modal.addEventListener('click', e => { if (e.target === modal) modal.close() })
+rows.addEventListener('click', e => {
+  const t = e.target.closest('[data-o],[data-s]')
+  if (!t) return
+  const art = modal.querySelector('.art'), body = modal.querySelector('.body')
+  if (t.dataset.o) {
+    const [name, pitch, more, stack, url, status] = originals[t.dataset.o]
+    art.style.background = t.style.background
+    art.querySelector('h3').textContent = name
+    body.innerHTML = `<div class="meta"><span class="match">${status}</span><span>${esc(stack)}</span></div>
+      <p><b>${esc(pitch)}</b> ${esc(more)}</p>
+      ${url ? `<div class="cta"><a class="btn play" href="${url}" target="_blank" rel="noopener">▶ Open</a></div>` : '<p class="meta">Private: runs inside the plant.</p>'}`
+  } else {
+    const [s, year, company, role, text, photo] = seasons[t.dataset.s]
+    art.style.background = photo ? `url(${photo}) center/cover` : '#222'
+    art.querySelector('h3').textContent = company
+    body.innerHTML = `<div class="meta"><span class="match">${s} · ${year}</span><span>${esc(role)}</span></div><p>${esc(text)}</p>`
+  }
+  modal.showModal()
+})
+
+// keyboard: arrows scroll the focused row
+addEventListener('keydown', e => {
+  const r = document.activeElement?.closest?.('.row')
+  if (r && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+    r.scrollBy({ left: (e.key === 'ArrowRight' ? 1 : -1) * r.clientWidth * .8, behavior: reduce ? 'auto' : 'smooth' })
+    e.preventDefault()
+  }
+})
+const nav = document.getElementById('nav')
+addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 40), { passive: true })
+</script>
+</body>
+</html>
