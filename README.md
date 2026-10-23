@@ -1,49 +1,20 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Krishna Raju S | Playground
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+The portfolio of Krishna Raju S, an electrical engineer who ships software, built as a page you can poke.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+The numbers in the hero are stickers that drop into a box: grab one and throw it, or click it to give it a kick. The nine factory apps come next as cards with generated covers that ripple under the pointer. The agent's twelve versions level up on a slider, the photos from awards, the E-Cell and Bühler sit on a table you can rearrange, and the skills live in a jar you can shake. A slow water layer follows the pointer across the whole page.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+Visitors who ask for reduced motion get the same content laid out still: no smooth scroll, no water, no custom cursor, nothing to throw. On touch screens the stickers and the jar can still be dragged, the photo table stays put and the native cursor is kept.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Run it locally
 
-## 📦 Installation & Setup
+```sh
+npm install
+npm run dev
+```
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+All facts live in `src/content.js`. Built with Vite and React, GSAP with ScrollTrigger and SplitText, Lenis for scrolling and three.js for the water and the image ripple. The physics in `src/ToyBox.jsx` is a small box-against-box sim written for this page.
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+## Contact
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
-
----
-Modified and Optimized for production by Krishna Raju S.
+krishnarajus2004@gmail.com | [LinkedIn](https://linkedin.com/in/krishnarajus2004) | [GitHub](https://github.com/KRISH-exe-29)
