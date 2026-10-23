@@ -1,49 +1,24 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Reel
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+A portfolio for Krishna Raju S, cut like a project reel. The front page is an index of the nine production apps: hover a row and its cover floats up under the cursor, trailing it as if dragged under water; click and a butter-yellow curtain carries you into that app's page, with its title, a meta row, the cover and the next app waiting at the bottom. A toggle swaps the index for a grid of covers, which is also where phones start.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
+- **Open:** a dial counts the real loading, then lifts off the name.
+- **Production reel:** the numbers, then the nine apps, each with its own page at `#/work/<app>`. Side projects follow as "Off the clock".
+- **Agent-Builder:** its twelve versions as film frames, then the work-instruction assistant and AI in the browser.
+- **Five stops, oldest first:** the jobs, then the Bühler photo set.
+- **Credits:** awards and E-Cell with photos, then the kit (skills and certificates) and contact.
 
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
+No screenshots of the apps exist, so `src/covers.js` draws each one a cover: its number, name and pitch over a motif (ripples, currents, a dot field or a bar log). Photos and covers are drawn as WebGL planes by `src/gl/stage.js`, which bends them with a ring wave and a slight colour split where the pointer is. `src/gl/water.js` runs a height-field wave simulation at quarter resolution; the pointer's path drags through it and the surface shows as moving light over the page. The cursor itself stretches along its velocity and grows a label over links.
 
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
+## Stack
 
-## 📦 Installation & Setup
+Vite, React, GSAP (ScrollTrigger, SplitText, Flip, CustomEase), Lenis and three.js. All facts come from `src/content.js`, shared with the other concept branches.
 
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
+## Run
 
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
+```bash
+npm install
+npm run dev
+```
 
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
-
----
-Modified and Optimized for production by Krishna Raju S.
+Visitors who ask for reduced motion get native scrolling, no WebGL and no reveals. Touch screens keep their own cursor, and browsers without WebGL see the plain photos and covers.
