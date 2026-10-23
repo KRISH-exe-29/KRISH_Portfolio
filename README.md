@@ -1,49 +1,5 @@
-# Krishna Raju S — EEE Engineering Portfolio
+# Krishna Raju S — Signature
 
-An immersive, high-performance interactive 3D portfolio showcasing electrical engineering expertise, automation development, and industrial IoT solutions.
+Krishna Raju S's portfolio, cut like a dark cinematic film in near-black and blood red, following the structure of meermohsin.me. A counter loads the page and waits for a click; a red curtain lifts onto a grey portrait with the name in tall condensed capitals splitting around it. Scrolling runs through a short about, the numbers, the toolkit, a torn red band that sets up the Bühler story and its photos, then the nine production apps as cards that stack over one another, side projects, the AI work, a journey told oldest first, awards with a turning ring, and a closing call to send over the next manual step. The footer name rises out of the floor as you reach it. On a mouse, the cursor leaves ripples like water, grows into a labelled disc over links, and photos come into colour with a liquid ripple and RGB split under the pointer. Reduced-motion visitors get native scroll, no loader and no WebGL; touch devices keep the normal cursor.
 
-## 🚀 Performance Optimization
-This portfolio is built for **Ultra-Fast Speed (<2s load time)** and production-grade deployment on Netlify, featuring:
-- **Cinematic Entry Gate**: A high-impact loading sequence with custom eye-tracking and audio triggers.
-- **Progressive Asset Loading**: All heavy assets and sections are lazily loaded post-transition to ensure instant first paint.
-- **FFmpeg Compressed Media**: Audio and images are optimized to reduction levels of up to 45MB -> 3MB to minimize payload.
-- **Dynamic Code Splitting**: Utilizing React.lazy and Suspense for modular page hydration.
-
-## 🛠️ Tech Stack
-- **Framework:** React.js (Vite)
-- **Styling:** Tailwind CSS & Styled-Components
-- **Animations:** GSAP (ScrollTrigger) & Framer Motion
-- **Performance:** Lenis (Smooth Scroll) & AudioEngine
-- **Deployment:** Netlify (with custom security headers & caching)
-
-## 📡 Key Projects
-- **Testing Planning System**: Automated scheduling for high-voltage transformer testing.
-- **Industrial Data Collection Portal**: Unified pipeline for large-scale manufacturing orders.
-- **Intelligent Street Lighting (Patent)**: Energy-efficient IoT hardware solution.
-- **GUI Automation Tool**: Python PyQt5 framework for technical documentation.
-
-## 📦 Installation & Setup
-
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/KRISH-exe-29/KRISH_Portfolio.git
-   ```
-2. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-3. **Start the development server:**
-   ```sh
-   npm run dev
-   ```
-
-## 🚀 Deployment
-Optimized for deployment on **Netlify** using the included `netlify.toml` for strict security headers and performance caching.
-
-## 📬 Contact
-- **Email:** krishnarajus2004@gmail.com
-- **LinkedIn:** [Krishna Raju S](https://www.linkedin.com/in/krishnarajus2004/)
-- **Location:** Chennai, India
-
----
-Modified and Optimized for production by Krishna Raju S.
+`npm install`, then `npm run dev`. Facts come from `src/content.js`, the same file on every concept branch.
