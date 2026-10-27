@@ -132,7 +132,13 @@ function Hero({ onReady }) {
     })
     ;(document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { S.loaded++ })
 
-    const resize = () => { S.k = Math.min(1.1, Math.max(0.5, Math.min(innerWidth / 1150, innerHeight / 820))) }
+    // Fit the wheel to the hero frame (100svh): the lifted top card (432 units x 1.14) takes ~40% of the
+    // height, and after the lift the scene slides so that card's top edge (412 units up) clears the header.
+    const resize = () => {
+      const H = heroRef.current.clientHeight
+      S.k = Math.min(1.1, Math.max(0.45, Math.min((0.4 * H) / 492, innerWidth / 700)))
+      S.ty = 84 - H / 2 + 470 * S.k
+    }
     resize()
     addEventListener('resize', resize)
     const io = new IntersectionObserver(([e]) => { S.visible = e.isIntersecting })
@@ -205,7 +211,7 @@ function Hero({ onReady }) {
       const pivot = 500 + 314 * L
       const cs = 1 + 0.35 * L
       const wheelA = -28 * L + S.rot
-      const st = `rotateX(${(12 * L).toFixed(2)}deg) scale(${((1 + 0.14 * L) * S.k * (1 + audio.beat * 0.03)).toFixed(4)})`
+      const st = `translate3d(0,${(S.ty * L).toFixed(1)}px,0) rotateX(${(12 * L).toFixed(2)}deg) scale(${((1 + 0.14 * L) * S.k * (1 + audio.beat * 0.03)).toFixed(4)})`
       if (st !== S.sceneT) { S.sceneT = st; sceneRef.current.style.transform = st }
       skyRef.current.style.opacity = (0.15 + 0.85 * L).toFixed(3)
       cloudRef.current.style.transform = `translate3d(0,${((1 - L) * 45).toFixed(2)}%,0)`
@@ -260,6 +266,7 @@ function Hero({ onReady }) {
         </div>
       </div>
       <div className="clouds" ref={cloudRef} aria-hidden="true" style={{ '--img': `url(${abs('img/pins/clouds.jpg')})` }} />
+      <div className={`hero-scrim${ui ? ' in' : ''}`} aria-hidden="true" />
       <div className={`hero-copy${ui ? ' in' : ''}`}>
         <p className="kicker"><span>Table 01</span> {me.name} · {me.city}</p>
         <h1>
