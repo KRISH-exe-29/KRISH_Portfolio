@@ -372,3 +372,14 @@ html.rm .roll { will-change: auto; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
+
+/* ---------- overflow safety (375 px QA) ---------- */
+html, body { overflow-x: clip; }
+.hero, .wall, .interval, .credits, .trailer { overflow: clip; }
+.leak { max-width: 100%; }
+.leak.a { left: -10vw; }
+.leak.b { right: 0; }
+.pin-spacer { max-width: 100vw; overflow: clip; }
+.t-main { min-width: 0; }
+.t-links a, .t-meta dd, .short a { overflow-wrap: anywhere; }
+html.rm .wall { overflow-x: auto; overflow-y: clip; }
