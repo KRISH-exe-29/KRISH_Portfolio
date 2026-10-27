@@ -6,6 +6,7 @@ import {
   me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
 } from './content.js'
 import gh from './github.json'
+import { useMusic } from './music.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -746,37 +747,24 @@ function CashOut() {
 /* ---------- song ---------- */
 function Song() {
   const ref = useRef(null)
-  const [on, setOn] = useState(false)
-  const toggle = async () => {
-    const a = ref.current
-    if (!audio.analyser) {
-      try {
-        const Ctx = window.AudioContext || window.webkitAudioContext
-        const ctx = new Ctx()
-        const src = ctx.createMediaElementSource(a)
-        const an = ctx.createAnalyser()
-        an.fftSize = 256
-        src.connect(an)
-        an.connect(ctx.destination)
-        audio.analyser = an
-        audio.ctx = ctx
-        audio.data = new Uint8Array(an.frequencyBinCount)
-      } catch { /* plays without the visualiser */ }
-    }
-    if (a.paused) {
-      audio.ctx?.resume()
-      try { await a.play(); setOn(true); audio.playing = true } catch { setOn(false) }
-    } else {
-      a.pause(); setOn(false); audio.playing = false
-    }
-  }
+  const [on, setOn] = useState(false) // sound actually coming out
+  const [music, setMusic] = useMusic(() => ref.current, (ctx, src) => {
+    const an = ctx.createAnalyser()
+    an.fftSize = 256
+    src.connect(an)
+    an.connect(ctx.destination)
+    audio.analyser = an
+    audio.ctx = ctx
+    audio.data = new Uint8Array(an.frequencyBinCount)
+  })
+  const playing = (v) => { setOn(v); audio.playing = v }
   useEffect(() => { document.documentElement.classList.toggle('warm', on) }, [on])
   return (
     <div className={`song${on ? ' on' : ''}`}>
-      <audio ref={ref} src={asset('audio/lady-love.mp3')} loop preload="none" onEnded={() => setOn(false)} />
-      <button onClick={toggle} aria-pressed={on} aria-label={on ? 'Pause Lady Love' : 'Play Lady Love'}>
+      <audio ref={ref} src={asset('audio/lady-love.mp3')} loop preload="auto" onPlay={() => playing(true)} onPause={() => playing(false)} onEnded={() => playing(false)} />
+      <button data-music onClick={() => setMusic(!music)} aria-pressed={music} aria-label={music ? 'Music on: turn off Lady Love' : 'Music off: turn on Lady Love'}>
         <span className="eq" aria-hidden="true"><i /><i /><i /><i /></span>
-        <span className="song-t"><b>{on ? 'Now playing' : 'Play the table music'}</b>Lady Love</span>
+        <span className="song-t"><b>{music ? 'Music on · turn off' : 'Music off · turn on'}</b>Lady Love</span>
       </button>
     </div>
   )
