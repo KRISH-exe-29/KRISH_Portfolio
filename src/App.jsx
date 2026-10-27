@@ -194,8 +194,10 @@ function Hero({ onLive }) {
       ghDone,
     ]
     let done = 0
+    // ponytail: caps keep the permit under ~3 s; the GitHub list keeps refreshing in the background
+    const caps = [2000, 2000, 2000, 1500]
     jobs.forEach((p, i) => {
-      Promise.race([Promise.resolve(p).catch(() => {}), new Promise((r) => setTimeout(r, 4500))]).then(() => {
+      Promise.race([Promise.resolve(p).catch(() => {}), new Promise((r) => setTimeout(r, caps[i]))]).then(() => {
         if (!alive) return
         done++
         s.loadFrac = done / jobs.length
@@ -204,7 +206,7 @@ function Hero({ onLive }) {
     })
 
     const resize = () => {
-      s.k = clamp(Math.min(window.innerWidth / 1280, window.innerHeight / 860), 0.4, 1)
+      s.k = clamp(Math.min(window.innerWidth / 1280, window.innerHeight / 1100), 0.4, 1)
     }
     resize()
     window.addEventListener('resize', resize)
@@ -220,7 +222,7 @@ function Hero({ onLive }) {
       if (s.deal < 1) {
         const target = Math.min(s.loadFrac, (now - s.t0) / 2600)
         s.deal += (target - s.deal) * (1 - Math.exp(-dt * 7))
-        if (s.deal > 0.998) s.deal = 1
+        if (s.deal > 0.985) s.deal = 1
         const p = String(Math.round(s.deal * 100)).padStart(3, '0') + '%'
         if (p !== s.pctT && pct.current) { pct.current.textContent = p; s.pctT = p }
       } else if (s.phase === 'permit') {
