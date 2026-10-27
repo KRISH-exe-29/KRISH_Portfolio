@@ -20,7 +20,7 @@
 }
 
 * { box-sizing: border-box; }
-html { background: var(--ink); color: var(--paper); -webkit-text-size-adjust: 100%; }
+html { background: var(--ink); color: var(--paper); -webkit-text-size-adjust: 100%; overflow-x: clip; }
 html.locked { overflow: hidden; }
 body { margin: 0; font: 400 17px/1.6 var(--f-body); background: var(--ink); overflow-x: clip; }
 img { display: block; max-width: 100%; }
@@ -76,10 +76,10 @@ section[tabindex='-1']:focus { outline: none; }
 .now { position: absolute; right: var(--pad); top: 100%; margin: 0; font: 400 12px var(--f-mono); color: var(--paper); background: var(--ink); padding: 4px 8px; }
 
 /* ---------- hero: the reel ring ---------- */
-.hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ink); }
+.hero { position: relative; height: 100vh; height: 100svh; min-height: 560px; overflow: clip; contain: paint; background: var(--ink); }
 .hero::before { content: ''; position: absolute; inset: -20%; background: repeating-conic-gradient(from 0deg at 50% 46%, rgba(239, 233, 220, 0.07) 0deg 0.8deg, transparent 0.8deg 6deg); pointer-events: none; }
 .hero-backdrop { position: absolute; inset: 0; z-index: 1; background: var(--dots), var(--paper); pointer-events: none; }
-.stage { position: absolute; inset: 0; z-index: 2; perspective: 1000px; touch-action: pan-y; cursor: grab; user-select: none; }
+.stage { position: absolute; inset: 0; z-index: 2; overflow: clip; contain: paint; perspective: 1000px; touch-action: pan-y; cursor: grab; user-select: none; }
 .stage:active { cursor: grabbing; }
 .scene { position: absolute; inset: 0; transform-style: preserve-3d; }
 .card {
@@ -250,7 +250,7 @@ main > .chapter { box-shadow: 0 0 0 100vmax var(--paper); clip-path: inset(0 -10
 .omake-sub { margin: 0; max-width: 54ch; color: var(--paper); font: 600 18px/1.5 var(--f-narr); }
 
 /* ---------- Ch.4 forms ---------- */
-.forms { background: var(--paper); color: var(--ink); overflow: hidden; padding: 40px 0 80px; }
+.forms { background: var(--paper); color: var(--ink); overflow: clip; padding: 40px 0 80px; }
 .forms-track { list-style: none; margin: 0; padding: 0 var(--pad); display: flex; gap: var(--gut); width: max-content; }
 .form { position: relative; width: clamp(220px, 22vw, 300px); aspect-ratio: 3 / 4; border: var(--line); background: var(--paper); padding: 18px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
 .form::before { content: ''; position: absolute; inset: 0; background: var(--speed); opacity: 0.18; }
