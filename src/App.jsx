@@ -6,6 +6,7 @@ import 'lenis/dist/lenis.css'
 import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, skills, asset } from './content.js'
 import snapshot from './github.json'
 import { N, slotAngle, FORMATION_S, EXPANSION_S, clamp01, sceneAt, reelPose } from './reel.js'
+import { useMusic } from './music.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -987,45 +988,28 @@ function ExitToast({ open, onClose }) {
 
 function Radio() {
   const audioRef = useRef(null)
-  const [on, setOn] = useState(false)
+  const [on, setOn] = useState(false) // sound actually coming out
+  const [music, setMusic] = useMusic(() => audioRef.current, (ctx, src) => {
+    const an = ctx.createAnalyser()
+    an.fftSize = 256
+    src.connect(an)
+    an.connect(ctx.destination)
+    Object.assign(sound, { ctx, analyser: an, data: new Uint8Array(an.frequencyBinCount) })
+  })
   useEffect(() => {
     sound.playing = on
     root().classList.toggle('is-playing', on)
   }, [on])
-  const toggle = async () => {
-    const a = audioRef.current
-    if (!sound.ctx) {
-      try {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)()
-        const src = ctx.createMediaElementSource(a)
-        const an = ctx.createAnalyser()
-        an.fftSize = 256
-        src.connect(an)
-        an.connect(ctx.destination)
-        Object.assign(sound, { ctx, analyser: an, data: new Uint8Array(an.frequencyBinCount) })
-      } catch {
-        /* no Web Audio: the song still plays, lamps flicker on a timer */
-      }
-    }
-    if (a.paused) {
-      try {
-        await sound.ctx?.resume()
-        await a.play()
-      } catch {
-        setOn(false)
-      }
-    } else a.pause()
-  }
   return (
     <>
-      <button className="radio" aria-pressed={on} onClick={toggle} aria-label={on ? 'Pause the song' : 'Play the song: pluto projector ending, slowed and reverb with rain'}>
+      <button className="radio" data-music aria-pressed={music} onClick={() => setMusic(!music)} aria-label={music ? 'Music on: turn off the song' : 'Music off: turn on the song, pluto projector ending, slowed and reverb with rain'}>
         <span className="radio-icon" aria-hidden="true">
-          {on ? '❚❚' : '▶'}
+          {music ? '❚❚' : '▶'}
         </span>
         <span className="radio-text">
-          <b>WKRS 29 FM</b>
+          <b>{music ? 'Music on · turn off' : 'Music off · turn on'}</b>
           <span className="radio-track">
-            <span>pluto projector ending · slowed & reverb, with rain</span>
+            <span>WKRS 29 FM · pluto projector ending · slowed & reverb, with rain</span>
           </span>
         </span>
         <span className="eq" aria-hidden="true">
@@ -1034,7 +1018,7 @@ function Radio() {
           <i />
         </span>
       </button>
-      <audio ref={audioRef} src={asset('audio/pluto-projector-rain.mp3')} preload="none" loop onPlay={() => setOn(true)} onPause={() => setOn(false)} />
+      <audio ref={audioRef} src={asset('audio/pluto-projector-rain.mp3')} preload="auto" loop onPlay={() => setOn(true)} onPause={() => setOn(false)} />
     </>
   )
 }
