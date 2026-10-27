@@ -6,6 +6,7 @@ import {
   me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
 } from './content.js'
 import snapshot from './github.json'
+import { useMusic } from './music.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -678,55 +679,43 @@ function Scope() {
   const audio = useRef(null)
   const canvas = useRef(null)
   const A = useRef({})
-  const [on, setOn] = useState(false)
+  const [on, setOn] = useState(false) // sound actually coming out
 
-  const toggle = async () => {
-    const a = audio.current
+  const ramp = (v, sec) => {
     const s = A.current
-    if (!s.ctx) {
-      const C = window.AudioContext || window.webkitAudioContext
-      if (C) {
-        s.ctx = new C()
-        const src = s.ctx.createMediaElementSource(a)
-        s.an = s.ctx.createAnalyser()
-        s.an.fftSize = 1024
-        s.buf = new Uint8Array(s.an.fftSize)
-        src.connect(s.an)
-        s.an.connect(s.ctx.destination)
-        // transformer hum: 100 Hz (twice 50 Hz mains) plus harmonics
-        s.hum = s.ctx.createGain()
-        s.hum.gain.value = 0
-        ;[[100, 1], [200, 0.35], [300, 0.12]].forEach(([f, g]) => {
-          const o = s.ctx.createOscillator(), og = s.ctx.createGain()
-          o.frequency.value = f
-          og.gain.value = g
-          o.connect(og).connect(s.hum)
-          o.start()
-        })
-        s.hum.connect(s.ctx.destination)
-      }
-    }
-    const ramp = (v, sec) => {
-      if (!s.hum) return
-      const t = s.ctx.currentTime
-      s.hum.gain.cancelScheduledValues(t)
-      s.hum.gain.setValueAtTime(s.hum.gain.value, t)
-      s.hum.gain.linearRampToValueAtTime(v, t + sec)
-    }
-    if (a.paused) {
-      try {
-        await s.ctx?.resume()
-        await a.play()
-      } catch { return }
-      setOn(true)
-      html.dataset.song = 'on'
-      ramp(0.018, 4)
-    } else {
-      a.pause()
-      setOn(false)
-      delete html.dataset.song
-      ramp(0, 0.6)
-    }
+    if (!s.hum) return
+    const t = s.ctx.currentTime
+    s.hum.gain.cancelScheduledValues(t)
+    s.hum.gain.setValueAtTime(s.hum.gain.value, t)
+    s.hum.gain.linearRampToValueAtTime(v, t + sec)
+  }
+  // Any first press (the Energise lever included) starts the song, analyser and hum unless music is off.
+  const [music, setMusic] = useMusic(() => audio.current, (ctx, src) => {
+    const s = A.current
+    s.ctx = ctx
+    s.an = ctx.createAnalyser()
+    s.an.fftSize = 1024
+    s.buf = new Uint8Array(s.an.fftSize)
+    src.connect(s.an)
+    s.an.connect(ctx.destination)
+    // transformer hum: 100 Hz (twice 50 Hz mains) plus harmonics
+    s.hum = ctx.createGain()
+    s.hum.gain.value = 0
+    ;[[100, 1], [200, 0.35], [300, 0.12]].forEach(([f, g]) => {
+      const o = ctx.createOscillator(), og = ctx.createGain()
+      o.frequency.value = f
+      og.gain.value = g
+      o.connect(og).connect(s.hum)
+      o.start()
+    })
+    s.hum.connect(ctx.destination)
+    if (!audio.current.paused) ramp(0.018, 4) // the song beat the graph to it
+  })
+  const playing = (v) => {
+    setOn(v)
+    if (v) html.dataset.song = 'on'
+    else delete html.dataset.song
+    ramp(v ? 0.018 : 0, v ? 4 : 0.6)
   }
 
   useEffect(() => {
@@ -778,13 +767,13 @@ function Scope() {
 
   return (
     <div className={`scope ${on ? 'is-on' : ''}`}>
-      <audio ref={audio} src={asset('audio/sun-fish.mp3')} preload="none" loop />
+      <audio ref={audio} src={asset('audio/sun-fish.mp3')} preload="auto" loop onPlay={() => playing(true)} onPause={() => playing(false)} />
       <div className="scope-screen">
         <span className="scope-ch">CH1 · {on ? 'Sun Fish' : '50 Hz mains'}</span>
         <canvas ref={canvas} aria-hidden="true" />
       </div>
-      <button type="button" className="scope-btn" onClick={toggle} aria-pressed={on}>
-        <span aria-hidden="true">{on ? '❚❚' : '▶'}</span> {on ? 'Pause “Sun Fish”' : 'Play “Sun Fish”'}
+      <button type="button" className="scope-btn" data-music onClick={() => setMusic(!music)} aria-pressed={music} aria-label={music ? 'Music on: turn off “Sun Fish”' : 'Music off: turn on “Sun Fish”'}>
+        <span aria-hidden="true">{music ? '❚❚' : '▶'}</span> {music ? 'Music on · turn off' : 'Music off · turn on'}
       </button>
     </div>
   )

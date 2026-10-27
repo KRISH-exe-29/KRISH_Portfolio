@@ -6,7 +6,7 @@ Krishna Raju S tests power transformers to IEC 60076 in a 161 kV bay by day and 
 - **Words**: "Low resistance to change. High resistance to manual work." "Fault found: spreadsheets. Fault cleared." "Turns ratio 1:∞, one engineer, endless output."
 - **Memes**: two "Tea break at the test bay" intermissions (setup, then meme, then reframe), pinned and scrubbed: the "scared and tired" transformer becomes "2 hours → 5 minutes", and "men's ego" goes up against a 2-hour report.
 - **Images**: his own photos (portrait, Southern Railway, Bühler, Indo Tech, IIT Bombay, E-Cell) plus a few Pinterest pins.
-- **Song**: "Sun Fish", off by default. Pressing play turns the fixed oscilloscope HUD into a real Web Audio analyser, and a 100 Hz transformer hum fades in underneath.
+- **Song**: "Sun Fish", on by default: it starts on load, or on your first click or key press (pressing Energise counts) if the browser blocks autoplay. The scope's "Music on · turn off" button turns it off and remembers that. While it plays it turns the fixed oscilloscope HUD into a real Web Audio analyser, and a 100 Hz transformer hum fades in underneath.
 - **Scroll**: Lenis and GSAP ScrollTrigger: a self-drawing scope trace, a no-load-loss clock that runs from 30:00 down to 00:30, heat bars for the twelve Agent-Builder versions, a lightning-impulse waveform, and the grid's contribution year scrubbed through the busbar.
 - **Transitions**: a hazard-tape wipe, hazard bands sweeping in at each chapter, masked headings, and a magnetic breaker switch.
 - **Surprise**: a test-probe cursor that sparks on hidden live parts and shows a fact. When you reach the end, the page trips and goes black, and a torch beam (your cursor) has to find the breaker.
