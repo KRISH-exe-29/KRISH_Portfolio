@@ -6,7 +6,7 @@ Krishna Raju S's career, released as a film. A projector flickers, a film-leader
 - **Words**: trailer narration, "Box office: 9 apps. Budget: one engineer.", numbers ticker, every number from `src/content.js`.
 - **Memes**: two intermissions with curtains that open on scroll. Interval 1: Jesse Pinkman, "Yeah, Python!" → ELECTRICAL ≠ OFF-TOPIC. Interval 2: "Eaaaa vazhka nadakamahhh 🙃" → QUICK MANUAL STEP = NEXT APP.
 - **Images**: his own photos (portrait, railway, Bühler, Indo Tech, IIT Bombay, E-Cell, speaking) plus Pinterest pins in `public/img/pins/`.
-- **Song**: "FIN DE LA ODISEA" (`public/audio/fin-de-la-odisea.mp3`) starts only on "Start the show". The title card waits for the first swell (Web Audio analyser), and a projector beam in the corner pulses with the score. Toggle from the header.
+- **Song**: "FIN DE LA ODISEA" (`public/audio/fin-de-la-odisea.mp3`) is on by default: it starts on load, or on your first click or key press if the browser blocks autoplay. "Start the show" plays it, "Watch silently" turns it off, and the header's "Music on · turn off" switch remembers an off for next time. The title card waits for the first swell (Web Audio analyser), and a projector beam in the corner pulses with the score.
 - **Scroll**: Lenis + GSAP ScrollTrigger. Pinned trailer, horizontal poster wall with parallax motifs, pinned intervals, scrubbed contribution chart and credits roll.
 - **Transitions**: velvet curtain wipes, clip-path slates and photo reveals, eased Lenis nav jumps.
 - **Surprise**: after the credits, type your company and get a downloadable "KRISHNA × [your company]: coming soon" poster (canvas → PNG).

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
 import snapshot from './github.json'
+import { useMusic } from './music.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,18 +24,13 @@ function go(id) {
 
 /* ---------- audio: one element, one analyser ---------- */
 const audio = { el: null, an: null, buf: null }
-function ensureAnalyser() {
-  if (audio.an || !audio.el) return
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
-    const src = ctx.createMediaElementSource(audio.el)
-    const an = ctx.createAnalyser()
-    an.fftSize = 256
-    src.connect(an)
-    an.connect(ctx.destination)
-    audio.an = an
-    audio.buf = new Uint8Array(an.frequencyBinCount)
-  } catch { /* no analyser: music still plays, visualiser stays calm */ }
+function wireAnalyser(ctx, src) {
+  const an = ctx.createAnalyser()
+  an.fftSize = 256
+  src.connect(an)
+  an.connect(ctx.destination)
+  audio.an = an
+  audio.buf = new Uint8Array(an.frequencyBinCount)
 }
 function level() {
   if (!audio.an) return 0
@@ -360,7 +356,7 @@ export default function App() {
   const [repos, setRepos] = useState(() => snapshot.repos.filter((r) => !r.fork).sort((a, b) => b.pushedAt.localeCompare(a.pushedAt)))
   const [live, setLive] = useState(false)
   const [exit, setExit] = useState(false)
-  const sound = useRef(false)
+  const [music, setMusic] = useMusic(() => audio.el, wireAnalyser)
   const beam = useRef(null)
 
   // Leader countdown = real loader: never runs ahead of the assets.
@@ -424,14 +420,8 @@ export default function App() {
   }
 
   const start = (withSound) => {
-    sound.current = withSound
-    if (withSound && audio.el) { ensureAnalyser(); audio.el.play().catch(() => {}) }
+    setMusic(withSound)
     setPhase('show')
-  }
-
-  const toggleSound = () => {
-    if (!audio.el) return
-    if (audio.el.paused) { ensureAnalyser(); audio.el.play().catch(() => {}) } else audio.el.pause()
   }
 
   // Title card: name, "in", then AUTOMATE slams on the first swell of the score.
@@ -459,7 +449,8 @@ export default function App() {
       const dt = performance.now() - t0
       const lv = level()
       avg = avg * 0.94 + lv * 0.06
-      if (dt > (sound.current ? 4600 : 1700) || (sound.current && dt > 1400 && lv > 0.2 && lv > avg * 1.25)) slam()
+      const scored = audio.el && !audio.el.paused
+      if (dt > (scored ? 4600 : 1700) || (scored && dt > 1400 && lv > 0.2 && lv > avg * 1.25)) slam()
       else raf = requestAnimationFrame(wait)
     }
     raf = requestAnimationFrame(wait)
@@ -549,7 +540,7 @@ export default function App() {
 
   return (
     <>
-      <audio ref={(el) => { audio.el = el }} src={asset('audio/fin-de-la-odisea.mp3')} preload="none" loop
+      <audio ref={(el) => { audio.el = el }} src={asset('audio/fin-de-la-odisea.mp3')} preload="auto" loop
         onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} />
       <div className="grain" aria-hidden="true" />
       <div className="beam" ref={beam} aria-hidden="true" />
@@ -574,7 +565,7 @@ export default function App() {
               <p className="kicker">Reel loaded · Screen 01</p>
               <p className="gate-h">The show is about to begin.</p>
               <button className="btn big" autoFocus onClick={() => start(true)}>▶ Start the show <small>with the score</small></button>
-              <button className="btn ghost" onClick={() => start(false)}>Watch silently</button>
+              <button className="btn ghost" data-music onClick={() => start(false)}>Watch silently</button>
               <p className="gate-note">Score: “FIN DE LA ODISEA”. Toggle it any time from the projector button.</p>
             </div>
           )}
@@ -588,8 +579,8 @@ export default function App() {
         <nav aria-label="Sections">
           {NAV.map(([id, label]) => <a key={id} href={`#${id}`} onClick={(e) => { e.preventDefault(); go(id) }}>{label}</a>)}
         </nav>
-        <button className={`proj ${playing ? 'on' : ''}`} onClick={toggleSound} aria-pressed={playing} aria-label={playing ? 'Pause the score' : 'Play the score'}>
-          <span className="eq" aria-hidden="true"><i /><i /><i /></span>{playing ? 'Score on' : 'Score off'}
+        <button className={`proj ${playing ? 'on' : ''}`} data-music onClick={() => setMusic(!music)} aria-pressed={music}>
+          <span className="eq" aria-hidden="true"><i /><i /><i /></span>{music ? 'Music on · turn off' : 'Music off · turn on'}
         </button>
       </header>
 
