@@ -446,6 +446,7 @@ html.limit main { animation: shake 0.5s; }
   body { font-size: 16px; }
   #wordmark small { display: none; }
   .play { padding: 8px 10px; font-size: 12px; }
+  .jump { display: none; }
   .apps, .stats, .before-after { grid-template-columns: 1fr; }
   .forms-track { grid-template-columns: 1fr 1fr; }
   .form p { font-size: 18px; }

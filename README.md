@@ -7,7 +7,7 @@ Krishna Raju S's portfolio told as a manga training arc. The cover is a ring of 
 - **Words**: shonen narration boxes. "He didn't get stronger. He got automated." "Power level: 9 apps in production."
 - **Memes**: two omake (bonus page) intermissions. Anya Forger for "Waku waku: a recruiter is reading this", and "scared and tired" for "Me before automation / me after". Each ends in a stamped reframe.
 - **Images**: his own photos inked in grayscale with a screentone, beside his Pinterest pins.
-- **Song**: off by default. "Play flashback" turns the page (a paper sheet sweeps across), scrolls to the flashback spread, and the piano's loudness drives a slow ink-bleed reveal through an analyser node.
+- **Song**: on by default (it starts on your first click or key press if the browser blocks autoplay); the header's "Music on · turn off" switch turns it off and remembers that. "Jump to flashback" turns the page (a paper sheet sweeps across) and scrolls to the flashback spread, and whenever the song is playing the piano's loudness drives a slow ink-bleed reveal through an analyser node.
 - **Scroll**: Lenis plus GSAP ScrollTrigger. Pinned power-up, pinned horizontal run of the twelve forms, scrubbed page turn.
 - **Transitions**: clip-path panel reveals that follow each panel's slanted cut, speed-line wipes, page-turn sweep, speech-bubble form that bursts into a shout on submit.
 - **Surprises**: scroll very fast and you trigger a LIMIT BREAK (the page shakes, ink splats). The last spread flips its page to reveal "A new rival appears… it's you."

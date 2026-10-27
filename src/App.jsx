@@ -5,6 +5,7 @@ import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
 import { me, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 import gh from './github.json'
+import { useMusic } from './music.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -668,28 +669,26 @@ export default function App() {
     return () => mm.revert()
   }, [])
 
-  const toggle = () => {
+  const getAudio = () => {
     let a = audio.current
     if (!a) {
       a = audio.current = new Audio(asset('audio/chasing-kou.mp3'))
       a.loop = true
+      a.preload = 'auto'
       a.addEventListener('play', () => { playingRef.current = true; setPlaying(true) })
       a.addEventListener('pause', () => { playingRef.current = false; setPlaying(false) })
     }
-    if (!a.paused) { a.pause(); return }
-    try {
-      if (!analyser.current) {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)()
-        const an = ctx.createAnalyser()
-        an.fftSize = 512
-        ctx.createMediaElementSource(a).connect(an)
-        an.connect(ctx.destination)
-        analyser.current = an
-        a._ctx = ctx
-      }
-      a._ctx?.resume()
-    } catch { /* plays without the visualiser */ }
-    a.play().catch(() => {})
+    return a
+  }
+  const [music, setMusic] = useMusic(getAudio, (ctx, src) => {
+    const an = ctx.createAnalyser()
+    an.fftSize = 512
+    src.connect(an)
+    an.connect(ctx.destination)
+    analyser.current = an
+  })
+
+  const jump = () => {
     if (reduced) { go('#flashback'); return }
     const fx = turn.current
     fx.classList.remove('go'); void fx.offsetWidth; fx.classList.add('go')
@@ -708,9 +707,10 @@ export default function App() {
           <button type="button" className="menu-btn" aria-expanded={menu} onClick={() => setMenu((m) => !m)}>Chapters</button>
           <ul>{nav.map(([h, l]) => <li key={h}><a href={h}>{l}</a></li>)}</ul>
         </nav>
-        <button type="button" className={`play ${playing ? 'on' : ''}`} aria-pressed={playing} onClick={toggle}>
-          <span className="eq" aria-hidden="true"><i /><i /><i /></span>{playing ? 'Pause flashback' : 'Play flashback'}
+        <button type="button" className={`play ${playing ? 'on' : ''}`} data-music aria-pressed={music} onClick={() => setMusic(!music)}>
+          <span className="eq" aria-hidden="true"><i /><i /><i /></span>{music ? 'Music on · turn off' : 'Music off · turn on'}
         </button>
+        <button type="button" className="play jump" onClick={jump}>Jump to flashback</button>
         {playing && <p className="now" aria-live="polite">♪ Chasing Kou · piano cover</p>}
       </header>
 
