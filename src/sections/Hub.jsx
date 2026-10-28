@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { animate, createScope, onScroll, stagger } from 'animejs'
-import { apps, me, numbers, sideProjects } from '../content.js'
+import { apps, building, me, numbers, sideProjects } from '../content.js'
 import { calm } from '../motion.js'
 import './Hub.css'
 
@@ -53,6 +53,14 @@ export default function Hub() {
             ) : (
               <p className="hub-link hub-internal">Internal tool</p>
             )}
+          </li>
+        ))}
+        {building.map((b) => (
+          <li className="slab hub-tile" key={b.name}>
+            <p className="caption quiet">Locked · {b.status}</p>
+            <h3>{b.name}</h3>
+            <p className="hub-pitch">{b.pitch}</p>
+            <p className="hub-link hub-internal">Still unlocking</p>
           </li>
         ))}
       </ul>
