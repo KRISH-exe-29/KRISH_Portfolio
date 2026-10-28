@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 import snapshot from './github.json'
 import { useMusic } from './music.js'
 
@@ -40,6 +40,14 @@ function AppsList() {
           <h3>{a.url ? <a href={a.url} target="_blank" rel="noreferrer">{a.name}<span className="sr"> (opens in a new tab)</span></a> : a.name}</h3>
           <p>{a.pitch}</p>
           <span className="live">{a.url ? 'live' : 'internal, in production'}</span>
+        </li>
+      ))}
+      {building.map((b) => (
+        <li key={b.name} className="app">
+          <span className="app-bar" aria-hidden="true"><i /><i /><i /> <b>WIP</b></span>
+          <h3>{b.name}</h3>
+          <p>{b.pitch}</p>
+          <span className="live">still compiling, {b.status.toLowerCase()}</span>
         </li>
       ))}
     </ul>
