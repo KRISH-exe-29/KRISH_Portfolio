@@ -32,6 +32,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .world-fallback { background: url('/img/world/field.jpg') center 60% / cover no-repeat; }
 .world { opacity: 0; transition: opacity 0.8s; display: block; }
 .gl .world { opacity: 1; }
+.gl .world-fallback { display: none; }
 main, .foot, .top { position: relative; z-index: 1; }
 
 .glass {
@@ -92,7 +93,7 @@ main, .foot, .top { position: relative; z-index: 1; }
   position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
   padding: 110px var(--gut) 90px; text-align: center; gap: 18px;
 }
-.fog { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; filter: blur(6px); }
+.fog { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; filter: blur(6px); opacity: 0.82; }
 .hero > p, .hero-cue { opacity: 0; transform: translateY(14px); transition: opacity 0.9s, transform 0.9s; }
 .hero.in > p, .hero.in .hero-cue { opacity: 1; transform: none; }
 .hero.in > p:nth-of-type(2) { transition-delay: 0.1s; }
@@ -113,8 +114,8 @@ main, .foot, .top { position: relative; z-index: 1; }
 .gl .slab h1 { color: transparent; text-shadow: none; }
 .hero-role { font: 500 clamp(20px, 2.4vw, 28px)/1.2 var(--serif); }
 .hero-line { font-size: clamp(16px, 1.6vw, 19px); background: var(--glass); padding: 8px 16px; border-radius: 99px; }
-.hero-hint { font: italic 400 15px var(--serif); color: var(--ink-2); }
-.hero-cue { font: 500 13px var(--mono); text-decoration: none; padding: 10px 16px; border-radius: 99px; border: 1px solid var(--ink); }
+.hero-hint { font: italic 400 15px var(--serif); background: rgba(255, 255, 255, 0.45); padding: 5px 12px; border-radius: 99px; }
+.hero-cue { font: 500 13px var(--mono); text-decoration: none; padding: 10px 16px; border-radius: 99px; background: var(--ink); color: #fff; }
 .hero-cue::after { content: ' ↓'; }
 .found {
   position: absolute; z-index: 3; left: 50%; bottom: 26px; transform: translateX(-50%);
@@ -240,9 +241,9 @@ a.tile-in:hover .tile-go { text-decoration: underline; text-decoration-color: va
 .wall-top { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
 .bloom-note { font: 500 14px var(--mono); display: flex; align-items: center; gap: 8px; }
 .bloom-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255, 91, 46, 0.25); }
-.wall-scroll { overflow-x: auto; border-radius: 18px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(220, 236, 244, 0.4)); }
+.wall-scroll { overflow-x: auto; border-radius: 18px; background: linear-gradient(180deg, rgba(38, 66, 58, 0.55), rgba(38, 66, 58, 0.35)); }
 .condensation { display: block; width: 100%; min-width: 640px; height: auto; filter: brightness(calc(1 + var(--bass) * 0.25)); }
-.mist { fill: rgba(255, 255, 255, 0.55); }
+.mist { fill: rgba(255, 255, 255, 0.4); }
 .bloom ellipse { fill: var(--accent); stroke: rgba(255, 255, 255, 0.9); stroke-width: 0.8; }
 .bloom { animation: bloom 4s ease-in-out infinite; transform-box: fill-box; }
 @keyframes bloom { 50% { filter: drop-shadow(0 0 6px rgba(255, 91, 46, 0.8)); } }
@@ -264,11 +265,11 @@ a.tile-in:hover .tile-go { text-decoration: underline; text-decoration-color: va
 .pot-name { margin-top: 10px; font: 600 14px/1.2 var(--sans); overflow-wrap: anywhere; background: rgba(255, 255, 255, 0.55); padding: 3px 8px; border-radius: 8px; }
 .pot-meta { margin-top: 4px; font: 400 11.5px var(--mono); color: var(--ink); background: rgba(255, 255, 255, 0.4); padding: 2px 6px; border-radius: 6px; }
 .pot-desc {
-  position: absolute; z-index: 5; bottom: calc(100% - 30px); left: 50%; transform: translateX(-50%); width: 220px;
+  position: absolute; z-index: 5; bottom: calc(100% - 30px); left: -6px; right: -6px; display: none;
   font-size: 13px; padding: 10px 12px; border-radius: 14px; background: rgba(255, 255, 255, 0.92); box-shadow: 0 10px 30px -10px rgba(15, 31, 24, 0.5);
-  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  pointer-events: none;
 }
-.pot a:hover .pot-desc, .pot a:focus-visible .pot-desc { opacity: 1; }
+.pot a:hover .pot-desc, .pot a:focus-visible .pot-desc { display: block; }
 .gh-foot { margin-top: 26px; padding: 14px 20px; border-radius: 20px; background: rgba(255, 255, 255, 0.5); }
 .gh-foot a { font-weight: 600; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 .bio { font-family: var(--serif); font-style: italic; }

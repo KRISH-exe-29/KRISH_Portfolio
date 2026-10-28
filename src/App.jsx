@@ -74,20 +74,20 @@ function useFog(areaRef, canvasRef, onFound) {
     }
     tickRef.current = (dt) => {
       const now = performance.now()
-      const breathing = s.inside && now - s.lastMove > 650
+      const breathing = s.inside && now - s.lastMove > 1100
       if (breathing) {
         s.held += dt
-        const R = Math.min(460, 140 + s.held * 180)
+        const R = Math.min(420, 120 + s.held * 140)
         g.globalCompositeOperation = 'source-over'
         g.globalAlpha = 1
         const grd = g.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
-        grd.addColorStop(0, 'rgba(236,243,247,0.11)')
-        grd.addColorStop(0.7, 'rgba(236,243,247,0.05)')
+        grd.addColorStop(0, 'rgba(236,243,247,0.06)')
+        grd.addColorStop(0.7, 'rgba(236,243,247,0.03)')
         grd.addColorStop(1, 'rgba(236,243,247,0)')
         g.fillStyle = grd
         g.fillRect(s.x - R, s.y - R, R * 2, R * 2)
         g.globalCompositeOperation = 'destination-out'
-        g.globalAlpha = 0.16
+        g.globalAlpha = 0.1
         writing()
         s.fog = Math.min(1, s.fog + dt * 0.8)
         if (Math.abs(s.y - cv.height * 0.8) < R * 0.8) s.read += dt
@@ -172,7 +172,7 @@ function Condensation({ days, best }) {
     const y = 15 + (k % 7) * cell + cell / 2 + (hash(i + 99) - 0.5) * 6
     if (date === best.date) { bestPos = [x, y]; return null }
     if (!c) return <circle key={date} cx={x} cy={y} r="1.5" className="mist" />
-    const r = Math.min(9, 2.6 + Math.sqrt(c) * 1.5)
+    const r = Math.min(10, 3.4 + Math.sqrt(c) * 1.7)
     return (
       <g key={date} className="drop">
         <circle cx={x} cy={y} r={r} fill="url(#dropFill)" stroke="rgba(255,255,255,.85)" strokeWidth=".8" />

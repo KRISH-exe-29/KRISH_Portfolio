@@ -50,7 +50,7 @@ uniform sampler2D uH; uniform vec2 uTexel; uniform float uInflate; uniform vec2 
 float h(vec2 p){ return texture2D(uH, p).r; }
 void main(){
   float v = h(vUv);
-  float edge = mix(0.96, 0.4, uInflate);
+  float edge = mix(0.96, 0.5, uInflate);
   if (v < edge) discard;
   vec2 e = uTexel * 3.0;
   float dx = h(vUv + vec2(e.x, 0.0)) - h(vUv - vec2(e.x, 0.0));
@@ -117,14 +117,14 @@ async function typeTexture(lines) {
   c.height = Math.ceil(lines.length * size * 1.02 + pad * 2)
   g.fillStyle = '#000'
   g.fillRect(0, 0, c.width, c.height)
-  g.filter = `blur(${size * 0.07}px)`
+  g.filter = `blur(${size * 0.05}px)`
   g.font = `600 ${size}px Fraunces, Georgia, serif`
   g.fillStyle = '#fff'
   g.textAlign = 'center'
   g.textBaseline = 'middle'
   lines.forEach((l, i) => g.fillText(l, c.width / 2, pad + size * 0.52 + i * size * 1.02))
   // thicken the glyph strokes before the blur so the balloons are plump
-  g.lineWidth = size * 0.05
+  g.lineWidth = size * 0.025
   g.strokeStyle = '#fff'
   g.lineJoin = 'round'
   lines.forEach((l, i) => g.strokeText(l, c.width / 2, pad + size * 0.52 + i * size * 1.02))
@@ -179,11 +179,11 @@ export async function createWorld(canvas, { small, bg, nameLines, panes }) {
   const hero = new THREE.Group()
   scene.add(hero)
   const type = await typeTexture(nameLines)
-  const typeU = { uH: { value: type.tex }, uTexel: { value: type.texel }, uInflate: { value: 0 }, uLight: { value: new THREE.Vector2(-0.4, 0.6) }, uTint: { value: new THREE.Color('#8fb0d8') } }
+  const typeU = { uH: { value: type.tex }, uTexel: { value: type.texel }, uInflate: { value: 0 }, uLight: { value: new THREE.Vector2(-0.4, 0.6) }, uTint: { value: new THREE.Color(small ? '#5f86bd' : '#8fb0d8') } }
   const typeMesh = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShaderMaterial({ uniforms: typeU, vertexShader: BG_VERT, fragmentShader: TYPE_FRAG }))
   hero.add(typeMesh)
   const slabU = { uT: { value: 0 }, uAmp: { value: 0 }, uIdle: { value: 7 }, uP: { value: new THREE.Vector2(9999, 9999) } }
-  const slabMat = glass(small, { thickness: 150, dispersion: 4, roughness: 0.02 })
+  const slabMat = glass(small, { thickness: small ? 60 : 150, dispersion: 4, roughness: 0.02 })
   liquid(slabMat, slabU)
   const slab = new THREE.Mesh(undefined, slabMat)
   hero.add(slab)
@@ -250,6 +250,7 @@ export async function createWorld(canvas, { small, bg, nameLines, panes }) {
       coverPhoto(p, pw, ph)
       const side = W < 720 ? 0 : W * 0.17 + (p.i % 2 ? -50 : 50)
       p.g.position.set(side, W < 720 ? H * 0.08 : 0, -p.i * PANE_GAP)
+      p.baseX = side
     })
     S.dirty = true
   }
@@ -263,7 +264,7 @@ export async function createWorld(canvas, { small, bg, nameLines, panes }) {
       const d = small ? 90 : 150
       slab.geometry?.dispose()
       slab.geometry = new RoundedBoxGeometry(r.width, r.height, d, small ? 8 : 16, Math.min(r.height * 0.3, 90))
-      const fitW = r.width * 0.88, fitH = r.height * 0.8
+      const fitW = r.width * (small ? 0.72 : 0.88), fitH = r.height * (small ? 0.62 : 0.8)
       const tw = Math.min(fitW, fitH * type.aspect)
       typeMesh.scale.set(tw, tw / type.aspect, 1)
     }
@@ -348,12 +349,15 @@ export async function createWorld(canvas, { small, bg, nameLines, panes }) {
       S.hover = hit
       paneList.forEach((p) => {
         const z = stage.position.z + p.g.position.z
-        p.g.visible = z < S.dist * 0.55
+        p.g.visible = z < S.dist * 0.45
+        // a passed pane swings aside like a door you walked through
+        const pass = Math.max(0, z)
+        p.g.position.x = p.baseX + (p.i % 2 ? -1 : 1) * pass * 1.1
         const focus = 1 - clamp01(Math.abs(p.i - f))
-        const target = p.i === hit ? 1 : focus * 0.45
+        const target = p.i === hit ? 1 : focus * (small ? 0.95 : 0.45)
         p.clear = damp(p.clear, target, 6, dt)
         p.mat.roughness = 0.6 - p.clear * 0.58
-        p.g.rotation.y = damp(p.g.rotation.y, (p.i % 2 ? 0.18 : -0.18) * (1 - focus) + S.ptrS.x * 0.08, 5, dt)
+        p.g.rotation.y = damp(p.g.rotation.y, (p.i % 2 ? 0.18 : -0.18) * (1 - focus) + (p.i % 2 ? -1 : 1) * Math.min(1, pass / 600) * 0.9 + S.ptrS.x * 0.08, 5, dt)
       })
     }
 
