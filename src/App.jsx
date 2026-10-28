@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
 import snapshot from './github.json'
 import { useMusic } from './music.js'
 
@@ -334,6 +334,9 @@ export default function App() {
                 </li>
               ))}
             </ul>
+            {building.map((b) => (
+              <p key={b.name} className="lede rise">On the launch pad: <b>{b.name}</b>. {b.pitch} {b.status}.</p>
+            ))}
           </div>
         </section>
 
