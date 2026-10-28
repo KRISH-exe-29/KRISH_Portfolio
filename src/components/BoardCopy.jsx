@@ -1,4 +1,4 @@
-import { ai, apps, awards, certifications, experience, field, leadership, me, numbers } from '../content.js'
+import { ai, apps, building, awards, certifications, experience, field, leadership, me, numbers } from '../content.js'
 import Chip from './Chip.jsx'
 import KineticHeading from './KineticHeading.jsx'
 import { scatter } from './scatter.js'
@@ -50,6 +50,9 @@ function IndoTech({ revealed }) {
           <Chip key={item.name} item={item} index={index} revealed={revealed} />
         ))}
       </div>
+      {building.map((b) => (
+        <p key={b.name} className="caption">Now building{' // '}{b.name}: {b.pitch} {b.status}.</p>
+      ))}
     </>
   )
 }
