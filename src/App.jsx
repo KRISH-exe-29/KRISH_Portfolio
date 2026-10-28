@@ -4,7 +4,7 @@ import { segment } from './morph.js'
 import { buildShapes } from './shapes.js'
 import { createSwarm } from './swarm.js'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 const patent = awards.find((a) => a.title.startsWith('Patent'))
@@ -36,6 +36,7 @@ const chapters = [
         <h2>Nine apps in production</h2>
         <p className="lede">{me.lines[0]} {numbers[1].value} {numbers[1].unit} {numbers[1].label}.</p>
         <Apps />
+        <Building />
         <h3 className="gap">Off the clock</h3>
         <SideProjects />
       </>
