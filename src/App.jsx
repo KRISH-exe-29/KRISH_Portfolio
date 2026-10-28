@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, field } from './content.js'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -219,6 +219,7 @@ function Projects() {
       <ul className="cards">
         {apps.map((a, i) => <Card key={a.name} item={a} hue={hues[i]} />)}
         {extras.map((a, i) => <Card key={a.name} item={a} hue={hues[(i * 2 + 3) % hues.length]} kind={a.kind} />)}
+        {building.map((a, i) => <Card key={a.name} item={a} hue={hues[(i * 2 + 5) % hues.length]} kind="Now building" />)}
         <li>
           <a className="card blank" href={`mailto:${me.email}?subject=A manual task for you`}>
             <span className="cover"><b>+</b></span>
