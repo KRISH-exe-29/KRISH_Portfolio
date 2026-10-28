@@ -131,9 +131,10 @@ main > section { position: relative; padding: 18vh var(--gut); }
 
 /* hero */
 .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 12vh !important; }
-.hero-copy { max-width: 640px; }
+.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7, 8, 12, 0.88), rgba(7, 8, 12, 0.5) 45%, transparent 70%); pointer-events: none; }
+.hero-copy { position: relative; max-width: 900px; }
 .eyebrow { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
-.hero h1 { font-size: clamp(3rem, 10vw, 7.5rem); min-height: 1em; text-shadow: 0 6px 40px rgba(7, 8, 12, 0.9); }
+.hero h1 { font-size: clamp(2.6rem, 7.4vw, 6.4rem); white-space: nowrap; min-height: 1em; text-shadow: 0 6px 40px rgba(7, 8, 12, 0.9); }
 .hero .caret { width: 0.08em; height: 0.85em; margin-left: 0.04em; background: var(--ice); animation: none; }
 .hero .caret.blink { animation: blink 1s steps(1) infinite; }
 .lede { font-size: clamp(1.4rem, 3vw, 2.1rem); font-weight: 700; letter-spacing: -0.02em; margin: 0.4em 0 0.2em; text-shadow: 0 2px 20px #000; }
@@ -157,7 +158,7 @@ main > section { position: relative; padding: 18vh var(--gut); }
 /* work (pinned) */
 .work { padding: 0 var(--gut) !important; }
 .work-pin { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4vw; align-items: center; padding: 12vh 0 8vh; max-width: 1300px; margin: 0 auto; pointer-events: none; }
-.work-head { align-self: start; padding-top: 4vh; }
+.work-head { align-self: start; margin-top: 4vh; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 3vw, 32px); }
 .work-head h2 { text-shadow: 0 4px 30px #000; }
 .fxbar { list-style: none; padding: 0; margin: 1.4em 0 0; display: flex; gap: 10px; flex-wrap: wrap; }
 .fxbar li { display: grid; justify-items: center; gap: 6px; font: 500 0.7rem var(--mono); color: var(--dim); }
@@ -255,7 +256,7 @@ html.phantom .codename { background: var(--violet); color: var(--ink); }
 .send { min-height: 100svh; padding-bottom: 6vh !important; }
 .send-panel { max-width: 680px; }
 .sendrow { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; align-items: stretch; margin: 1.4em 0; }
-.sendkey { position: relative; width: 170px; height: 170px; border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.35); background: var(--bg) center / cover, #000; cursor: pointer; color: var(--text); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45), 0 10px 0 rgba(124, 245, 255, 0.35), 0 24px 50px rgba(124, 245, 255, 0.18); transition: transform 0.09s ease, box-shadow 0.09s ease; overflow: hidden; }
+.sendkey { position: relative; width: 170px; height: 170px; border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.35); background-color: #000; background-position: center; background-size: cover; cursor: pointer; color: var(--text); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45), 0 10px 0 rgba(124, 245, 255, 0.35), 0 24px 50px rgba(124, 245, 255, 0.18); transition: transform 0.09s ease, box-shadow 0.09s ease; overflow: hidden; }
 .sendkey::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(124, 245, 255, 0.05), rgba(7, 8, 12, 0.55)); }
 .sendkey:hover { box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45), 0 10px 0 rgba(124, 245, 255, 0.5), 0 24px 60px rgba(124, 245, 255, 0.35); }
 .sendkey:active, .sendkey.down { transform: translateY(8px); box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.45), 0 2px 0 rgba(124, 245, 255, 0.6), 0 8px 20px rgba(124, 245, 255, 0.3); }
@@ -281,7 +282,7 @@ html.phantom .codename { background: var(--violet); color: var(--ink); }
   .sendkey { width: 100%; height: 140px; }
   .photos.three { grid-template-columns: 1fr 1fr; }
   .scrollcue { display: none; }
-  .hero h1 { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .hero h1 { font-size: clamp(2.2rem, 11.5vw, 4rem); }
   .applist .app-num { display: none; }
   .applist a, .applist .nolink { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: 'k n' 'k p'; }
 }

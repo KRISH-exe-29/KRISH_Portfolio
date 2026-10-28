@@ -435,7 +435,7 @@ function Send() {
         <h2>Ctrl+C your problem. Ctrl+V it here.</h2>
         <p className="sub">{me.lines[1]} {me.lines[2]}</p>
         <div className="sendrow">
-          <button type="button" className={`sendkey ${state === 'down' ? 'down' : ''}`} onClick={compose} style={{ '--bg': `url(${asset('img/pins/glass-keycap.jpg')})` }}>
+          <button type="button" className={`sendkey ${state === 'down' ? 'down' : ''}`} onClick={compose} style={{ backgroundImage: `url(${asset('img/pins/glass-keycap.jpg')})` }}>
             <span className="sendkey-cap">send <span aria-hidden="true">⏎</span></span>
             <span className="sendkey-hint mono">press Enter</span>
           </button>
@@ -565,6 +565,7 @@ export default function App() {
     if (phase !== 'done') return
     document.documentElement.classList.remove('booting')
     lenisRef.current?.start()
+    requestAnimationFrame(() => ScrollTrigger.refresh())
     if (sceneReady) sceneRef.current.assemble()
     if (calm) return
     let stop = false
@@ -633,8 +634,24 @@ export default function App() {
       history.replaceState(null, '', a.getAttribute('href'))
     }
     document.addEventListener('click', onClick)
+    // lazy images change the page height: re-measure the triggers once they land
+    let rid = 0
+    const onLoad = (e) => { if (e.target.tagName === 'IMG') { clearTimeout(rid); rid = setTimeout(() => ScrollTrigger.refresh(), 200) } }
+    document.addEventListener('load', onLoad, true)
 
     const ctx = gsap.context(() => {
+      // the pin is created first so every trigger below it measures with the pin spacing included
+      const fxUpdate = (s) => {
+        sceneRef.current?.shot(null, s.progress)
+        bus.fx?.(Math.min(4, Math.round(s.progress * 4)))
+      }
+      const mm = gsap.matchMedia()
+      mm.add(MOTION, () => {
+        ScrollTrigger.create({ trigger: '#work', pin: '.work-pin', start: 'top top', end: () => '+=' + window.innerHeight * 4, scrub: true, refreshPriority: 1, onUpdate: fxUpdate })
+      })
+      mm.add('not all and ' + MOTION, () => {
+        ScrollTrigger.create({ trigger: '#work', start: 'top center', end: 'bottom center', onUpdate: fxUpdate })
+      })
       gsap.utils.toArray('[data-shot]').forEach((el) => {
         ScrollTrigger.create({
           trigger: el, start: 'top 55%', end: 'bottom 55%',
@@ -651,17 +668,6 @@ export default function App() {
         })
       })
       ScrollTrigger.create({ trigger: '#top', start: 'top top', end: 'bottom top', scrub: true, onUpdate: (s) => sceneRef.current?.hero(s.progress) })
-      const fxUpdate = (s) => {
-        sceneRef.current?.shot(null, s.progress)
-        bus.fx?.(Math.min(4, Math.round(s.progress * 4)))
-      }
-      const mm = gsap.matchMedia()
-      mm.add(MOTION, () => {
-        ScrollTrigger.create({ trigger: '#work', pin: '.work-pin', start: 'top top', end: () => '+=' + window.innerHeight * 4, scrub: true, onUpdate: fxUpdate })
-      })
-      mm.add('not all and ' + MOTION, () => {
-        ScrollTrigger.create({ trigger: '#work', start: 'top center', end: 'bottom center', onUpdate: fxUpdate })
-      })
       if (!calm) {
         gsap.utils.toArray('.rise').forEach((el) => {
           gsap.fromTo(el, { clipPath: 'inset(0% 0% 100% 0% round 18px)', y: 60 }, {
@@ -688,6 +694,8 @@ export default function App() {
       ctx.revert()
       gsap.ticker.remove(raf)
       document.removeEventListener('click', onClick)
+      document.removeEventListener('load', onLoad, true)
+      clearTimeout(rid)
       lenis?.destroy()
     }
   }, [])

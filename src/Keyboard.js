@@ -295,7 +295,7 @@ export async function createKeyboard(canvas, opts) {
   const v = (x, y, z) => goal.pos.set(x, y, z)
   const fit = () => (camera.aspect < 1.2 ? Math.min(2.3, 1.45 / camera.aspect) : 1)
   const SHOT = {
-    hero: () => { const f = fit(); v(0, 11.5 * f - state.heroT * 2, 12 * f - state.heroT * 3.5); goal.look.set(0, 0, 0.4) },
+    hero: () => { const f = fit(); const lx = camera.aspect > 1.2 ? -4.2 : 0; v(lx, 15 * f - state.heroT * 3, 16.5 * f - state.heroT * 5); goal.look.set(lx, 0, 0.6) },
     apps: () => { const f = Math.min(1.6, fit()); v(7.3 + 2.2, 7.2 * f, 6.2 * f); goal.look.set(7.3, 0.4, -0.3) },
     exp: () => {
       const f = Math.min(1.5, fit())
@@ -303,8 +303,8 @@ export async function createKeyboard(canvas, opts) {
       const a = fxKeys[Math.floor(s)] || fxKeys[4]
       const b = fxKeys[Math.min(4, Math.floor(s) + 1)]
       const fx = THREE.MathUtils.lerp(a.mesh.position.x, b.mesh.position.x, s - Math.floor(s))
-      v(fx + 2.2, 5.2 * f, OZ + 5.6 * f)
-      goal.look.set(fx + 0.6, 0.6, OZ)
+      v(fx + 1.5, 10 * f, OZ + 7 * f)
+      goal.look.set(fx + 1.5, 0, OZ - 3)
     },
     numbers: () => { const f = fit(); v(0.01, 22 * f, 3); goal.look.set(0, 0, 0) },
     github: () => {
@@ -442,7 +442,7 @@ export async function createKeyboard(canvas, opts) {
         press(glassKeys[(Math.random() * glassKeys.length) | 0], false, 0.6)
       }
       state.prevLevel = damp(state.prevLevel, level, 6, dt)
-      const glow = 0.55 + state.level * 1.4
+      const glow = 0.3 + state.level * 1.1
       if (!state.phantom) plateMat.color.setScalar(glow)
       under1.intensity = under2.intensity = 18 + state.level * 60
 
