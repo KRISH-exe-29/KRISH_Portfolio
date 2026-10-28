@@ -23,6 +23,7 @@ body {
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; }
+main { overflow-x: clip; } /* the tilted ticker band pokes 2px past the edge */
 a { color: var(--blue); text-underline-offset: 3px; }
 h1, h2, h3 { margin: 0; line-height: 1.05; }
 p { margin: 0 0 0.8em; }
@@ -106,7 +107,8 @@ section[tabindex]:focus { outline: none; }
 
 .hud { position: absolute; right: 24px; bottom: 18px; display: flex; gap: 18px; font: 700 0.75rem/1 var(--mono); }
 .count b { color: var(--blue); }
-.loader { position: absolute; left: 24px; bottom: 18px; margin: 0; font: 400 0.75rem/1 var(--mono); }
+.loader { position: absolute; left: 24px; bottom: 18px; margin: 0; font: 400 0.75rem/1 var(--mono); transition: opacity 0.4s; }
+.stage.ready:not(.nogl) .loader { opacity: 0; }
 .skip, .spin {
   position: absolute; font: 700 0.8rem/1 var(--mono); color: var(--ink); background: #fff; cursor: pointer;
   border: 2px solid var(--ink); border-radius: 999px; padding: 8px 12px;
@@ -116,7 +118,7 @@ section[tabindex]:focus { outline: none; }
 .spin { right: 24px; bottom: 46px; }
 
 /* ---------- ticker, perforations, breaks ---------- */
-.ticker { background: var(--blue); color: var(--yellow); border-block: 3px solid var(--ink); transform: rotate(-1.5deg); margin: 40px -10px; overflow: hidden; }
+.ticker { background: var(--blue); color: var(--yellow); border-block: 3px solid var(--ink); transform: rotate(-1.5deg); margin: 40px 0; overflow: hidden; }
 .ticker-track { display: flex; width: max-content; animation: tick 40s linear infinite; }
 .ticker-track > div { display: flex; }
 .ticker span { font: 400 1.1rem/1 var(--display); padding: 16px 22px; white-space: nowrap; }
@@ -245,7 +247,7 @@ section[tabindex]:focus { outline: none; }
 .variant::before { content: ''; position: absolute; top: -22px; left: 50%; width: 6px; height: 36px; margin-left: -3px; background: #9aa0aa; border-radius: 3px; }
 .v-lang { font: 700 0.68rem/1.2 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; }
 .v-name { font: 800 1.1rem/1.15 var(--body); overflow-wrap: anywhere; }
-.v-desc { font-size: 0.85rem; flex: 1; }
+.v-desc { font-size: 0.85rem; flex: 1; overflow-wrap: anywhere; }
 .v-meta { font: 400 0.72rem/1 var(--mono); }
 
 /* ---------- order ---------- */
@@ -307,9 +309,10 @@ section[tabindex]:focus { outline: none; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(16px, 1fr)); gap: 4px; }
   .packs { grid-template-columns: 1fr; }
   .pack { padding: 18px; }
+  .hero-copy .eyebrow { display: none; }
 }
 @media (max-width: 760px) and (max-height: 700px) {
-  .hero-copy .sub, .hero-copy .eyebrow { display: none; }
+  .hero-copy .sub { display: none; }
 }
 
 /* ---------- reduced motion: everything visible, nothing moves ---------- */

@@ -255,7 +255,7 @@ function Stickers({ gh }) {
       <header>
         <p className="tag">Bonus inside · GitHub</p>
         <h2 id="st-h">The sticker sheet</h2>
-        <p>One sticker per day on GitHub. Bigger day, bigger sticker. Empty outlines are days off. There were not many.</p>
+        <p>One sticker per day on GitHub. Bigger day, bigger sticker. Empty outlines are days off. Hover a sticker to peel it up.</p>
       </header>
       <div className="sheet">
         <div className="sheet-top">
@@ -497,7 +497,7 @@ export default function App() {
 
       // sections swing down onto their peg
       gsap.utils.toArray('.peg').forEach((el) => {
-        gsap.fromTo(el, { rotateX: 12, y: 90, transformPerspective: 1400, transformOrigin: '50% 0%' }, {
+        gsap.fromTo(el, { rotateX: -12, y: 90, transformPerspective: 1400, transformOrigin: '50% 0%' }, {
           rotateX: 0, y: 0, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'top 55%', scrub: true },
         })
       })

@@ -267,13 +267,14 @@ export function createScene(canvas, opts) {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !small, powerPreference: 'high-performance' })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2))
   renderer.outputColorSpace = THREE.SRGBColorSpace
-  renderer.toneMapping = THREE.ACESFilmicToneMapping
-  renderer.toneMappingExposure = 1.05
+  renderer.toneMapping = THREE.NeutralToneMapping
+  renderer.toneMappingExposure = 1
 
   const scene = new THREE.Scene()
   const pmrem = new THREE.PMREMGenerator(renderer)
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
   pmrem.dispose()
+  scene.environmentIntensity = 0.55 // enough for the plastic to shine without washing out the print
   const key = new THREE.DirectionalLight('#fff4e6', 1.6)
   key.position.set(-3, 5, 6)
   const rim = new THREE.DirectionalLight('#7fa2ff', 1.2)
@@ -416,9 +417,9 @@ export function createScene(canvas, opts) {
       layout.y = -mid * layout.s - vh * 0.02
       layout.showX = 0.3
     } else {
-      layout.s = Math.min((0.43 * vh) / tall, (0.78 * vw) / CARD.w)
+      layout.s = Math.min((0.4 * vh) / tall, (0.74 * vw) / CARD.w)
       layout.x = 0
-      layout.y = vh * 0.5 - vh * 0.11 - CARD.top * layout.s
+      layout.y = vh * 0.5 - vh * 0.1 - CARD.top * layout.s
       layout.showX = 0
     }
   }
@@ -523,7 +524,7 @@ export function createScene(canvas, opts) {
       spinVel = damp(spinVel, 0, 1.4, dt)
       spin += spinVel * dt
       spinSum = spinSum * Math.exp(-dt * 0.35) + Math.abs(spinVel * dt)
-      if (!rare && spinSum > Math.PI * 5) goRare()
+      if (!rare && spinSum > Math.PI * 4) goRare() // about two fast turns in a row
       if (Math.abs(spinVel) < 0.3) spin = damp(spin, Math.round(spin / (Math.PI * 2)) * Math.PI * 2, 3, dt)
       fig.rotation.set(figLook.x, figLook.y + spin, 0)
       if (rare) fig.rotation.z = Math.sin((clock - rareAt) * 3) * 0.04 * Math.exp(-(clock - rareAt) * 0.5)
