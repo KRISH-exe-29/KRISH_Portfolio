@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { me, experience } from './content.js'
 import Cassette from './Cassette.jsx'
 import { startScore, setMuted, drag, flip } from './score.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const now = experience[experience.length - 1]
@@ -22,7 +22,7 @@ const jobTracks = experience.map((e) => ({
 const tracks = [
   ...jobTracks,
   { side: 'A', title: 'Greatest hits', note: 'the numbers, live', body: <Numbers /> },
-  { side: 'A', title: 'Nine apps, one factory', note: 'medley · all in production', body: <><p>{me.lines[0]}</p><Apps /></> },
+  { side: 'A', title: 'Nine apps, one factory', note: 'medley · all in production', body: <><p>{me.lines[0]}</p><Apps /><Building /></> },
   { side: 'A', title: 'Off the clock', note: 'demo versions', body: <SideProjects /> },
   { side: 'B', title: 'Twelve versions', note: 'one agent, grown up', body: <Agent /> },
   { side: 'B', title: 'Read me the manual', note: 'for the shop floor', body: <Rag /> },
