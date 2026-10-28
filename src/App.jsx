@@ -121,7 +121,6 @@ function Tank({ intro, onReady, onSkip, tankRef, depthRef }) {
     <section className="tank" id="tank" data-intro={intro} onPointerMove={point} onPointerDown={knock} aria-label="The tank">
       <div className="glass">
         <canvas ref={canvasRef} aria-hidden="true" />
-        <div className="hood" aria-hidden="true"><span>Tank No. 9</span><span>Fresh water · Est. 2022</span></div>
       </div>
 
       {intro && <button className="skip" onClick={onSkip}>Skip intro <kbd>Esc</kbd></button>}
@@ -304,7 +303,7 @@ function Grown() {
       <ol className="fry">
         {ai.agent.versions.map((v, i) => (
           <li key={v} style={{ '--s': 0.45 + (i / 11) * 0.75 }}>
-            <FishIcon sp={SPECIES[i % 9]} size={56} />
+            <FishIcon sp={SPECIES[i % 9]} size={96} />
             <span><b>v{i + 1}</b> {v}</span>
           </li>
         ))}
@@ -423,7 +422,7 @@ function Reef() {
             {best && (
               <g className="best">
                 <circle cx={best.x} cy={best.y} r={best.r + 9} fill="none" stroke="#f6d27a" strokeWidth="1.5" strokeDasharray="3 4" />
-                <text x={Math.min(best.x + best.r + 14, W - 210)} y={best.y + 5}>{`${best.n} on ${fmtDate(best.date)}`}</text>
+                <text x={Math.min(best.x - 60, W - 200)} y={best.y - best.r - 16}>{`${best.n} on ${fmtDate(best.date)}`}</text>
               </g>
             )}
           </g>

@@ -329,7 +329,13 @@ export function createTank(canvas, { small = false, audio = null, onLetters = ()
       const r = 1.1 + rng() * 1.2
       const geo = new THREE.IcosahedronGeometry(r, 1)
       const p = geo.attributes.position
-      for (let k = 0; k < p.count; k++) p.setXYZ(k, p.getX(k) * (0.8 + rng() * 0.4), p.getY(k) * (0.7 + rng() * 0.3), p.getZ(k) * (0.8 + rng() * 0.4))
+      const sx = 0.8 + rng() * 0.4, sy = 0.65 + rng() * 0.3, ph = rng() * 6
+      // displacement is a function of position, so the faces that share a corner stay joined
+      for (let k = 0; k < p.count; k++) {
+        const x = p.getX(k), y = p.getY(k), z = p.getZ(k)
+        const n = 1 + 0.16 * Math.sin(x * 2.6 + ph) * Math.cos(z * 2.2 + y * 1.7)
+        p.setXYZ(k, x * sx * n, y * sy * n, z * n)
+      }
       geo.computeVertexNormals()
       const m = new THREE.Mesh(geo, rockMats[(i + Math.round(y)) & 1])
       m.position.set(x + (rng() - 0.5) * 1.4, y + r * 0.6, z + (rng() - 0.5))
@@ -443,8 +449,11 @@ export function createTank(canvas, { small = false, audio = null, onLetters = ()
     shared.uBass.value = snap ? 0 : damp(shared.uBass.value, bass, 8, dt)
 
     // descent
+    const prevY = depth * DEEP
     depth = snap ? depthT : damp(depth, depthT, 4, dt)
     const camY = depth * DEEP
+    // the school travels down with you instead of being left behind
+    if (!snap) { const dy = camY - prevY; fish.forEach((f) => { f.pos.y += dy }); ptrW.y += dy }
     const px = ptr.x, py = ptr.y
     camera.position.set(px * 0.5, camY + py * 0.25, 8)
     camera.lookAt(px * 0.15, camY + 0.5 - depth * 2, 0)
@@ -476,8 +485,8 @@ export function createTank(canvas, { small = false, audio = null, onLetters = ()
     fish.forEach((f, i) => {
       if (!snap && t < f.release) { f.pos.set((i - 4) * 0.6, camY + halfH + 2, 0); f.group.position.copy(f.pos); return }
       const a = f.angle + t * f.orbit
-      if (letters > 0) tgt.set((i - 4) * spacing, camY + 0.1, 1.5)
-      else if (focus === i) tgt.set(camera.position.x * 0.6, camY - 0.35, 3.6)
+      if (letters > 0) tgt.set((i - 4) * spacing, camY + 0.1, 0)
+      else if (focus === i) tgt.set(camera.position.x, camY + 0.7, 3.4)
       else {
         tgt.set(ptrW.x + Math.cos(a) * f.radius * scale, ptrW.y + Math.sin(a * 1.3) * f.radius * 0.45 * scale, Math.sin(a) * f.radius * 0.8 - (focus >= 0 ? 1.6 : 0))
         tgt.x = THREE.MathUtils.clamp(tgt.x, -halfW * 0.85, halfW * 0.85)

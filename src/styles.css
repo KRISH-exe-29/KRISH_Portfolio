@@ -62,12 +62,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   overflow: hidden;
 }
 .glass canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hood {
-  position: absolute; top: -40px; left: 0; right: 0; height: 34px; display: flex; justify-content: space-between; align-items: center;
-  padding: 0 14px; font: 700 0.72rem/1 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
-}
 .layers { position: absolute; inset: 56px 20px 20px; pointer-events: none; }
-.layer { position: absolute; inset: 0; display: flex; align-items: center; padding: 24px clamp(16px, 4vw, 56px); gap: 24px; }
+.layer { position: absolute; inset: 0; display: flex; align-items: center; padding: 24px clamp(110px, 9vw, 140px) 24px clamp(16px, 4vw, 56px); gap: 24px; }
 .motion .l-reef, .motion .l-sand { visibility: hidden; }
 .card {
   pointer-events: auto; background: var(--paper); color: var(--ink); padding: 22px 24px; border-radius: 3px;
@@ -114,7 +110,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gauge i { position: absolute; left: -6px; width: 18px; height: 18px; border-radius: 50%; background: var(--vermilion); border: 2px solid var(--paper); top: calc(var(--d) * 100%); translate: 0 -50%; }
 
 .sign {
-  position: absolute; left: 40px; bottom: 34px; background: var(--vermilion); color: var(--paper); border: 2px solid var(--paper);
+  position: absolute; left: 40px; top: 74px; background: var(--vermilion); color: var(--paper); border: 2px solid var(--paper);
   padding: 6px 12px; font: 700 0.72rem/1.2 var(--mono); letter-spacing: 0.06em; rotate: -2deg; border-radius: 3px; box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
 }
 .l-surface ~ .sign { z-index: 2; }
@@ -124,6 +120,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   opacity: 0; transition: opacity 0.4s; pointer-events: none;
 }
 .spelled.on { opacity: 1; }
+.spelled:empty { display: none; }
 .skip {
   position: fixed; z-index: 70; left: 50%; bottom: 28px; translate: -50% 0; background: var(--paper); border: 2px solid var(--ink);
   border-radius: 999px; padding: 0.55em 1.2em; font: 700 0.85rem var(--mono);
@@ -168,7 +165,8 @@ section { position: relative; }
 }
 .bowl img { width: 100%; height: 100%; object-fit: cover; }
 .bowl::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(40% 25% at 30% 18%, rgba(255, 255, 255, 0.45), transparent 70%); }
-.reframe { margin: 40px auto 0; max-width: 30ch; }
+.reframe { margin: 40px auto 0; max-width: 900px; }
+.reframe span { max-width: 46ch; margin-left: auto; margin-right: auto; }
 .reframe b { display: block; font: 400 clamp(2rem, 6vw, 4.4rem)/1.05 var(--display); color: var(--gold-light); }
 .reframe span { display: block; margin-top: 14px; font-size: 1.05rem; color: var(--paper); }
 
@@ -219,7 +217,7 @@ section { position: relative; }
 /* ---------- grown ---------- */
 .fry { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px 10px; margin-bottom: 56px; }
 .fry li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; font-size: 0.82rem; line-height: 1.25; }
-.fry .fishicon { transform: scale(var(--s)); height: 40px; }
+.fry .fishicon { transform: scale(var(--s)); }
 .fry b { display: block; font: 700 0.75rem var(--mono); color: var(--vermilion); }
 .filter { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; background: var(--bottle); color: var(--paper); padding: 28px; border-radius: 4px; margin-bottom: 32px; }
 .filter h3 { font-size: 1.7rem; }
@@ -323,7 +321,6 @@ section { position: relative; }
   .nav ul, .nav .brand span { display: none; }
   .nav .music { margin-left: auto; }
   .glass { inset: 6px; border-width: 6px; border-top-width: 40px; }
-  .hood span:last-child { display: none; }
   .layers { inset: 50px 10px 10px; }
   .layer { padding: 14px 8px; gap: 12px; }
   .l-surface { flex-direction: column; justify-content: space-between; align-items: stretch; }
@@ -345,7 +342,7 @@ section { position: relative; }
   .keeper { flex-direction: column; text-align: center; padding: 18px; }
   .keeper img { width: 110px; height: 110px; }
   .gauge { display: none; }
-  .sign { left: auto; right: 14px; bottom: auto; top: 60px; font-size: 0.64rem; }
+  .sign { left: auto; right: 14px; top: 47%; font-size: 0.64rem; }
   .shelf { grid-template-columns: repeat(3, 1fr); row-gap: 28px; }
   .shelf::after { display: none; }
   .jar .body { height: 140px; }
