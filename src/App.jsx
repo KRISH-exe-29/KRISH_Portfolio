@@ -3,7 +3,7 @@ import {
   me,
   numbers,
   experience,
-  apps,
+  apps, building,
   sideProjects,
   ai,
   awards,
@@ -284,6 +284,12 @@ export default function App() {
               )
             })}
           </ol>
+
+          {building.map((b) => (
+            <p key={b.name} className="work__intro" data-fade="">
+              Now building: {b.name}. {b.pitch} {b.status}.
+            </p>
+          ))}
 
           <div className="side grid">
             <h3 className="side__title mono">Side projects</h3>
