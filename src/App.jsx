@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, skills, asset } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, skills, asset } from './content.js'
 import snapshot from './github.json'
 import { N, slotAngle, FORMATION_S, EXPANSION_S, clamp01, sceneAt, reelPose } from './reel.js'
 import { useMusic } from './music.js'
@@ -604,6 +604,15 @@ function Factory() {
             ) : (
               <span className="shop-door is-staff">Staff only: factory network</span>
             )}
+          </li>
+        ))}
+        {building.map((b, i) => (
+          <li className="shop" key={b.name} style={{ '--i': indoApps.length + i }}>
+            <span className="awning" aria-hidden="true" />
+            <span className="shop-no">Under construction</span>
+            <h3 className="shop-name">{b.name}</h3>
+            <p className="shop-pitch">{b.pitch} {b.status}.</p>
+            <span className="shop-door is-staff">Opening soon</span>
           </li>
         ))}
       </ul>
