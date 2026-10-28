@@ -28,7 +28,7 @@ float dens(vec3 p){
   vec3 q = p * vec3(0.42, 1.0, 0.42) + vec3(uTime * 0.035, 0.0, -uTime * 0.05);
   float big = n3(q * 0.33 + 7.0);
   float n = fbm(q * 1.3);
-  float d = n * 0.7 + big * 0.55 + prof * 0.55 - 1.08 + uBeat * 0.04;
+  float d = n * 0.9 + big * 0.75 + prof * 0.7 - 1.12 + uBeat * 0.04;
   return clamp(d * 3.2, 0.0, 1.0) * prof * uGrow;
 }
 vec3 sky(vec3 rd){
@@ -39,6 +39,9 @@ vec3 sky(vec3 rd){
   gold = mix(gold, vec3(0.62, 0.36, 0.42), smoothstep(0.3, 0.9, y));
   gold = mix(gold, vec3(1.0, 0.9, 0.75), smoothstep(0.0, -0.3, y));
   vec3 c = mix(night, gold, uGold);
+  // Below the horizon, once you are near the cloud deck: more cloud, not dark ground.
+  vec3 deck = mix(vec3(0.9, 0.91, 0.94), vec3(1.0, 0.9, 0.78), uGold);
+  c = mix(c, deck, smoothstep(0.02, -0.2, y) * smoothstep(0.08, 0.3, uGold));
   float s = max(dot(rd, SUN), 0.0);
   c += vec3(1.0, 0.72, 0.4) * (pow(s, 6.0) * 0.35 + pow(s, 120.0) * 1.2) * (0.25 + 0.75 * uGold) * (1.0 + uBeat * 0.6);
   return c;
@@ -74,7 +77,7 @@ void main(){
         float l = exp(-dens(p + SUN * 0.3) * 2.4);
         vec3 c = mix(shade, lit, l) + under * (1.0 - p.y);
         c += vec3(1.0, 0.7, 0.4) * pow(max(dot(rd, SUN), 0.0), 4.0) * l * 0.5 * uGold;
-        c = mix(c, bg, 1.0 - exp(-t * 0.09));
+        c = mix(c, bg, 1.0 - exp(-t * 0.17));
         float a = 1.0 - exp(-d * dt * 7.0);
         acc.rgb += (1.0 - acc.a) * a * c;
         acc.a += (1.0 - acc.a) * a;
@@ -84,6 +87,10 @@ void main(){
     }
   }
   vec3 col = bg * (1.0 - acc.a) + acc.rgb;
+  // Inside the slab: a soft whiteout, so there is no hard horizon while you fly through.
+  float inside = smoothstep(-0.15, 0.25, uH) * (1.0 - smoothstep(0.75, 1.15, uH));
+  vec3 fogc = mix(vec3(0.78, 0.8, 0.86), vec3(1.0, 0.95, 0.88), uGold);
+  col = mix(col, fogc, inside * (0.55 + 0.25 * (1.0 - abs(rd.y))));
   col = pow(col, vec3(0.95));
   gl_FragColor = vec4(col, 1.0);
 }`
@@ -147,7 +154,7 @@ export function mountSky(canvas, S, ticker) {
   quad.frustumCulled = false
   scene.add(quad)
 
-  const count = small ? 120 : 260
+  const count = small ? 90 : 180
   const pos = new Float32Array(count * 3)
   const seed = new Float32Array(count)
   for (let i = 0; i < count; i++) {
@@ -173,7 +180,7 @@ export function mountSky(canvas, S, ticker) {
     cam.aspect = w / h
     cam.updateProjectionMatrix()
     u.uRes.value.set(w, h)
-    pu.uSize.value = (small ? 45 : 60) * renderer.getPixelRatio()
+    pu.uSize.value = (small ? 30 : 38) * renderer.getPixelRatio()
   }
   resize()
   window.addEventListener('resize', resize)
