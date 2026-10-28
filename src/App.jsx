@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, skills, certifications, asset } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, skills, certifications, asset } from './content.js'
 import { start } from './scene.js'
 
 const nav = [['index', 'Index'], ['work', 'Work'], ['journey', 'Journey'], ['contact', 'Contact']]
 const work = [
   ...apps.map(a => ({ ...a, tag: 'factory' })),
   ...sideProjects.map(a => ({ ...a, tag: 'side' })),
+  ...building.map(a => ({ ...a, tag: 'building' })),
 ]
-const filters = [['all', 'All'], ['factory', 'Factory'], ['side', 'Side']]
+const filters = [['all', 'All'], ['factory', 'Factory'], ['side', 'Side'], ['building', 'Building']]
 const ist = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' })
 
 // One letter per span so the headline can rise in, letter by letter.
@@ -289,7 +290,7 @@ export default function App() {
                     <small>{String(i + 1).padStart(2, '0')}</small>
                     <strong>{w.name}</strong>
                     <span>{w.pitch}</span>
-                    <em>{w.tag === 'side' ? 'Side project' : 'Indo Tech'}</em>
+                    <em>{w.tag === 'side' ? 'Side project' : w.tag === 'building' ? 'Now building' : 'Indo Tech'}</em>
                   </>
                 )
                 return (
