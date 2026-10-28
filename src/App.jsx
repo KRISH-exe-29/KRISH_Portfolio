@@ -3,7 +3,7 @@ import { me, experience } from './content.js'
 import { CREST, END, volts, warp, unwarp } from './impulse.js'
 import { startStrike } from './strike.js'
 import { startScore, setMuted, follow, strike } from './score.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const now = experience[experience.length - 1]
@@ -61,6 +61,7 @@ const chapters = [
         <h2>Nine branches</h2>
         <p className="lede">Each branch of this strike is an app in production at Indo Tech Transformers. They light up as you pass.</p>
         <Apps />
+        <Building />
         <h3 className="gap">Off the clock</h3>
         <SideProjects />
       </>
