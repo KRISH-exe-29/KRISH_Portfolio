@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, certifications, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, certifications, field } from './content.js'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const clamp = (n) => Math.min(1, Math.max(0, n))
@@ -49,6 +49,7 @@ function Statement() {
 const catalogue = [
   ...apps.map((a) => ({ ...a, kind: 'Production' })),
   ...sideProjects.map((a) => ({ ...a, kind: 'Side project' })),
+  ...building.map((a) => ({ ...a, kind: 'Now building' })),
   { name: ai.agent.name, pitch: ai.agent.pitch, kind: 'AI' },
 ]
 
