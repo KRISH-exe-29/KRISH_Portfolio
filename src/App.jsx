@@ -5,7 +5,7 @@ import { SplitText } from 'gsap/SplitText'
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin'
 import Lenis from 'lenis'
 import {
-  asset, me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills,
+  asset, me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills,
 } from './content.js'
 import { createScene } from './scene.js'
 import { initCursor, initMagnetic, initScramble, initIceMedia } from './fx.js'
@@ -401,6 +401,16 @@ export default function App() {
                   ) : (
                     <span className="muted">No public link</span>
                   )}
+                </li>
+              ))}
+            </ul>
+            <h2 className="h-small">Still freezing</h2>
+            <ul className="list">
+              {building.map((b) => (
+                <li key={b.name} className="list__row" data-reveal="">
+                  <h3>{b.name}</h3>
+                  <p>{b.pitch} {b.status}.</p>
+                  <span className="muted">Private for now</span>
                 </li>
               ))}
             </ul>
