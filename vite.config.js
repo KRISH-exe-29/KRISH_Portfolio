@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: './',
   plugins: [react()],
+  build: { chunkSizeWarningLimit: 600 }, // three.js lives in its own lazy chunk
 })
