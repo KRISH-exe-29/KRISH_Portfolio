@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import { apps, numbers } from './content.js'
+import { apps, building, numbers } from './content.js'
 import { Roll, useMagnet } from './ui.jsx'
 import { reducedMotion } from './lens.js'
 
@@ -182,6 +182,18 @@ export default function Bench() {
             </li>
           )
         })}
+      </ol>
+      <ol className="index" aria-label="Now building">
+        {building.map((b) => (
+          <li key={b.name}>
+            <div className="index-row">
+              <span className="index-no mono">WIP</span>
+              <span className="index-name">{b.name}</span>
+              <span className="index-pitch">{b.pitch} {b.status}.</span>
+              <span className="index-arrow" aria-hidden="true">•</span>
+            </div>
+          </li>
+        ))}
       </ol>
     </section>
   )
