@@ -3,7 +3,7 @@ import { me, experience } from './content.js'
 import { constellations } from './constellations.js'
 import { startSky } from './sky.js'
 import { startScore, setMuted, ring } from './score.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const now = experience[experience.length - 1]
@@ -51,6 +51,7 @@ const chapters = [
         <h2>The Transformer</h2>
         <p className="lede">The constellation of the factory: nine apps in production at Indo Tech Transformers, drawn in the shape of what they help build.</p>
         <Apps />
+        <Building />
         <h3 className="gap">Off the clock</h3>
         <SideProjects />
       </>
