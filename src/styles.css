@@ -28,7 +28,7 @@ body {
     radial-gradient(circle at 20% 30%, var(--gum) 0 3px, transparent 4px),
     radial-gradient(circle at 70% 80%, var(--mint) 0 2.5px, transparent 3.5px),
     radial-gradient(circle at 85% 15%, var(--marigold) 0 3px, transparent 4px),
-    conic-gradient(from 45deg at 45% 60%, transparent 0 25%, rgba(58, 75, 255, 0.35) 0 50%, transparent 0),
+    conic-gradient(from 45deg at 45% 60%, transparent 0 25%, rgba(58, 75, 255, 0.16) 0 50%, transparent 0),
     radial-gradient(circle at 50% 50%, rgba(255, 77, 46, 0.18) 0 18px, transparent 19px);
   background-size: 140px 140px, 110px 110px, 170px 170px, 90px 90px, 230px 230px;
   overflow-x: hidden;
@@ -74,7 +74,8 @@ html.motion .shutter { display: block; }
 .hero { height: 100vh; height: 100svh; min-height: 560px; padding: 0; touch-action: pan-y; }
 .claw-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s; }
 .claw-canvas.on { opacity: 1; }
-.cap-1 { position: relative; z-index: 2; width: min(34rem, 100%); padding: 96px var(--gutter) 24px; }
+.cap-1 { position: relative; z-index: 2; width: min(34rem, 100%); padding: 96px var(--gutter) 24px; pointer-events: none; }
+.cap-1 :is(button, a, summary, details, .pad, ul) { pointer-events: auto; }
 .eyebrow { font: 400 0.7rem/1.6 var(--pixel); color: var(--mint); margin: 0 0 14px; }
 h1 { display: grid; gap: 10px; }
 .h1-name { font: 400 clamp(1.1rem, 2.4vw, 1.5rem) var(--display); color: var(--cream); }
@@ -296,15 +297,18 @@ h1 { display: grid; gap: 10px; }
 @media (max-width: 900px) {
   .bar nav { display: none; }
   .music { margin-left: auto; }
-  .cap-1 { width: 100%; padding-top: 76px; }
+  .cap-1 { width: 100%; height: 100%; padding-top: 76px; display: flex; flex-direction: column; }
+  .controls { margin-top: auto; }
+  .h1-name { font-size: 1rem; }
   .lede { display: none; }
   .h1-hook { font-size: clamp(1.9rem, 8vw, 3rem); }
   .controls { max-width: 26rem; }
   .grab { width: 72px; height: 72px; font-size: 0.9rem; }
   .pad { display: none; }
-  .led { max-width: 26rem; padding: 8px 12px; }
+  .led { max-width: 26rem; padding: 8px 12px; margin-top: 12px; }
+  .catalogue { margin-top: 8px; }
   .led-s { display: none; }
-  .sticker { width: 10.5rem; bottom: 4vh; font-size: 0.75rem; padding: 10px; }
+  .sticker { width: 9.5rem; bottom: 190px; font-size: 0.7rem; padding: 8px 10px; }
   .cap-2 { bottom: auto; top: 90px; }
   .booth { grid-template-columns: minmax(0, 1fr); }
   .booth-head { position: static; }

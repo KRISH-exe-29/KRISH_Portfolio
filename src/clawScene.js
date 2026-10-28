@@ -392,11 +392,12 @@ export async function createClawScene(canvas, opts) {
     renderer.setSize(W, H, false)
     camera.aspect = W / H
     const wide = W > 900
-    camera.setViewOffset(W, H, wide ? -W * 0.2 : 0, wide ? 0 : -H * 0.17, W, H)
+    camera.setViewOffset(W, H, wide ? -W * 0.2 : 0, 0, W, H)
     camera.updateProjectionMatrix()
     const vfov = THREE.MathUtils.degToRad(camera.fov)
     const hfov = 2 * Math.atan(Math.tan(vfov / 2) * camera.aspect)
-    s.dist = Math.max(2.6 / Math.tan(vfov / 2), (wide ? 2.6 : 2.25) / Math.tan(hfov / 2)) * 1.05
+    // phones: shrink the cabinet into the band between the headline and the controls
+    s.dist = Math.max(3.3 / Math.tan(vfov / 2), 2.7 / Math.tan(hfov / 2)) * (wide ? 1 : 1.3)
   }
   resize()
   const ro = new ResizeObserver(resize); ro.observe(canvas)
@@ -404,14 +405,15 @@ export async function createClawScene(canvas, opts) {
 
   const look = new THREE.Vector3()
   function placeCamera(dt) {
+    const wide = W > 900
     const p = s.scroll
     s.yaw = damp(s.yaw, -p * 1.15 + (reduced ? 0 : Math.sin(s.t * 0.25) * 0.04), 4, dt)
     rig.rotation.y = s.yaw
     rig.position.x = damp(rig.position.x, p > 0.55 ? (p - 0.55) * 3 : 0, 5, dt)
     const intro = 1 - (1 - Math.min(s.intro, 1)) ** 3
     const dist = s.dist * (1.35 - 0.35 * intro) * (1 - p * 0.12)
-    camera.position.set(0, 1.9 + p * 1.6, dist)
-    look.set(0, 1.25 + p * 0.3, 0)
+    camera.position.set(0, 2.4 + p * 1.6, dist)
+    look.set(0, (wide ? 1.55 : 1.35) + p * 0.3, 0)
     camera.lookAt(look)
   }
 

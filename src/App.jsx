@@ -229,7 +229,8 @@ export default function App() {
     return [((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1]
   }
   const down = useRef(null)
-  const onMove = (e) => { if (e.pointerType === 'mouse') scene.current?.pointTo(...ndc(e)) }
+  // aiming stops while the pointer is on a control, so reaching for GRAB doesn't drag the claw away
+  const onMove = (e) => { if (e.pointerType === 'mouse' && !e.target.closest('button, a, summary, details, .pad')) scene.current?.pointTo(...ndc(e)) }
   const onDown = (e) => { down.current = [e.clientX, e.clientY] }
   const onUp = (e) => {
     if (e.target.closest('button, a, summary, details, .cap-1, .sticker')) return
@@ -478,7 +479,7 @@ export default function App() {
                 : <span key={date} className={`gh-t t${tier(n)}`} title={`${date}: ${n} contribution${n === 1 ? '' : 's'}`} />
             ))}
           </div>
-          <p className="jackpot-line"><b>Jackpot:</b> {fmtDate(best.date)}, {best.contributionCount} contributions in one day. The machine paid out all night.</p>
+          <p className="jackpot-line"><b>Jackpot:</b> {fmtDate(best.date)}, {best.contributionCount} contributions in one day. The ticket printer needed a break.</p>
           <blockquote className="bio">
             {bio.split(/\r?\n/).map((l) => <span key={l}>{l}</span>)}
             <cite>His GitHub bio</cite>
