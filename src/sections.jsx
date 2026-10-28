@@ -1,5 +1,5 @@
 // Every fact block, read straight from content.js. Styling belongs to the concept, not here.
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, certifications, skills, field } from './content.js'
 
 const out = { target: '_blank', rel: 'noopener noreferrer' }
 
@@ -60,6 +60,9 @@ export function Links({ items, className = 'apps' }) {
   )
 }
 export const Apps = () => <Links items={apps} />
+export const Building = () => building.map((b) => (
+  <p key={b.name} className="building"><b>Now building:</b> {b.name}. {b.pitch} {b.status}.</p>
+))
 export const SideProjects = () => <Links items={sideProjects} className="apps side" />
 
 export function Agent() {

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { me, numbers } from './content.js'
 import { drawnAt, headAt, reached, rings, route, thread } from './kolam.js'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 const RINGS = rings(5)
@@ -57,6 +57,7 @@ const chapters = [
           </figure>
           <Apps />
         </div>
+        <Building />
         <h3 className="gap">Off the clock</h3>
         <SideProjects />
       </>
