@@ -3,7 +3,7 @@ import { me, numbers } from './content.js'
 import { LEVELS, ZOOM, blend, depth, scene, voltage, volts } from './dive.js'
 import { Scene } from './scenes.jsx'
 import { startScore } from './audio.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calmQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -27,6 +27,7 @@ const chapters = [
     <h2>Nine apps in production</h2>
     <p>{me.lines[0]} {numbers[1].value} {numbers[1].unit} {numbers[1].label}.</p>
     <Apps />
+    <Building />
     <p className="legend">A lit lamp means the app has a public link.</p>
     <h3>Off the clock</h3>
     <SideProjects />
