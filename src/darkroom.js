@@ -43,7 +43,7 @@ void main() {
   col = mix(col, vec3(0.05, 0.045, 0.04) + (g - 0.5) * 0.05, fog);
   // under the safelight everything reads in red
   float l = dot(col, vec3(0.333));
-  vec3 safe = vec3(1.0, 0.27, 0.16) * l * (1.15 + uAudio * 0.5);
+  vec3 safe = vec3(1.0, 0.27, 0.16) * l * (0.95 + uAudio * 0.5);
   col = mix(col, safe, uSafe);
   col *= exp(-max(vDepth - 2.5, 0.0) * 0.14);
   gl_FragColor = vec4(col, 1.0);
@@ -54,7 +54,7 @@ function textCanvas(lines) {
   c.width = 512; c.height = 640
   const x = c.getContext('2d')
   const gr = x.createLinearGradient(0, 0, 0, 640)
-  gr.addColorStop(0, '#6b625a'); gr.addColorStop(1, '#2a2522')
+  gr.addColorStop(0, '#d8cfc2'); gr.addColorStop(1, '#9a8f84')
   x.fillStyle = gr; x.fillRect(0, 0, 512, 640)
   x.strokeStyle = 'rgba(0,0,0,.5)'; x.lineWidth = 2
   for (let i = 0; i < 14; i++) { x.beginPath(); x.moveTo(0, 60 + i * 44); x.lineTo(512, 40 + i * 44); x.stroke() }
@@ -71,7 +71,7 @@ export function createDarkroom(canvas, { stations, decor, small }) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.25 : 2))
   renderer.outputColorSpace = THREE.SRGBColorSpace
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color('#0d0504')
+  scene.background = new THREE.Color()
   const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 60)
   const loader = new THREE.TextureLoader()
   const shared = { uTime: { value: 0 }, uSafe: { value: 1 }, uAudio: { value: 0 }, uFog: { value: 0 }, uSway: { value: 1 } }
@@ -204,7 +204,7 @@ export function createDarkroom(canvas, { stations, decor, small }) {
     shared.uAudio.value = s.level
     shared.uFog.value = s.fog
     shared.uSafe.value = damp(shared.uSafe.value, s.fogT ? 0.15 : 1, 3, dt)
-    scene.background.setRGB(0.05 + s.level * 0.03 + s.fog * 0.6, 0.02 + s.fog * 0.58, 0.016 + s.fog * 0.55)
+    scene.background.setRGB(0.006 + s.level * 0.02 + s.fog * 0.6, 0.002 + s.fog * 0.58, 0.0015 + s.fog * 0.55)
 
     const { i, f, v } = stationAt(s.p)
     const a = stations[i].print, b = stations[i + 1]?.print || a
@@ -229,7 +229,7 @@ export function createDarkroom(canvas, { stations, decor, small }) {
       p.holder.position.y = 0.8 + (1 - p.drop) * 3 + Math.sin(shared.uTime.value * 0.5 + p.seed) * 0.02
       // develops as the camera reaches it, and never un-develops (unless the light ruins it)
       const near = p.decor ? camera.position.z - p.z < 5.5 : v > p.index - 0.55
-      if (near && p.drop > 0.9 && !s.fogT) p.dev = Math.min(1, p.dev + dt * 0.42)
+      if (near && p.drop > 0.9 && !s.fogT) p.dev = Math.min(1, p.dev + dt * 0.6)
       p.uniforms.uDev.value = p.dev
     })
     const pos = dustGeo.attributes.position.array
