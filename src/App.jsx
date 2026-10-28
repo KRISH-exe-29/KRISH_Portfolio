@@ -5,7 +5,7 @@ import { SplitText } from 'gsap/SplitText'
 import { Flip } from 'gsap/Flip'
 import Lenis from 'lenis'
 import {
-  me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills,
+  me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills,
 } from './content.js'
 import { drawCover } from './covers.js'
 import { createWater } from './water.js'
@@ -46,6 +46,9 @@ function buildItems() {
       note: s.url ? '' : 'No public link.',
     }),
   )
+  building.forEach((b, i) =>
+    push({ id: 'b' + i, code: 'B', kind: 'Now building', title: b.name, pitch: b.pitch, body: [`${b.status}. In progress, not one of the nine.`], link: null, note: 'Private for now.' }),
+  )
   push({ id: 'i0', code: 'I', kind: 'AI', title: ai.agent.name, pitch: 'Twelve versions, chat to workflow automation.', body: [ai.agent.pitch], steps: ai.agent.versions })
   push({ id: 'i1', code: 'I', kind: 'AI', title: ai.rag.name, pitch: ai.rag.steps.join(', '), body: [ai.rag.pitch], steps: ai.rag.steps })
   push({ id: 'i2', code: 'I', kind: 'AI', title: ai.browser.name, pitch: 'Ranking and OCR on the device.', body: [ai.browser.pitch], link: { url: apps[4].url, label: 'Open Job Lens' } })
@@ -75,6 +78,7 @@ const FILTERS = [
   { k: 'all', label: 'All' },
   { k: 'A', label: 'Apps in production' },
   { k: 'S', label: 'Side projects' },
+  { k: 'B', label: 'Now building' },
   { k: 'I', label: 'AI' },
   { k: 'F', label: 'Field' },
   { k: 'R', label: 'Recognition' },
