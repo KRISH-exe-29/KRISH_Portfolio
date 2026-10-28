@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field } from './content.js'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const no = (n) => String(n).padStart(3, '0')
@@ -60,6 +60,8 @@ function Episodes() {
       <ol className="list">{episodes.map((e) => <Row key={e.name} item={e} />)}</ol>
       <h3 className="sub">Bonus tracks</h3>
       <ol className="list small">{bonus.map((e) => <Row key={e.name} item={e} />)}</ol>
+      <h3 className="sub">Next season</h3>
+      <ol className="list small">{building.map((b) => <Row key={b.name} item={{ ...b, n: 'Soon', pitch: `${b.pitch} ${b.status}.` }} />)}</ol>
     </section>
   )
 }
