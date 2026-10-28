@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
-import { me, experience, apps, ai, awards, leadership, field } from './content.js'
+import { me, experience, apps, building, ai, awards, leadership, field } from './content.js'
 import { startMusic, setLeg, muffle, setMuted, PLUTO } from './music.js'
 import { Agent, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
@@ -49,6 +49,15 @@ function Works() {
           <Label title={a.name} line="2026 · Software, in production · Indo Tech Transformers">
             <p>{a.pitch}</p>
             {a.url ? <a href={a.url} {...out}>View the work ↗</a> : <p className="medium">On view at the factory only.</p>}
+          </Label>
+        </li>
+      ))}
+      {building.map((b) => (
+        <li key={b.name}>
+          <p className="no">In the studio</p>
+          <Label title={b.name} line={`2026 · Software, work in progress · ${b.status}`}>
+            <p>{b.pitch}</p>
+            <p className="medium">Not yet on view.</p>
           </Label>
         </li>
       ))}
