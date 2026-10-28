@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -254,6 +254,10 @@ export default function App() {
               {p.url ? <a href={p.url} target="_blank" rel="noopener noreferrer">{p.name}</a> : <b>{p.name}</b>} {p.pitch}
             </li>
           ))}
+        </ul>
+        <h3 className="sub">Under commissioning</h3>
+        <ul className="spares">
+          {building.map((b) => <li key={b.name}><b>{b.name}</b> {b.pitch} {b.status}.</li>)}
         </ul>
       </Sheet>
 
