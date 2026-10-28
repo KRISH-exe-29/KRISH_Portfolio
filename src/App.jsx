@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import 'lenis/dist/lenis.css'
-import { me, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
+import { me, experience, apps, building, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 import gh from './github.json'
 import { useMusic } from './music.js'
 
@@ -826,6 +826,10 @@ export default function App() {
           <div className="side-q">
             <p className="ch-n">Side quests</p>
             <ul>{sideProjects.map((p) => <li key={p.name}>{p.url ? <a href={p.url} target="_blank" rel="noreferrer">{p.name} ↗</a> : <b>{p.name}</b>} <span>{p.pitch}</span></li>)}</ul>
+          </div>
+          <div className="side-q">
+            <p className="ch-n">Technique in training</p>
+            <ul>{building.map((b) => <li key={b.name}><b>{b.name}</b> <span>{b.pitch} {b.status}.</span></li>)}</ul>
           </div>
         </section>
 
