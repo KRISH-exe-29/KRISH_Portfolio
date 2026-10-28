@@ -23,6 +23,13 @@ Each one has a 3D hero you play with, GitHub as part of its world, word hooks, t
 | [`portfolio/darkroom`](../../tree/portfolio/darkroom) | A darkroom under red safelight: his photos develop on drying lines as the camera passes. Surprise: do turn on the light. | for a moment |
 | [`portfolio/night-shift`](../../tree/portfolio/night-shift) | His room at 2 a.m. as a 3D diorama; the clock runs to sunrise as you scroll. Surprise: switch off the desk lamp. | Duvet |
 | [`portfolio/orbit`](../../tree/portfolio/orbit) | A hand-built planetarium: jobs are planets, apps are moons, repos an asteroid belt. Surprise: spin it hard enough and the planets align. | Parfum d'étoiles |
+| [`portfolio/action-figure`](../../tree/portfolio/action-figure) | He's a boxed collectible: peel the blister pack and a 3D figure of him pops out; scroll unboxes the accessories. Surprise: give him a spin. | Lady Love |
+| [`portfolio/brushstroke`](../../tree/portfolio/brushstroke) | A living post-impressionist painting in thick, swirling brushstrokes; his GitHub days are the stars. Surprise: it's signed lower right. | Great Fairy Fountain |
+| [`portfolio/cloudline`](../../tree/portfolio/cloudline) | One flight from the factory floor up through the clouds to a golden cloud sea; GitHub is the weather. Surprise: catch the paper plane. | Chasing Kou |
+| [`portfolio/glasshouse`](../../tree/portfolio/glasshouse) | Liquid glass over a painted field: his name inside a rippling glass slab, repos as a greenhouse. Surprise: hold still on the glass. | in the pool |
+| [`portfolio/keycap`](../../tree/portfolio/keycap) | A boot screen, then a 3D keyboard that presses as you type; F1 to F5 are his jobs. Surprise: type a codename. | FIN DE LA ODISEA |
+
+The 3D figure and dioramas in action-figure and cloudline were generated with Higgsfield from his own photo. Several backgrounds come from his Pinterest boards.
 
 ### Story concepts
 
