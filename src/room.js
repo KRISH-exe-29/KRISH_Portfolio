@@ -12,7 +12,7 @@ const backOut = (t) => { const c = 1.6; return 1 + (c + 1) * Math.pow(t - 1, 3) 
 
 // Camera stops for the scrubbed tour: azimuth / elevation in degrees, ortho zoom, look-at target.
 const STOPS = [
-  { az: 45, el: 30, zoom: 1, t: [0, 1.5, 0] }, // the room
+  { az: 45, el: 30, zoom: 1, t: [-0.5, 1.5, 0.5] }, // the room (nudged right of the hero text)
   { az: 28, el: 16, zoom: 2.3, t: [1.15, 1.45, -2.5] }, // monitors
   { az: 74, el: 14, zoom: 2.4, t: [-2.9, 2.1, -1.35] }, // corkboard
   { az: 22, el: 12, zoom: 2.5, t: [1.4, 2.85, -2.9] }, // calendar
@@ -335,12 +335,12 @@ export function createRoom(canvas, { small = false, onPick, onHover, onBuilt } =
     if (rows) rows.forEach((r, y) => [...r].forEach((b, x) => { if (b === '1') starSpots.push([cx + x, y]) }))
     cx += 4
   }
-  const D = 0.14
+  const D = 0.17
   const wordW = (cx - 1) * D
-  const stars = new THREE.InstancedMesh(new THREE.OctahedronGeometry(0.04, 0), starMat, starSpots.length + 18)
+  const stars = new THREE.InstancedMesh(new THREE.OctahedronGeometry(0.05, 0), starMat, starSpots.length + 18)
   const dummy = new THREE.Object3D()
   starSpots.forEach(([x, y], i) => {
-    dummy.position.set(-wordW / 2 + x * D + 0.2, 4.3 - y * D, -2.97)
+    dummy.position.set(-wordW / 2 + x * D, 4.42 - y * D, -2.97)
     dummy.rotation.set(0, 0, i)
     dummy.updateMatrix()
     stars.setMatrixAt(i, dummy.matrix)
@@ -406,10 +406,11 @@ export function createRoom(canvas, { small = false, onPick, onHover, onBuilt } =
       S.moved = true
       S.px = e.clientX
       S.py = e.clientY
-    } else if (S.hovered) {
+    } else {
+      S.moved = false
+      if (S.hovered) canvas.style.cursor = ''
       S.hovered = null
       onHover?.(null)
-      canvas.style.cursor = ''
     }
   }
   function onClick() { if (S.hovered) onPick?.(S.hovered.userData.pick) }
@@ -461,22 +462,25 @@ export function createRoom(canvas, { small = false, onPick, onHover, onBuilt } =
     S.yaw = damp(S.yaw, S.built ? S.yawT : 0, 3, dt)
     S.pitch = damp(S.pitch, S.built ? S.pitchT : 0, 3, dt)
 
-    const az = THREE.MathUtils.degToRad(S.cam.az) + S.yaw * (S.tour < 0.02 || S.tour > 0.97 ? 1 : 0.35)
+    S.lamp = damp(S.lamp, S.lampT, 6, dt)
+    // lights out: swing round to face the back wall so the stars read
+    const lo = (1 - S.lamp) * (1 - S.dawn)
+    const az = THREE.MathUtils.degToRad(S.cam.az - 24 * lo) + S.yaw * (S.tour < 0.02 || S.tour > 0.97 ? 1 : 0.35)
     const el = THREE.MathUtils.degToRad(S.cam.el) + S.pitch
     const r = 30
-    camera.position.set(S.cam.t[0] + Math.sin(az) * Math.cos(el) * r, S.cam.t[1] + Math.sin(el) * r, S.cam.t[2] + Math.cos(az) * Math.cos(el) * r)
-    camera.lookAt(S.cam.t[0], S.cam.t[1], S.cam.t[2])
+    const ty = S.cam.t[1] + lo * 1.1
+    camera.position.set(S.cam.t[0] + Math.sin(az) * Math.cos(el) * r, ty + Math.sin(el) * r, S.cam.t[2] + Math.cos(az) * Math.cos(el) * r)
+    camera.lookAt(S.cam.t[0], ty, S.cam.t[2])
     const aspect = S.w / S.h
     const halfH = Math.max(4.1, 4.9 / aspect)
     camera.left = -halfH * aspect
     camera.right = halfH * aspect
     camera.top = halfH
     camera.bottom = -halfH
-    camera.zoom = S.cam.zoom
+    camera.zoom = S.cam.zoom * (1 - 0.08 * lo)
     camera.updateProjectionMatrix()
 
     // lamp, dawn and the stars
-    S.lamp = damp(S.lamp, S.lampT, 6, dt)
     S.dawn = damp(S.dawn, S.dawnT, 3, dt)
     const lit = S.lamp
     const dark = (1 - lit) * (1 - S.dawn)
@@ -531,8 +535,8 @@ export function createRoom(canvas, { small = false, onPick, onHover, onBuilt } =
         const idx = i + first
         const wk = Math.floor(idx / 7), dow = idx % 7
         dummy.position.set(-0.91 + wk * 0.035, 0.98 - dow * 0.12 - 0.02, 0.013)
-        dummy.rotation.set(0, 0, (Math.sin(i * 12.9) * 0.15))
-        dummy.scale.set(1, 3.2, 1)
+        dummy.rotation.set(0, 0, 0)
+        dummy.scale.set(0.9, 3, 1)
         dummy.updateMatrix()
         notes.setMatrixAt(i, dummy.matrix)
         col.set(n === 0 ? 0xd9cfbd : n < 3 ? 0xffe98a : n < 6 ? 0xffd04a : n < 12 ? 0xff9f3d : 0xff5a6e)
