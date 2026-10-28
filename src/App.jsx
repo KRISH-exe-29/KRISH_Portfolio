@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import Lenis from 'lenis'
 import {
-  me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills,
+  me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills,
 } from './content.js'
 import { initWater } from './water.js'
 import { initMedia } from './media.js'
@@ -562,6 +562,21 @@ export default function App() {
               )
             })}
           </ol>
+
+          <div className="side">
+            <h3 className="label">Now building</h3>
+            <ul>
+              {building.map((b) => (
+                <li key={b.name}>
+                  <div className="side-row">
+                    <span className="side-name">{b.name}</span>
+                    <span className="side-pitch">{b.pitch} {b.status}.</span>
+                    <span className="side-arrow" aria-hidden="true" />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="side">
             <h3 className="label">Side projects</h3>
