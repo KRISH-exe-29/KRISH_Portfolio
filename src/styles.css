@@ -78,7 +78,7 @@ button { font: inherit; color: inherit; }
 .nogl::before { content: ''; position: absolute; left: 62%; top: 50vh; width: 90px; height: 90px; margin: -45px; border-radius: 50%; background: #f6dfa6; box-shadow: 0 0 80px 30px rgba(255, 199, 122, 0.35), 0 0 0 120px rgba(201, 162, 90, 0.04), 0 0 0 121px var(--ink-line), 0 0 0 220px transparent, 0 0 0 221px var(--ink-line); }
 
 .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 120px var(--gutter) 64px; display: flex; flex-direction: column; justify-content: center; max-width: 760px; pointer-events: none; }
-.hero h1 { font-size: clamp(44px, 7.5vw, 108px); font-weight: 300; letter-spacing: -0.02em; font-variation-settings: 'SOFT' 100; }
+.hero h1 { font-size: clamp(44px, 7.5vw, 108px); font-weight: 300; letter-spacing: -0.02em; font-variation-settings: 'SOFT' 100; text-wrap: balance; }
 .star-dot { display: inline-block; vertical-align: 0.12em; margin-right: 0.22em; width: 0.32em; height: 0.32em; border-radius: 50%; background: #f6dfa6; box-shadow: 0 0 24px 6px rgba(255, 199, 122, 0.55); flex: none; }
 .hero .role { font-style: italic; font-size: clamp(18px, 2.2vw, 24px); color: var(--cream); margin-top: 1rem; }
 .hero .hook { font: 500 13px/1.7 var(--mono); color: var(--muted); max-width: 440px; }
