@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import {
-  me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
+  me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
 } from './content.js'
 import gh from './github.json'
 import { useMusic } from './music.js'
@@ -492,6 +492,10 @@ function House() {
         <h3 className="sub-h">Side bets</h3>
         <div className="pgrid small">
           {sideProjects.map((p, i) => <PCard key={p.name} suit={i ? 'eng' : 'code'} rank={RANKS[i + 9]} title={p.name} text={p.pitch} href={p.url} />)}
+        </div>
+        <h3 className="sub-h">Still in the shoe</h3>
+        <div className="pgrid small">
+          {building.map((b, i) => <PCard key={b.name} suit="code" rank={RANKS[12 - i]} title={b.name} text={`${b.pitch} ${b.status}.`} />)}
         </div>
 
         <div className="ai reveal">
