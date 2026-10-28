@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { me, experience, apps } from './content.js'
 import { startScore, setMuted, setMachines, finale } from './score.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const now = experience[experience.length - 1]
 const out = { target: '_blank', rel: 'noopener noreferrer' }
@@ -161,6 +161,7 @@ export default function App() {
           <p className="kicker">Signed off</p>
           <h2>The night shift, automated</h2>
           <Apps />
+          <Building />
           <h3 className="gap">Off the clock</h3>
           <SideProjects />
         </section>
