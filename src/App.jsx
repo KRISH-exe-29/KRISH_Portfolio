@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { me, experience } from './content.js'
 import { startWater } from './water.js'
 import { startScore, setMuted, follow, plunge } from './score.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Jobs, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const now = experience[experience.length - 1]
@@ -51,6 +51,7 @@ const zones = [
         <h2>The reef</h2>
         <p className="lede">{me.lines[0]} Each one runs on the factory floor at Indo Tech Transformers.</p>
         <Apps />
+        <Building />
         <h3 className="gap">Off the clock</h3>
         <SideProjects />
       </>
