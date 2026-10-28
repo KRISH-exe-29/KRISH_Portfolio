@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Band from '../components/Band.jsx'
-import { apps, sideProjects } from '../content.js'
+import { apps, building, sideProjects } from '../content.js'
 import { calm } from '../motion.js'
 import './Windings.css'
 
@@ -95,6 +95,15 @@ export default function Windings() {
             <li className="windings-row" key={p.name}>
               <span className="windings-row-name">{p.url ? <a href={p.url} {...ext}>{p.name}</a> : p.name}</span>
               <span className="windings-row-pitch">{p.pitch}</span>
+            </li>
+          ))}
+        </ul>
+        <h3>On the bench.</h3>
+        <ul>
+          {building.map((b) => (
+            <li className="windings-row" key={b.name}>
+              <span className="windings-row-name">{b.name}</span>
+              <span className="windings-row-pitch">{b.pitch} {b.status}.</span>
             </li>
           ))}
         </ul>
