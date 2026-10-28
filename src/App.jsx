@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, certifications, skills, asset, field } from './content.js'
 import { MAX_SPEED, SEG, gateZ, gatesPassed, start, step, trackLength } from './game/track.js'
 import { draw } from './game/render.js'
 
@@ -95,6 +95,8 @@ const stops = [
         <Links items={apps} />
         <p className="meta">Off the clock</p>
         <Links items={sideProjects} />
+        <p className="meta">In the pits</p>
+        <Links items={building.map((b) => ({ ...b, pitch: `${b.pitch} ${b.status}.` }))} />
       </>
     ),
   },
