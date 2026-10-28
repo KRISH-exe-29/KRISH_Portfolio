@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import { me, experience } from './content.js'
 import { createScene, LENGTH } from './scene.js'
 import { startMusic, setLeg, muffle, setMuted } from './music.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const job = Object.fromEntries(experience.map((e) => [e.id, e]))
@@ -41,7 +41,7 @@ const turns = [
   { id: 'mettur', leg: 0, rating: '4 × 210 MW', title: <>Then the <em>big stuff.</em></>, body: <Job id="mettur" /> },
   { id: 'inovate', leg: 0, rating: 'Full stack', title: <>Same discipline. <em>Different voltage.</em></>, body: <Job id="inovate" /> },
   { id: 'buhler', leg: 0, rating: '30 min → 30 s', title: <>Thirty minutes in. <em>Thirty seconds out.</em></>, body: <><Job id="buhler" /><Field only="buhler" /></> },
-  { id: 'indotech', leg: 0, rating: '161 kV', title: <>Full load. <em>Nine apps. One factory.</em></>, body: <><Job id="indotech" /><Numbers /><Apps /></> },
+  { id: 'indotech', leg: 0, rating: '161 kV', title: <>Full load. <em>Nine apps. One factory.</em></>, body: <><Job id="indotech" /><Numbers /><Apps /><Building /></> },
   { id: 'ai', leg: 1, rating: 'Overload', title: <>Then I taught the factory <em>to think.</em></>, body: <><Agent /><Rag /><BrowserAI /></> },
   { id: 'tested', leg: 1, rating: 'Type tested', title: <>Tested. Passed. <em>Rank 7 of 1500+.</em></>, body: <><Awards /><Leadership /><h3>Off the clock</h3><SideProjects /></> },
   {
