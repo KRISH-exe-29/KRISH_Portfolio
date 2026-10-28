@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import { me, experience } from './content.js'
 import { createScene, GAP } from './scene.js'
 import { startMusic, setLeg, muffle, setMuted } from './music.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const job = Object.fromEntries(experience.map((e) => [e.id, e]))
@@ -54,7 +54,7 @@ const stops = [
   {
     id: 'kanchipuram', leg: 2, board: { name: 'KANCHIPURAM', code: 'CJ' }, kicker: 'Stop 5 · 2026 · now',
     title: <>Nine apps. One factory. <em>Zero spreadsheets left behind.</em></>,
-    body: <><Job id="indotech" /><Numbers /><Apps /></>,
+    body: <><Job id="indotech" /><Numbers /><Apps /><Building /></>,
   },
   {
     id: 'night', leg: 2, board: null, kicker: 'Night shift · after hours',
