@@ -161,6 +161,7 @@ const originals = [
   ['EPMS', 'Project HQ with an interactive Gantt.', 'Milestones, tasks and team management in one place.', 'TypeScript · React · Supabase', 'https://github.com/KRISH-exe-29/PMS', 'BUILT'],
   ['KioskSentinel', 'Attendance that survives power cuts.', 'Offline-first, three shifts, locked down.', 'Java 21 · SQLite · Postgres', null, 'NEW'],
   ['Shop Floor Job Status', 'Live job status for every bay.', 'Every bay, every job, one screen.', 'React · Supabase', null, 'IN USE'],
+  ['CapexTrace', 'Every capex rupee, traced box by box.', 'Capex budgets as a tree, so no line can outspend the one above it. Phase 1 of 3.', 'TypeScript · React 19 · React Flow', null, 'COMING SOON'],
 ]
 const seasons = [
   ['S1', '2023', 'Southern Railway', 'Electrical Engineer Intern', 'Evaluated 110 V lead-acid batteries and what a move to Li-ion would take for LHB AC coaches.', 'img/railway.jpg'],
@@ -182,7 +183,7 @@ const cast = {
   Code: ['TypeScript', 'React', 'Next.js', 'Python', 'Java', 'Node', 'Supabase', 'PostgreSQL', 'Three.js'],
   AI: ['Claude', 'OpenAI', 'LangChain', 'LangGraph', 'Ollama', 'Transformers.js'],
 }
-const hues = [0, 210, 28, 280, 150, 330, 190, 45, 260]
+const hues = [0, 210, 28, 280, 150, 330, 190, 45, 260, 120]
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
 const row = (id, title, inner, cls = '') => `<section id="${id}" class="${cls}"><h2>${title}</h2><div class="row" tabindex="0">${inner}</div></section>`
