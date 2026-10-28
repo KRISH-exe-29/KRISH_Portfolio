@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
 import snapshot from './github.json'
 import { useMusic } from './music.js'
 import { SPECIES } from './species.js'
@@ -151,6 +151,9 @@ function Tank({ intro, onReady, onSkip, tankRef, depthRef }) {
                 </li>
               ))}
             </ul>
+            {building.map((b) => (
+              <p key={b.name}><b>Nursery tank:</b> {b.name}, still growing. {b.pitch} {b.status}.</p>
+            ))}
           </div>
         </div>
 
