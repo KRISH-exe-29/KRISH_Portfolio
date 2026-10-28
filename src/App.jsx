@@ -110,8 +110,9 @@ export default function App() {
   const skipIntro = () => { scene.current?.settle(); setIntro(false) }
 
   // ---- keys: Escape skips the intro, the old code rigs the claw ----
+  const seqRef = useRef([])
   useEffect(() => {
-    const seq = []
+    const seq = seqRef.current // survives re-renders, so the code isn't wiped mid-entry
     const onKey = (e) => {
       if (e.key === 'Escape' && intro) skipIntro()
       seq.push(e.key.length === 1 ? e.key.toLowerCase() : e.key)
