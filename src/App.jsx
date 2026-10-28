@@ -3,7 +3,7 @@ import Lenis from 'lenis'
 import { me, experience } from './content.js'
 import { createRain } from './rain.js'
 import { startMusic, setLeg, muffle, setMuted, thunder } from './music.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const job = Object.fromEntries(experience.map((e) => [e.id, e]))
@@ -45,7 +45,7 @@ const chapters = [
   {
     id: 'downpour', leg: 1, storm: true, kicker: 'The downpour · Indo Tech Transformers',
     title: <>Nine apps. One factory. <em>Zero spreadsheets left behind.</em></>,
-    body: <><p className="lede">All nine are in production. The linked ones open right now.</p><Numbers /><Apps /></>,
+    body: <><p className="lede">All nine are in production. The linked ones open right now.</p><Numbers /><Apps /><Building /></>,
   },
   {
     id: 'after-hours', leg: 1, kicker: 'After hours · still pouring',
