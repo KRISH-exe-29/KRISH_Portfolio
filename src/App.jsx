@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import {
-  me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
+  me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills, asset,
 } from './content.js'
 import snapshot from './github.json'
 import { useMusic } from './music.js'
@@ -1076,6 +1076,9 @@ export default function App() {
                 ))}
               </ol>
             </div>
+            {building.map((b) => (
+              <p key={b.name} className="aside rise">Now building: <b>{b.name}</b>. {b.pitch} {b.status}.</p>
+            ))}
             <p className="aside rise">Nine apps in production, 128 tests in front of dispatch, and a fastener study for the CEO. <LiveSpot fact="The fastener standardisation study covered 60+ specifications and went to the CEO." /></p>
           </Chapter>
 
