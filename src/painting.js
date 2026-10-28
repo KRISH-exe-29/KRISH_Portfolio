@@ -179,6 +179,7 @@ export function createPainting(canvas, { small, still }) {
   // Painting is soft, so it renders below device resolution; scale drops further if frames run slow.
   let scale = Math.min(window.devicePixelRatio || 1, 2) * (small ? 0.45 : 0.6)
   let slow = 0
+  const born = performance.now()
   const s = { time: 0, reveal: still ? 1 : 0, travel: 0, tTravel: 0, sky: 0, tSky: 0, boost: 0, tBoost: 0, audio: 0, mx: 0.3, my: 0.1, tx: 0.3, ty: 0.1, swirl: 0.6, w: 1, h: 1 }
 
   const resize = () => {
@@ -225,7 +226,7 @@ export function createPainting(canvas, { small, still }) {
       if (still || document.hidden) return
       dt = Math.min(dt, 0.1)
       s.time += dt
-      if (s.reveal < 1) s.reveal = Math.min(1, s.reveal + dt / 3)
+      if (s.reveal < 1) s.reveal = Math.min(1, Math.max(s.reveal + dt / 3, (performance.now() - born) / 3200))
       s.travel = damp(s.travel, s.tTravel, 4, dt)
       s.sky = damp(s.sky, s.tSky, 4, dt)
       s.boost = damp(s.boost, s.tBoost, 4, dt)

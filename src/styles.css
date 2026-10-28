@@ -115,7 +115,7 @@ h2 { font: 400 clamp(2.4rem, 6vw, 5rem)/1 var(--serif); text-wrap: balance; }
 .ai-h { font: 400 clamp(1.5rem, 2.6vw, 2.1rem)/1.15 var(--serif); margin: 0 0 0.6rem; }
 
 /* brushstroke transitions */
-.stroke { position: relative; z-index: 1; padding-left: var(--rail); height: clamp(60px, 10vw, 130px); }
+.stroke { position: relative; z-index: 1; height: clamp(60px, 10vw, 130px); }
 .stroke svg { width: 100%; height: 100%; overflow: visible; }
 .stroke path { fill: none; stroke: var(--gold); stroke-width: 22; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85; filter: url(#rough); }
 .stroke path.thin { stroke: #6f9fd8; stroke-width: 8; opacity: 0.7; }
@@ -123,7 +123,7 @@ h2 { font: 400 clamp(2.4rem, 6vw, 5rem)/1 var(--serif); text-wrap: balance; }
 .reduced .stroke path { stroke-dashoffset: 0; }
 
 /* villages: the pinned road */
-.villages { position: relative; z-index: 1; height: 100svh; overflow: hidden; padding-left: var(--rail); }
+.villages { position: relative; z-index: 1; height: 100svh; overflow: hidden; }
 .track { display: flex; align-items: center; gap: 8vw; height: 100%; padding: 4.5rem 8vw 2rem var(--pad); width: max-content; }
 .slide { display: flex; align-items: center; gap: 2rem; width: min(78vw, 60rem); flex: none; }
 .slide-intro { display: block; width: min(80vw, 30rem); background: rgba(8, 12, 32, 0.6); padding: 1.4rem; box-shadow: 0 0 60px 30px rgba(8, 12, 32, 0.6); }
@@ -162,7 +162,7 @@ h2 { font: 400 clamp(2.4rem, 6vw, 5rem)/1 var(--serif); text-wrap: balance; }
 .chrome i:nth-child(3) { background: #28c840; }
 .chrome span { margin-left: auto; }
 .app-win p { padding: 0.9rem 1rem; font: 500 1rem/1.35 var(--sans); }
-.wet { background: repeating-linear-gradient(115deg, #f7f8fa 0 14px, #eef1f6 14px 28px); }
+.app-win.wet { background: repeating-linear-gradient(115deg, #f7f8fa 0 14px, #eef1f6 14px 28px); }
 .ai { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 2rem; margin-top: 4rem; }
 .ai-block { background: rgba(8, 12, 32, 0.72); padding: 1.4rem; }
 .ai-block > p { margin-bottom: 1rem; }
@@ -188,7 +188,7 @@ h2 { font: 400 clamp(2.4rem, 6vw, 5rem)/1 var(--serif); text-wrap: balance; }
 .reduced .constellations polyline { stroke-dashoffset: 0; }
 .sky-foot { position: absolute; left: calc(var(--rail) + var(--pad)); right: var(--pad); bottom: 1.5rem; font-size: 0.95rem; text-shadow: 0 1px 4px #000; }
 @media (max-width: 760px) { .sky-head { top: 6.5rem; right: var(--pad); } .moon-note { display: none; } .room-intro { font-size: 1rem; } }
-.chart { position: relative; z-index: 1; padding: 4rem var(--pad); padding-left: calc(var(--rail) + var(--pad)); }
+.chart { position: relative; z-index: 1; padding: 4rem var(--pad); }
 .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1rem; }
 .repos li { display: grid; grid-template-columns: 3rem 1fr; gap: 0.8rem; background: rgba(8, 12, 32, 0.78); padding: 0.9rem; border: 1px solid rgba(231, 198, 110, 0.22); min-width: 0; }
 .repos svg { width: 3rem; height: 3rem; }
@@ -241,7 +241,7 @@ h2 { font: 400 clamp(2.4rem, 6vw, 5rem)/1 var(--serif); text-wrap: balance; }
 .verso::backdrop { background: rgba(5, 8, 20, 0.78); }
 .verso[open] .verso-back { animation: flip 0.9s cubic-bezier(.2, .7, .2, 1); }
 @keyframes flip { from { transform: rotateY(180deg); opacity: 0.3; } }
-.verso-back { position: relative; padding: 2.4rem 1.6rem 1.6rem; color: var(--ink); background: #d9c9a3 repeating-linear-gradient(90deg, rgba(90, 70, 30, 0.08) 0 2px, transparent 2px 5px), #d9c9a3; box-shadow: inset 0 0 0 1.2rem #8a6738, inset 0 0 0 1.35rem #5c4220, 0 30px 80px rgba(0, 0, 0, 0.6); display: grid; gap: 1rem; }
+.verso-back { position: relative; padding: 2.4rem 1.6rem 1.6rem; color: var(--ink); background: repeating-linear-gradient(90deg, rgba(90, 70, 30, 0.08) 0 2px, transparent 2px 5px), #d9c9a3; box-shadow: inset 0 0 0 1.2rem #8a6738, inset 0 0 0 1.35rem #5c4220, 0 30px 80px rgba(0, 0, 0, 0.6); display: grid; gap: 1rem; }
 .bars { position: absolute; left: 50%; top: 1.2rem; bottom: 1.2rem; width: 1rem; margin-left: -0.5rem; background: #8a6738; opacity: 0.6; }
 .verso h2 { position: relative; font-size: 2.6rem; }
 .verso-sub { position: relative; font-style: italic; }

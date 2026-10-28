@@ -254,7 +254,7 @@ function Sky({ stars, gh, repos }) {
           <p className="sky-foot">{gh.commitsLastYear} commits and {gh.prsLastYear} pull requests in a year. Painting on GitHub since {fmtDate(gh.joined)}.</p>
         </div>
       </section>
-      <section className="chart" aria-labelledby="chart-h">
+      <section className="chart" data-room="sky" aria-labelledby="chart-h">
         <h3 id="chart-h" className="ai-h">Star chart: {repos.length} repositories, one constellation each</h3>
         <blockquote className="curator inline">
           <p className="curator-k">Inscription, in the artist&rsquo;s hand (GitHub bio)</p>
@@ -448,7 +448,8 @@ export default function App() {
     { id: 'commission', n: 'VI', name: 'Commissions' },
   ]
 
-  const endIntro = () => { painting.current?.skip(); setIntro(false) }
+  const skipped = useRef(reduced)
+  const endIntro = () => { skipped.current = true; painting.current?.skip(); setIntro(false) }
 
   // Live repos when GitHub answers; the snapshot otherwise.
   useEffect(() => {
@@ -475,6 +476,7 @@ export default function App() {
       try { p = createPainting(canvas.current, { small, still: reduced }) } catch { p = null }
       if (!p) { setNoGL(true); setIntro(false); return }
       painting.current = p
+      if (skipped.current) p.skip()
       setSteps((s) => [...s, 'Mixing pigments (compiling the shader)'])
       p.setStars(stars)
       setSteps((s) => [...s, `Hanging ${stars.length} stars, one per night of commits`])
@@ -508,8 +510,8 @@ export default function App() {
 
   // Running gallery index.
   useEffect(() => {
-    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)), { rootMargin: '-45% 0px -50% 0px' })
-    document.querySelectorAll('main > section[id]').forEach((s) => io.observe(s))
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setActive(e.target.dataset.room || e.target.id)), { rootMargin: '-45% 0px -50% 0px' })
+    document.querySelectorAll('main section[id], main section[data-room]').forEach((s) => io.observe(s))
     return () => io.disconnect()
   }, [])
 
@@ -524,12 +526,12 @@ export default function App() {
     const ctx = gsap.context(() => {
       const track = document.querySelector('.villages .track')
       const dist = () => Math.max(0, track.scrollWidth - window.innerWidth)
-      gsap.to(track, {
+      const road = gsap.to(track, {
         x: () => -dist(), ease: 'none',
         scrollTrigger: { trigger: '.villages', pin: true, scrub: 1, end: () => '+=' + dist(), invalidateOnRefresh: true },
       })
-      gsap.utils.toArray('.villages .slide').forEach((sl) => {
-        gsap.from(sl.querySelector('.gilt') || sl, { rotate: -2, scale: 0.92, opacity: 0.4, ease: 'none', scrollTrigger: { trigger: '.villages', start: 'top top', end: () => '+=' + dist(), scrub: true } })
+      gsap.utils.toArray('.villages .gilt').forEach((g) => {
+        gsap.from(g, { rotate: -3, scale: 0.9, opacity: 0.5, ease: 'none', scrollTrigger: { trigger: g, containerAnimation: road, start: 'left right', end: 'center 60%', scrub: true } })
       })
 
       const sky = gsap.timeline({ scrollTrigger: { trigger: '.sky', pin: true, scrub: 1, end: '+=140%' } })
