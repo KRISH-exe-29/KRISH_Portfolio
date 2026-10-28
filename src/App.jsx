@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
-  me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills,
+  me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills,
 } from './content.js'
 import { reduceMotion, finePointer, startSmoothScroll, getLenis, scrollToId, initReveals, initMagnetic } from './motion.js'
 import { initCursor } from './cursor.js'
@@ -349,6 +349,9 @@ export default function App() {
               )
             })}
           </ul>
+          {building.map((b) => (
+            <p className="hand" key={b.name}>Now building: {b.name}. {b.pitch} {b.status}, no public link yet.</p>
+          ))}
         </section>
 
         <section className="ai" id="ai">
