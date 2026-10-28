@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { me, numbers, experience, apps, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
+import { me, numbers, experience, apps, building, sideProjects, ai, awards, leadership, field, certifications, skills, asset } from './content.js'
 import snapshot from './github.json'
 import { useMusic } from './music.js'
 
@@ -638,6 +638,13 @@ export default function App() {
                 <p key={s.name} className="short">
                   {s.url ? <a href={s.url} target="_blank" rel="noreferrer">{s.name} ↗</a> : <span>{s.name}</span>}
                   <small>{s.pitch}</small>
+                </p>
+              ))}
+              <p className="kicker">Coming soon</p>
+              {building.map((b) => (
+                <p key={b.name} className="short">
+                  <span>{b.name}</span>
+                  <small>{b.pitch} {b.status}.</small>
                 </p>
               ))}
             </div>
