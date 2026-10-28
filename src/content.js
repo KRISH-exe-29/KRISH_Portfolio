@@ -95,6 +95,11 @@ export const apps = [
   { name: 'Transformer Test Planner', pitch: 'Every IEC 60076 test, planned per unit.', url: 'https://transformer-test-planner.vercel.app' },
 ]
 
+// In progress, not counted with the apps above.
+export const building = [
+  { name: 'CapexTrace', pitch: 'Every capex rupee, traced box by box.', status: 'Phase 1 of 3' },
+]
+
 export const sideProjects = [
   { name: 'dMAT Practice', pitch: 'A full exam simulator in one HTML file.', url: 'https://krishna-ittl.github.io/dmat-practice/' },
   { name: 'GUI Automation Tool', pitch: 'One Excel in, the load and I/O card sheet out. Python, pandas and Streamlit.', url: 'https://bulhergroupofcompany.streamlit.app/' },

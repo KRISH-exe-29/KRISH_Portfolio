@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import Lenis from 'lenis'
 import { me, experience } from './content.js'
 import { startMusic, setLeg, muffle, setMuted } from './music.js'
-import { Agent, Apps, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
+import { Agent, Apps, Building, Awards, BrowserAI, Certifications, Contact, Field, Leadership, Numbers, Rag, SideProjects, Skills } from './sections.jsx'
 
 const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const job = Object.fromEntries(experience.map((e) => [e.id, e]))
@@ -91,7 +91,7 @@ const chapters = [
   {
     id: 'testbay', leg: 1, folio: 'Ch. 4 · The test bay', kicker: 'Chapter 4 · 2026 · now',
     title: <>Nine apps. One factory. <em>Zero spreadsheets left behind.</em></>,
-    body: <><Job id="indotech" /><Numbers /><h3>The nine</h3><Apps /></>,
+    body: <><Job id="indotech" /><Numbers /><h3>The nine</h3><Apps /><Building /></>,
     model: [
       [6, 56, 88, 34, 'ink fence', 0],
       [72, 46, 20, 14, 'gold', 0.1, '161 kV'],
