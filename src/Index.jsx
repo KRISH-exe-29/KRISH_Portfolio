@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
-import { me, numbers, apps, sideProjects, ai, experience, field, awards, leadership, skills, certifications } from './content.js'
+import { me, numbers, apps, building, sideProjects, ai, experience, field, awards, leadership, skills, certifications } from './content.js'
 import { covers, slug } from './covers.js'
 import { Flip, ScrollTrigger, reduced, finePointer, scrollToTarget } from './motion.js'
 import { GLContext, Media, Roll, Magnetic, usePageMotion, ext } from './ui.jsx'
@@ -67,6 +67,11 @@ function Work() {
           </li>
         ))}
       </ol>
+      {building.map((b) => (
+        <p key={b.name} className="work__sub mono" data-fade>
+          Still in the edit: {b.name}. {b.pitch} {b.status}.
+        </p>
+      ))}
     </section>
   )
 }
