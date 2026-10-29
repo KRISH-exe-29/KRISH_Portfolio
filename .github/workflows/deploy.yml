@@ -31,7 +31,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # every design branch has to be on hand
       - name: Pick today's design
@@ -60,15 +60,15 @@ jobs:
           echo "Today's design: $design (one of $count)" | tee -a "$GITHUB_STEP_SUMMARY"
           echo "DESIGN=$design" >> "$GITHUB_ENV"
           git checkout -q "origin/$design"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npm run build
       - run: echo "$DESIGN $(TZ=Asia/Kolkata date +%F)" > dist/design.txt
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
